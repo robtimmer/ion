@@ -130,7 +130,15 @@ CMakeLists.txt
 cmake-build-debug
 
 # exclude 5.hfs file created by the script
-5.hfs
+*.hfs
+*.dmg
+MacOSX10.11.sdk/
 
 #Vscode
 .vscode/
+
+#SNAP
+parts/
+prime/
+snap/.snapcraft/
+stage/
