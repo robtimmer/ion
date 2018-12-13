@@ -18,12 +18,3 @@
                      check_key(key)
                      self.computeOffsets(key, asReference=True)
                      self.computeOffsets(value, asReference=True)
-@@ -714,7 +714,7 @@
-                 keys = []
-                 values = []
-                 objectsToWrite = []
--                for key, value in iteritems(obj):
-+                for key, value in sorted(iteritems(obj)):
-                     keys.append(key)
-                     values.append(value)
-                 for key in keys:
