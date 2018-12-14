@@ -10,6 +10,7 @@ packages:
 - "curl"
 - "g++"
 - "git"
+- "clang"
 - "pkg-config"
 - "autoconf"
 - "librsvg2-bin"
