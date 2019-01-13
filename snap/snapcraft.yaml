@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 name: ioncore
+=======
+name: ioncoin-ce
+>>>>>>> 51a0cfb7c95b10d15117397e2bc22f3a84fa3fd1
 version: 3.1.99
 summary:   gaming related peer-to-peer network based digital currency
 description: |
