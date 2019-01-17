@@ -10,6 +10,7 @@
 #include "main.h"
 #include "txdb.h"
 #include "walletdb.h"
+#include "xionwallet.h"
 #include "accumulators.h"
 
 using namespace std;
@@ -277,8 +278,9 @@ bool CxIONTracker::UpdateState(const CMintMeta& meta)
     return true;
 }
 
-void CxIONTracker::Add(const CDeterministicMint& dMint, bool isNew, bool isArchived)
+void CxIONTracker::Add(const CDeterministicMint& dMint, bool isNew, bool isArchived, CxIONWallet* xIONWallet)
 {
+    bool isxIONWalletInitialized = (NULL != xIONWallet);
     CMintMeta meta;
     meta.hashPubcoin = dMint.GetPubcoinHash();
     meta.nHeight = dMint.GetHeight();
@@ -290,6 +292,11 @@ void CxIONTracker::Add(const CDeterministicMint& dMint, bool isNew, bool isArchi
     meta.denom = dMint.GetDenomination();
     meta.isArchived = isArchived;
     meta.isDeterministic = true;
+    if (! isxIONWalletInitialized)
+        xIONWallet = new CxIONWallet(strWalletFile);
+    meta.isSeedCorrect = xIONWallet->CheckSeed(dMint);
+    if (! isxIONWalletInitialized)
+        delete xIONWallet;
     mapSerialHashes[meta.hashSerial] = meta;
 
     if (isNew)
@@ -310,6 +317,7 @@ void CxIONTracker::Add(const CZerocoinMint& mint, bool isNew, bool isArchived)
     meta.denom = mint.GetDenomination();
     meta.isArchived = isArchived;
     meta.isDeterministic = false;
+    meta.isSeedCorrect = true;
     mapSerialHashes[meta.hashSerial] = meta;
 
     if (isNew)
@@ -429,7 +437,7 @@ bool CxIONTracker::UpdateStatusInternal(const std::set<uint256>& setMempool, CMi
     return false;
 }
 
-std::set<CMintMeta> CxIONTracker::ListMints(bool fUnusedOnly, bool fMatureOnly, bool fUpdateStatus)
+std::set<CMintMeta> CxIONTracker::ListMints(bool fUnusedOnly, bool fMatureOnly, bool fUpdateStatus, bool fWrongSeed)
 {
     CWalletDB walletdb(strWalletFile);
     if (fUpdateStatus) {
@@ -439,8 +447,12 @@ std::set<CMintMeta> CxIONTracker::ListMints(bool fUnusedOnly, bool fMatureOnly, 
         LogPrint("zero", "%s: added %d zerocoinmints from DB\n", __func__, listMintsDB.size());
 
         std::list<CDeterministicMint> listDeterministicDB = walletdb.ListDeterministicMints();
-        for (auto& dMint : listDeterministicDB)
-            Add(dMint);
+
+        CxIONWallet* xIONWallet = new CxIONWallet(strWalletFile);
+        for (auto& dMint : listDeterministicDB) {
+            Add(dMint, false, false, xIONWallet);
+        }
+        delete xIONWallet;
         LogPrint("zero", "%s: added %d dxion from DB\n", __func__, listDeterministicDB.size());
     }
 
@@ -479,6 +491,10 @@ std::set<CMintMeta> CxIONTracker::ListMints(bool fUnusedOnly, bool fMatureOnly, 
             if (mint.nHeight >= mapMaturity.at(mint.denom))
                 continue;
         }
+
+        if (!fWrongSeed && !mint.isSeedCorrect)
+            continue;
+
         setMints.insert(mint);
     }
 
