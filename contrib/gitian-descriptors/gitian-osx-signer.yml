@@ -10,7 +10,7 @@ remotes:
 - "url": "https://github.com/gitianuser/ion-detached-sigs.git"
   "dir": "signature"
 files:
-- "ion-osx-unsigned.tar.gz"
+- "ion-osx-unsigned.tar.xz"
 script: |
   WRAP_DIR=$HOME/wrapped
   mkdir -p ${WRAP_DIR}
@@ -27,7 +27,7 @@ script: |
     chmod +x ${WRAP_DIR}/${prog}
   done
 
-  UNSIGNED=ion-osx-unsigned.tar.gz
+  UNSIGNED=ion-osx-unsigned.tar.xz
   SIGNED=ion-osx-signed.dmg
 
   tar -xf ${UNSIGNED}
