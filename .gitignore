@@ -6,6 +6,7 @@ reset-files.bash
 
 *.tar.gz
 *.tar.xz
+*.tar.bz2
 
 *.exe
 src/ion
@@ -146,6 +147,7 @@ parts/
 prime/
 snap/.snapcraft/
 stage/
+*.snap
 
 # datadir
 datadir/

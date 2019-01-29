@@ -4558,9 +4558,24 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
         const bool isBlockFromFork = pindexPrev != nullptr && !chainActive.Contains(pindexPrev);
         CTransaction &stakeTxIn = block.vtx[1];
 
-        // Check validity of the coinStake.
-        if(!stakeTxIn.IsCoinStake())
-            return error("%s: no coin stake on vtx pos 1", __func__);
+        // ZC started after PoS.
+        // Check for serial double spent on the same block, TODO: Move this to the proper method..
+        if(nHeight >= Params().Zerocoin_StartHeight()) {
+            vector<CBigNum> inBlockSerials;
+            for (CTransaction tx : block.vtx) {
+                for (CTxIn in: tx.vin) {
+                    if (in.scriptSig.IsZerocoinSpend()) {
+                        CoinSpend spend = TxInToZerocoinSpend(in);
+                        // Check for serials double spending in the same block
+                        if (std::find(inBlockSerials.begin(), inBlockSerials.end(), spend.getCoinSerialNumber()) != inBlockSerials.end()) {
+                            return state.DoS(100, error("%s: serial double spent on the same block", __func__));
+                        }
+                        inBlockSerials.push_back(spend.getCoinSerialNumber());
+                    }
+                }
+            }
+            inBlockSerials.clear();
+        }
 
 
         // Check whether is a fork or not
@@ -4582,6 +4597,7 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
             }
             const bool hasIONInputs = !ionInputs.empty();
             const bool hasXIONInputs = !xIONInputs.empty();
+
             vector<CBigNum> vBlockSerials;
             CBlock bl;
             // Go backwards on the forked chain up to the split
@@ -4597,20 +4613,18 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
                         // Loop through every input of the staking tx
                         for (CTxIn stakeIn : ionInputs) {
                             // if it's already spent
+
                             // First regular staking check
                             if(hasIONInputs) {
                                 if (stakeIn.prevout == in.prevout) {
-                                    // reject the block
-                                    return state.DoS(100,
-                                                     error("%s: input already spent on a previous block",
-                                                           __func__));
+                                    return state.DoS(100, error("%s: input already spent on a previous block", __func__));
                                 }
                             }
+
                             // Second, if there is zPoS staking then store the serials for later check
                             if(hasXIONInputs) {
                                 if(in.scriptSig.IsZerocoinSpend()){
-                                    CoinSpend spend = TxInToZerocoinSpend(in);
-                                    vBlockSerials.push_back(spend.getCoinSerialNumber());
+                                    vBlockSerials.push_back(TxInToZerocoinSpend(in).getCoinSerialNumber());
                                 }
                             }
                         }
@@ -4679,6 +4693,11 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
         if(!stakeTxIn.IsZerocoinSpend()) {
             for (CTxIn in: stakeTxIn.vin) {
                 const CCoins* coin = coins.AccessCoins(in.prevout.hash);
+
+                if(!coin && !isBlockFromFork){
+                    // No coins on the main chain
+                    return error("%s: coin stake inputs not available on main chain", __func__);
+                }
                 if(coin && !coin->IsAvailable(in.prevout.n)){
                     // If this is not available get the height of the spent and validate it with the forked height
                     // Check if this occurred before the chain split
@@ -4817,7 +4836,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         }
 
         // Store to disk
-        CBlockIndex* pindex = NULL;
+        CBlockIndex* pindex = nullptr;
         bool ret = AcceptBlock (*pblock, state, &pindex, dbp, checked);
         if (pindex && pfrom) {
             mapBlockSource[pindex->GetBlockHash ()] = pfrom->GetId ();
@@ -4825,7 +4844,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         CheckBlockIndex ();
         if (!ret) {
             // Check spamming
-            if(GetBoolArg("-blockspamfilter", DEFAULT_BLOCK_SPAM_FILTER)) {
+            if(pfrom && GetBoolArg("-blockspamfilter", DEFAULT_BLOCK_SPAM_FILTER)) {
                 CNodeState *nodestate = State(pfrom->GetId());
                 nodestate->nodeBlocks.onBlockReceived(pindex->nHeight);
                 bool nodeStatus = true;
