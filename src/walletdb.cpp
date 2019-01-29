@@ -22,6 +22,7 @@
 #include <boost/foreach.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/thread.hpp>
+#include <boost/variant/get.hpp>
 #include <fstream>
 
 using namespace boost;
@@ -70,6 +71,61 @@ bool CWalletDB::EraseTx(uint256 hash)
     nWalletDBUpdated++;
     return Erase(std::make_pair(std::string("tx"), hash));
 }
+
+bool CWalletDB::WriteAutoConvertKey(const CTxDestination& dest)
+{
+    if (!IsValidDestination(dest))
+        return false;
+    if (const CKeyID* keyID = boost::get<CKeyID>(&dest))
+        return Write(std::make_pair(std::string("automint"), *keyID), EncodeDestination(dest));
+    else return false;
+}
+
+void CWalletDB::LoadAutoConvertKeys(std::set<CTxDestination>& setDestinations)
+{
+    setDestinations.clear();
+    Dbc* pcursor = GetCursor();
+    if (!pcursor)
+        throw runtime_error(std::string(__func__)+" : cannot create DB cursor");
+    unsigned int fFlags = DB_SET_RANGE;
+    for (;;)
+    {
+        // Read next record
+        CDataStream ssKey(SER_DISK, CLIENT_VERSION);
+        if (fFlags == DB_SET_RANGE)
+            ssKey << make_pair(string("automint"), CKeyID());
+        CDataStream ssValue(SER_DISK, CLIENT_VERSION);
+        int ret = ReadAtCursor(pcursor, ssKey, ssValue, fFlags);
+        fFlags = DB_NEXT;
+        if (ret == DB_NOTFOUND)
+            break;
+        else if (ret != 0)
+        {
+            pcursor->close();
+            throw runtime_error(std::string(__func__)+" : error scanning DB");
+        }
+
+        // Unserialize
+        std::string strType;
+        try {
+            ssKey >> strType;
+        } catch(...) {
+            break;
+        }
+        if (strType != "automint")
+            break;
+
+        CKeyID keyID;
+        ssKey >> keyID;
+
+        std::string strAddress;
+        ssValue >> strAddress;
+        setDestinations.emplace(DecodeDestination(strAddress));
+    }
+
+    pcursor->close();
+}
+
 
 bool CWalletDB::WriteKey(const CPubKey& vchPubKey, const CPrivKey& vchPrivKey, const CKeyMetadata& keyMeta)
 {

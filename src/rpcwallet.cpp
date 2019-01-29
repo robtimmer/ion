@@ -2397,7 +2397,8 @@ UniValue getwalletinfo(const UniValue& params, bool fHelp)
             "  \"keypoololdest\": xxxxxx,    (numeric) the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool\n"
             "  \"keypoolsize\": xxxx,        (numeric) how many new keys are pre-generated\n"
             "  \"unlocked_until\": ttt,      (numeric) the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked\n"
-            "  \"paytxfee\": x.xxxx,         (numeric) the transaction fee configuration, set in PIV/kB\n"
+            "  \"paytxfee\": x.xxxx,         (numeric) the transaction fee configuration, set in ION/kB\n"
+            "  \"automintaddresses\": status (boolean) the status of automint addresses (true if enabled, false if disabled)\n"
             "}\n"
 
             "\nExamples:\n" +
@@ -2414,6 +2415,7 @@ UniValue getwalletinfo(const UniValue& params, bool fHelp)
     if (pwalletMain->IsCrypted())
         obj.push_back(Pair("unlocked_until", nWalletUnlockTime));
     obj.push_back(Pair("paytxfee",      ValueFromAmount(payTxFee.GetFeePerK())));
+    obj.push_back(Pair("automintaddresses", fEnableAutoConvert));
     return obj;
 }
 
@@ -3909,4 +3911,41 @@ UniValue searchdxion(const UniValue& params, bool fHelp)
 
     //todo: better response
     return "done";
+}
+
+UniValue enableautomintaddress(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 1)
+        throw std::runtime_error(
+                "enableautomintaddress enable\n"
+                "\nEnables or disables automint address functionality\n"
+
+                "\nArguments\n"
+                "1. enable     (boolean, required) Enable or disable automint address functionality\n"
+
+                "\nExamples\n" +
+                HelpExampleCli("enableautomintaddress", "true") + HelpExampleRpc("enableautomintaddress", "false"));
+
+    fEnableAutoConvert = params[0].get_bool();
+
+    return NullUniValue;
+}
+
+UniValue createautomintaddress(const UniValue& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw std::runtime_error(
+                "createautomintaddress\n"
+                "\nGenerates new auto mint address\n" +
+                HelpRequiringPassphrase() + "\n"
+
+                "\nResult\n"
+                "\"address\"     (string) ION address for auto minting\n" +
+                HelpExampleCli("createautomintaddress", "") +
+                HelpExampleRpc("createautomintaddress", ""));
+
+    EnsureWalletIsUnlocked();
+    LOCK(pwalletMain->cs_wallet);
+    CKeyID address = pwalletMain->GenerateNewAutoMintKey();
+    return EncodeDestination(address);
 }
