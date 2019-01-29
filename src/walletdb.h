@@ -15,6 +15,7 @@
 #include "primitives/zerocoin.h"
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Denominations.h"
+#include "script/standard.h"
 #include "xiontracker.h"
 
 #include <list>
@@ -101,6 +102,9 @@ public:
     bool WriteKey(const CPubKey& vchPubKey, const CPrivKey& vchPrivKey, const CKeyMetadata& keyMeta);
     bool WriteCryptedKey(const CPubKey& vchPubKey, const std::vector<unsigned char>& vchCryptedSecret, const CKeyMetadata& keyMeta);
     bool WriteMasterKey(unsigned int nID, const CMasterKey& kMasterKey);
+
+    bool WriteAutoConvertKey(const CTxDestination& dest);
+    void LoadAutoConvertKeys(std::set<CTxDestination>& setDestinations);
 
     bool WriteCScript(const uint160& hash, const CScript& redeemScript);
 
