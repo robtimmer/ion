@@ -86,14 +86,39 @@ parts:
       # fix bug - extracting
       if [ $SNAPCRAFT_ARCH_TRIPLET == "x86_64-linux-gnu" ] 
       then
-        apt install g++-x86-64-linux-gnu g++-5-x86-64-linux-gnu gcc-x86-64-linux-gnu gcc-5-x86-64-linux-gnu binutils-x86-64-linux-gnu
+        apt install -y g++-x86-64-linux-gnu gcc-x86-64-linux-gnu binutils-x86-64-linux-gnu
         sed -i 's/tar --strip-components/tar --no-same-owner --strip-components/' $SNAPCRAFT_PART_BUILD/depends/funcs.mk
         cd $SNAPCRAFT_PART_BUILD/depends
-        make HOST=x86_64-pc-linux-gnu
-      #elif [ $SNAPCRAFT_ARCH_TRIPLET == "i386-linux-gnu" ]
-      #elif [ $SNAPCRAFT_ARCH_TRIPLET == "ppc64el-linux-gnu" ] 
-      #elif [ $SNAPCRAFT_ARCH_TRIPLET == "arm64-linux-gnu" ] 
-      #elif [ $SNAPCRAFT_ARCH_TRIPLET == "armhf-linux-gnu" ] 
+        make HOST=$SNAPCRAFT_ARCH_TRIPLET
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "i386-linux-gnu" ]
+      then
+        apt install g++-$SNAPCRAFT_ARCH_TRIPLET gcc-$SNAPCRAFT_ARCH_TRIPLET binutils-$SNAPCRAFT_ARCH_TRIPLET
+        sed -i 's/tar --strip-components/tar --no-same-owner --strip-components/' $SNAPCRAFT_PART_BUILD/depends/funcs.mk
+        cd $SNAPCRAFT_PART_BUILD/depends
+        make HOST=$SNAPCRAFT_ARCH_TRIPLET
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "ppc64el-linux-gnu" ] 
+      then
+        echo "Buiild $SNAPCRAFT_ARCH_TRIPLET architecture with shared libraries"
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "s390x-linux-gnu" ] 
+      then
+        apt install g++-$SNAPCRAFT_ARCH_TRIPLET gcc-$SNAPCRAFT_ARCH_TRIPLET binutils-$SNAPCRAFT_ARCH_TRIPLET
+        sed -i 's/tar --strip-components/tar --no-same-owner --strip-components/' $SNAPCRAFT_PART_BUILD/depends/funcs.mk
+        cd $SNAPCRAFT_PART_BUILD/depends
+        make HOST=$SNAPCRAFT_ARCH_TRIPLET
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "arm-linux-gnueabihf ] 
+      then
+        apt install g++-$SNAPCRAFT_ARCH_TRIPLET gcc-$SNAPCRAFT_ARCH_TRIPLET binutils-$SNAPCRAFT_ARCH_TRIPLET
+        sed -i 's/tar --strip-components/tar --no-same-owner --strip-components/' $SNAPCRAFT_PART_BUILD/depends/funcs.mk
+        cd $SNAPCRAFT_PART_BUILD/depends
+        make HOST=$SNAPCRAFT_ARCH_TRIPLET
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "arm-linux-gnueabi" ] 
+      then
+        apt install g++-$SNAPCRAFT_ARCH_TRIPLET gcc-$SNAPCRAFT_ARCH_TRIPLET binutils-$SNAPCRAFT_ARCH_TRIPLET
+        sed -i 's/tar --strip-components/tar --no-same-owner --strip-components/' $SNAPCRAFT_PART_BUILD/depends/funcs.mk
+        cd $SNAPCRAFT_PART_BUILD/depends
+        make HOST=$SNAPCRAFT_ARCH_TRIPLET
+      else
+        echo "building without depends folder"
       fi
       # build dependencies
       # build ion core
@@ -101,7 +126,22 @@ parts:
       ./autogen.sh
       if [ $SNAPCRAFT_ARCH_TRIPLET == "x86_64-linux-gnu" ] 
       then
-        ./configure --prefix=`pwd`/depends/x86_64-pc-linux-gnu
+        ./configure --prefix=`pwd`/depends/$SNAPCRAFT_ARCH_TRIPLET
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "i386-linux-gnu" ] 
+      then
+        ./configure --prefix=`pwd`/depends/$SNAPCRAFT_ARCH_TRIPLET
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "ppc64el-linux-gnu" ] 
+      then
+        echo "Configure $SNAPCRAFT_ARCH_TRIPLET with shared libraries"
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "s390x-linux-gnu" ] 
+      then
+        ./configure --prefix=`pwd`/depends/$SNAPCRAFT_ARCH_TRIPLET
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "arm-linux-gnueabihf" ] 
+      then
+        ./configure --prefix=`pwd`/depends/$SNAPCRAFT_ARCH_TRIPLET
+      elif [ $SNAPCRAFT_ARCH_TRIPLET == "arm-linux-gnueabi" ] 
+      then
+        ./configure --prefix=`pwd`/depends/$SNAPCRAFT_ARCH_TRIPLET
       else
         ./configure BDB_LIBS="-L${SNAPCRAFT_PART_INSTALL}/lib -ldb_cxx-4.8" BDB_CFLAGS="-I${SNAPCRAFT_PART_INSTALL}/include"
       fi
