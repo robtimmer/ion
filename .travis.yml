@@ -77,6 +77,16 @@ jobs:
         RUN_FUNCTIONAL_TESTS=false
         GOAL="install"
         ION_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
+# RISC-V
+    - stage: test
+      env: >-
+        HOST=riscv64-linux-gnu
+        PACKAGES="python3 g++-riscv64-linux-gnu"
+        DEP_OPTS="NO_QT=1"
+        RUN_UNIT_TESTS=false
+        RUN_FUNCTIONAL_TESTS=false
+        GOAL="install"
+        ION_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
 # Win32
     - stage: test
       env: >-
@@ -138,12 +148,12 @@ jobs:
 #        GOAL="install"
 #        ION_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
 # Cross-Mac
-#    - stage: test
-#      env: >-
-#        HOST=x86_64-apple-darwin14
-#        PACKAGES="cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python-dev python3-setuptools-git"
-#        OSX_SDK=10.11
-#        RUN_UNIT_TESTS=false
-#        RUN_FUNCTIONAL_TESTS=false
-#        GOAL="all deploy"
-#        ION_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
+    - stage: test
+      env: >-
+        HOST=x86_64-apple-darwin14
+        PACKAGES="cmake imagemagick libcap-dev librsvg2-bin libz-dev libbz2-dev libtiff-tools python-dev python3-setuptools-git"
+        OSX_SDK=10.11
+        RUN_UNIT_TESTS=false
+        RUN_FUNCTIONAL_TESTS=false
+        GOAL="all deploy"
+        ION_CONFIG="--enable-gui --enable-reduce-exports --enable-werror"
