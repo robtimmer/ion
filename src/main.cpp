@@ -4465,7 +4465,7 @@ bool ContextualCheckZerocoinStake(int nHeight, CStakeInput* stake)
             return error("%s: failed to get index associated with xION stake checksum", __func__);
 
         if (chainActive.Height() - pindexFrom->nHeight < Params().Zerocoin_RequiredStakeDepth())
-            return error("%s: xION stake does not have required confirmation depth", __func__);
+            return error("%s: xION stake does not have required confirmation depth. Current height %d,  stakeInput height %d.", __func__, chainActive.Height(), pindexFrom->nHeight);
 
         //The checksum needs to be the exact checksum from 200 blocks ago
         uint256 nCheckpoint200 = chainActive[nHeight - Params().Zerocoin_RequiredStakeDepth()]->nAccumulatorCheckpoint;
@@ -4561,45 +4561,53 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
 
         CTransaction &stakeTxIn = block.vtx[1];
 
+        // Inputs
+        std::vector<CTxIn> ionInputs;
+        std::vector<CTxIn> xIONInputs;
+
+        for (CTxIn stakeIn : stakeTxIn.vin) {
+            if(stakeIn.scriptSig.IsZerocoinSpend()){
+                xIONInputs.push_back(stakeIn);
+            }else{
+                ionInputs.push_back(stakeIn);
+            }
+        }
+        const bool hasIONInputs = !ionInputs.empty();
+        const bool hasXIONInputs = !xIONInputs.empty();
+
         // ZC started after PoS.
         // Check for serial double spent on the same block, TODO: Move this to the proper method..
-        if(nHeight >= Params().Zerocoin_StartHeight()) {
-            vector<CBigNum> inBlockSerials;
-            for (CTransaction tx : block.vtx) {
-                for (CTxIn in: tx.vin) {
+        vector<CBigNum> inBlockSerials;
+        for (CTransaction tx : block.vtx) {
+            for (CTxIn in: tx.vin) {
+                if(nHeight >= Params().Zerocoin_StartHeight()) {
                     if (in.scriptSig.IsZerocoinSpend()) {
                         CoinSpend spend = TxInToZerocoinSpend(in);
                         // Check for serials double spending in the same block
-                        if (std::find(inBlockSerials.begin(), inBlockSerials.end(), spend.getCoinSerialNumber()) != inBlockSerials.end()) {
-                            return state.DoS(100, error("%s: serial double spent on the same block", __func__));
+                        if (std::find(inBlockSerials.begin(), inBlockSerials.end(), spend.getCoinSerialNumber()) !=
+                            inBlockSerials.end()) {
                         }
                         inBlockSerials.push_back(spend.getCoinSerialNumber());
                     }
                 }
+                if(tx.IsCoinStake()) continue;
+                if(hasIONInputs)
+                    // Check if coinstake input is double spent inside the same block
+                    for (CTxIn ionIn : ionInputs){
+                        if(ionIn.prevout == in.prevout){
+                            // double spent coinstake input inside block
+                            return error("%s: double spent coinstake input inside block", __func__);
+                        }
+                    }
             }
-            inBlockSerials.clear();
         }
-
+        inBlockSerials.clear();
 
         // Check whether is a fork or not
         if (isBlockFromFork) {
 
             // Start at the block we're adding on to
             CBlockIndex *prev = pindexPrev;
-
-            // Inputs
-            std::vector<CTxIn> ionInputs;
-            std::vector<CTxIn> xIONInputs;
-
-            for (CTxIn stakeIn : stakeTxIn.vin) {
-                if(stakeIn.scriptSig.IsZerocoinSpend()){
-                    xIONInputs.push_back(stakeIn);
-                }else{
-                    ionInputs.push_back(stakeIn);
-                }
-            }
-            const bool hasIONInputs = !ionInputs.empty();
-            const bool hasXIONInputs = !xIONInputs.empty();
 
             int readBlock = 0;
             vector<CBigNum> vBlockSerials;
@@ -4854,7 +4862,7 @@ bool ProcessNewBlock(CValidationState& state, CNode* pfrom, CBlock* pblock, CDis
         CheckBlockIndex ();
         if (!ret) {
             // Check spamming
-            if(pfrom && GetBoolArg("-blockspamfilter", DEFAULT_BLOCK_SPAM_FILTER)) {
+            if(pindex && pfrom && GetBoolArg("-blockspamfilter", DEFAULT_BLOCK_SPAM_FILTER)) {
                 CNodeState *nodestate = State(pfrom->GetId());
                 if(nodestate != nullptr) {
                     nodestate->nodeBlocks.onBlockReceived(pindex->nHeight);
