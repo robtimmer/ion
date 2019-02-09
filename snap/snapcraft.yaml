@@ -1,19 +1,18 @@
-name: ioncore
-version: 3.1.01
+name: ioncoin-ce
+version: 3.1.99
 summary:   gaming related peer-to-peer network based digital currency
 description: |
   Ion Core is an MIT licensed,
   open source, gaming oriented, blockchain-based cryptocurrency with
   ultra fast transactions, low fees, high network decentralization, and
   Zero Knowledge cryptography proofs for industry-leading
-  transaction anonymity. This package include QT, daemon, cli and tx
-  binaries.
+  transaction anonymity. 
   
   Wiki (Ion Core):    https://github.com/ioncoincore/ion/wiki
   Wiki (Ionomy):      https://github.com/ionomy/ion/wiki
   Wiki (Ion Core CE): https://github.com/cevap/ion/wiki
   
-  Technical documentation: https://techdoc.ioncoin.org
+  Technical documentaion: https://techdoc.ioncore.xyz
   
   Whitepaper: https://ionomy.com/en/whitepaper
   
@@ -40,21 +39,43 @@ apps:
     plugs: [network, network-bind, home, removable-media]
     environment:
       XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+  daemon-testnet:
+    command: iond --testnet
+    plugs: [network, network-bind, home, removable-media]
+    environment:
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+  daemon-regtest:
+    command: iond --regtest
+    plugs: [network, network-bind, home, removable-media]
   qt:
     command: desktop-launch ion-qt
     plugs: [network, network-bind, unity7, unity8-calendar, unity8-contacts, desktop, desktop-legacy, wayland, x11, mir, opengl, home, removable-media]
     desktop: qt.desktop
+  qt-testnet:
+    command: desktop-launch ion-qt --testnet
+    plugs: [network, network-bind, unity7, unity8-calendar, unity8-contacts, desktop, desktop-legacy, wayland, x11, mir, opengl, home, removable-media]
+    desktop: qt-testnet.desktop
+  qt-regtest:
+    command: desktop-launch ion-qt --regtest
+    plugs: [network, network-bind, unity7, unity8-calendar, unity8-contacts, desktop, desktop-legacy, wayland, x11, mir, opengl, home, removable-media]
+    desktop: qt-regtest.desktop
   cli:
     command: ion-cli
+    plugs: [network, network-bind, home]
+  cli-testnet:
+    command: ion-cli --testnet
+    plugs: [network, network-bind, home]
+  cli-regtest:
+    command: ion-cli --regtest
     plugs: [network, network-bind, home]
   tx:
     command: ion-tx
     plugs: [home]
 parts:
-  ion:
-    source: https://github.com/ioncoincore/ion
+ion:
+    source: https://github.com/cevap/ion
     source-type: git
-    source-tag: v3.1.01
+    source-tag: master
     plugin: nil
     override-build: |
       # Patch - Default home folder
@@ -90,7 +111,6 @@ parts:
       # print in log which files are installed
       echo "Installed files:"
       ls $SNAPCRAFT_PART_INSTALL
-    # Fix: You need multipass installed to build snaps which use the base keyword.
     build-packages:
       - curl
       - wget
@@ -105,6 +125,36 @@ parts:
       - bsdmainutils
       - binutils
       - python3
+      - libssl-dev
+      - libevent-dev
+      - libgmp-dev
+      # Boost.
+      - libboost-system-dev
+      - libboost-filesystem-dev
+      - libboost-chrono-dev
+      - libboost-program-options-dev
+      - libboost-test-dev
+      - libboost-thread-dev
+      # Optional.
+      - libminiupnpc-dev
+      - libzmq3-dev
+      # GUI.
+      - libqt5gui5
+      - libqt5core5a
+      - libqt5dbus5
+      - qttools5-dev
+      - qttools5-dev-tools
+      - libprotobuf-dev
+      - protobuf-compiler
+      # Files from the build host were migrated into the snap to satisfy dependencies that would otherwise not be met. This feature will be removed in a future release thats why we need to include them here
+      - libxcursor-dev
+      - libxinerama-dev
+      - libxrandr-dev
+      - libatk1.0-dev
+      #- libgdk2.0-cil
+      - libgtk2.0-dev
+      # Optional.
+      - libqrencode-dev
     stage-packages: [ca-certificates]
     after:
       - desktop-qt5
