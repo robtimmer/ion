@@ -10,3 +10,11 @@ arm*
 aarch64*
 riscv32*
 riscv64*
+s390x*
+i386*
+powerpc*
+alpha*
+m68k*
+sparc64*
+hppa*
+sh4*

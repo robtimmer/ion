@@ -47,12 +47,12 @@ Check out the source code in the following directory hierarchy.
 
 Write release notes. git shortlog helps a lot, for example:
 
-    git shortlog --no-merges v(current version, e.g. 3.0.5)..v(new version, e.g. 3.1.0)
+    git shortlog --email --no-merges --format="* [%h] %s" v(current version, e.g. 3.1.00-beta1)..(new version, e.g. v3.1.0-rc1)
 
 
 Generate list of authors:
 
-    git log --format='%aN' "$*" | sort -ui | sed -e 's/^/- /'
+    git log  --format='- %aN <%aE>' v(current version, e.g. 3.1.00-beta1)..(new version, e.g. v3.1.0-rc1) | sort -fiu
 
 Tag version (or release candidate) in git
 

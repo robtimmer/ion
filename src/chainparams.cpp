@@ -70,13 +70,14 @@ static Checkpoints::MapCheckpoints mapCheckpoints =
         (  908698,  uint256("aa44b1eebd7ad5d4bc7b428dcdacd527677fa639557b58666a68dc2fdba3f133") ) // Last active zerocoin v1 block  1543722397   2371470 (zerocoin v1 disabled: 1543722400)
         (  936756,  uint256("873aa1d52ca79dc77d67f8162a2a60b9c936f50449b58b5464b91e412d351c29") ) //                                1543729708   2371718
         (  956579,  uint256("bac382323420c9c8e89024b66a3cab28d6133ca7450eae07de63364f74f087f6") ) //                                1546631813   2492172
-        (  980729,  uint256("a12927283f8396a65bf45cf516f5d8a2c618ac6b2a9cc530cdd962c9263b3398") );//                                1548101941   2552465
+        (  980729,  uint256("a12927283f8396a65bf45cf516f5d8a2c618ac6b2a9cc530cdd962c9263b3398") ) //                                1548101941   2552465
+        (  997048,  uint256("5fcdcf658a5b20a8c8e2c583a68122e9c0b66804f6c2941384c53cf90490d210") );//                                1549093695   2592520
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
     1548101941, // * UNIX timestamp of last checkpoint block
-    2552465,    // * total number of transactions between genesis and last checkpoint
+    2592520,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
-    2000 	// * estimated number of transactions per day after checkp
+    3490        // * estimated number of transactions per day after checkp
 };
 
 static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
@@ -96,12 +97,13 @@ static Checkpoints::MapCheckpoints mapCheckpointsTestnet =
 	(  472999,      uint256("5d55f229074b930f4dd42a0f4e0e2f1d855dcd1d87cb86553ea21c797825482c") ) // Testnet Fork June 2018
 	(  473000,      uint256("237bc8d1e7cb02af8cd3e6affe1fa134c1a29a4852f3fa177ebcd50014463152") ) // Testnet Fork December 2018; timestamp=1545338100  txcount=947151
     (  500535,      uint256("d6a5202217fcbdbe34592e78038937cb89541cb41051492bde6d061188285086") ) // timestamp=1547025824 txcount=1003348
-    (  516559,      uint256("8b91cc91179419e72777e51b3c298fd29df8827256b361c48cf61bab0b1e1bb5") );// timestamp=1548102045 txcount=1035503
+    (  516559,      uint256("8b91cc91179419e72777e51b3c298fd29df8827256b361c48cf61bab0b1e1bb5") ) // timestamp=1548102045 txcount=1035503
+    (  532875,      uint256("483a77879f686a3e04076776ef82409ff17c4955d04c5b221ace7bfd4c3b5086") );// timestamp=1549094295 txcount=1070146
 static const Checkpoints::CCheckpointData dataTestnet = {
     &mapCheckpointsTestnet,
-    1548102045,
-    1035503,
-    2000};
+    1549094295,
+    1070146,
+    3017};
 
 static Checkpoints::MapCheckpoints mapCheckpointsRegtest =
     boost::assign::map_list_of(0, uint256("0x001"));
@@ -175,7 +177,7 @@ public:
         nInvalidAmountFiltered = 0*COIN;            //Amount of invalid coins filtered through exchanges, that should be considered valid
         nBlockZerocoinV2 = 1012710;                 //!> The block that zerocoin v2 becomes active - roughly GMT: Thursday, February 7, 2019 12:00:01 AM
         nEnforceNewSporkKey = 1548979201;           //!> Sporks signed after, GMT: Friday, February 1, 2019 12:00:01 AM must use the new spork key
-        nRejectOldSporkKey = 1549497601;            //!> Reject old spork key afters, GMT: Thursday, February 7, 2019 12:00:01 AM
+        nRejectOldSporkKey = 1553990400;            //!> Reject old spork key afters, GMT: Sunday, 31. March 2019 00:00:00
 
         nMidasStartHeight = 176500;                 // MIDAS startheight, first big attack
         nMidasStartTime = 1497541280;               // Time when MIDAS started and old algorithm stopped
@@ -387,18 +389,34 @@ public:
         pchMessageStart[1] = 0x9a;
         pchMessageStart[2] = 0x39;
         pchMessageStart[3] = 0x9e;
+        nDefaultPort = 34567;
         nSubsidyHalvingInterval = 150;
-        nEnforceBlockUpgradeMajority = 750;
-        nRejectBlockOutdatedMajority = 950;
-        nToCheckBlockUpgradeMajority = 1000;
+        nEnforceBlockUpgradeMajority = 4320; // 75%
+        nRejectBlockOutdatedMajority = 5472; // 95%
+        nToCheckBlockUpgradeMajority = 5760; // 4 days
         nMinerThreads = 1;
         nTargetTimespanMidas = 7 * 24 * 60 * 60;    // 1 week
-        nTargetTimespanDGW = 24 * 60 * 60;             // ION: 1 day
+        nTargetTimespanDGW = 24 * 60 * 60;          // ION: 1 day
         nTargetSpacing = 1 * 60;                    // ION: 1 minutes
         bnProofOfWorkLimit = ~uint256(0) >> 1;
+        nLastPOWBlock = 850;
+        nMasternodeCountDrift = 4;
+        nModifierUpdateBlock = 51197; //approx Mon, 17 Apr 2017 04:00:00 GMT
+        nMaxMoneyOut = 38600000 * COIN;
+        nZerocoinStartHeight = 1;
+        nZerocoinStartTime = 1521414629;
+        nBlockEnforceSerialRange = 10000000; //Enforce serial range starting this block
+        nBlockRecalculateAccumulators = 10000000; //Trigger a recalculation of accumulators
+        nBlockFirstFraudulent = 99999999; //First block that bad serials emerged
+        nBlockLastGoodCheckpoint = 10000000; //Last valid accumulator checkpoint
+        nBlockEnforceInvalidUTXO = 10000000; //Start enforcing the invalid UTXO's
+        nInvalidAmountFiltered = 0; //Amount of invalid coins filtered through exchanges, that should be considered valid
+        nBlockZerocoinV2 = 1000; //!> The block that zerocoin v2 becomes active
+        nEnforceNewSporkKey = 1545361200; //!> Sporks signed after 12/21/2018 @ 3:00am (UTC) must use the new spork key
+        nRejectOldSporkKey = 1545620400; //!> Reject old spork key after 12/24/2018 @ 3:00am (UTC)
 
-        nMidasStartHeight = 75000;
-        nMidasStartTime = 1497209344;
+        nMidasStartHeight = 99999999;
+        nMidasStartTime = 9997209344;
         nDGWStartHeight = nZerocoinStartHeight;
         nDGWStartTime = nZerocoinStartTime;
 
@@ -416,13 +434,12 @@ public:
         genesis.vtx.push_back(txNew);
 
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
-        genesis.nNonce = 1603027;                  // hex 57 47 52 in text = ION
-        genesis.nBits = 0x1e00ffff;
+        genesis.nNonce = 574752;                  // hex 57 47 52 in text = ION
+        genesis.nBits = 0x207ffff;
 
         hashGenesisBlock = genesis.GetHash();
         nDefaultPort = 34567;
-        assert(hashGenesisBlock == uint256("0x0000002bed128b6b2a62bd8edd4e6f8a414eac38e256aa0194adb8c93fe18132"));
-//        assert(genesis.hashMerkleRoot == uint256("0xa5858fca488dee5e9a0cd0a33287e1049ddf8e0065779a0aacc54581dbeaf59f"));
+        assert(hashGenesisBlock == uint256("0x47c7c6267ccd4a73c21c696d4bc004f74edc172a470c9c5a4201aa8d3196f99e"));
 
         vFixedSeeds.clear(); //! Testnet mode doesn't have any fixed seeds.
         vSeeds.clear();      //! Testnet mode doesn't have any DNS seeds.
@@ -437,7 +454,7 @@ public:
         nPoolMaxTransactions = 2;
         strSporkKey = "0430b1f83d3acb90cde0b7e0e1d9365c00bfaf04ab8614457cfa0766a787239dd47ad6ca478659dd5e401fccb7fea6fa83acad23a2c7b451aafe6fa2ae4cfd4a58";
         strSporkKeyOld = "0470e14fc60a25e0eb4f6b1fe280e4c3f9427f7bb8b38f14a0c310c2e56402bdce0f25049bf22351dc3d07f389d4d433b339d8e1b991784f11df68f50340185c1d";
-        strObfuscationPoolDummyAddress = "TMPUBzcsHZawA32XYYDF9FHQp6icv492CV";
+        strObfuscationPoolDummyAddress = "g9gvvemz52aDkRn4iiGrzTbBRS1HiqcY9r";
         nStartMasternodePayments = 1558696183; // GMT: Thursday, 15. February 2018 12:03:03
         nBudget_Fee_Confirmations = 3; // Number of confirmations for the finalization fee. We have to make this very short
                                        // here because we only have a 8 block finalization window on testnet
