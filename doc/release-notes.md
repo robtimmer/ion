@@ -38,7 +38,9 @@ Ion Core is extensively tested on multiple operating systems using the Linux ker
 
 Microsoft ended support for Windows XP on [April 8th, 2014](https://www.microsoft.com/en-us/WindowsForBusiness/end-of-xp-support), No attempt is made to prevent installing or running the software on Windows XP, you can still do so at your own risk but be aware that there are known instabilities and issues. Please do not report issues about Windows XP to the issue tracker.
 
-Ion Core should also work on most other Unix-like systems but is not frequently tested on them.
+Apple released it's last Mountain Lion update August 13, 2015, and officially ended support on [December 14, 2015](http://news.fnal.gov/2015/10/mac-os-x-mountain-lion-10-8-end-of-life-december-14/). ION Core software starting with v3.2.0 will no longer run on MacOS versions prior to Yosemite (10.10). Please do not report issues about MacOS versions prior to Yosemite to the issue tracker.
+ 
+ION Core should also work on most other Unix-like systems but is not frequently tested on them.
  
 Notable Changes
 ==============
@@ -47,23 +49,6 @@ Minimum Supported MacOS Version
 ------
 
 The minimum supported version of MacOS (OSX) has been moved from 10.8 Mountain Lion to 10.10 Yosemite. Users still running a MacOS version prior to Yosemite will need to upgrade their OS if they wish to continue using the latest version(s) of the ION Core wallet.
-
-Attacks, Exploits, and Mitigations
-------
-
-### Fake Stake
-
-On Janurary 22 2019, Decentralized Systems Lab out of the University of Illinois published a study entitled “[‘Fake Stake’ attacks on chain-based Proof-of-Stake cryptocurrencies](https://medium.com/@dsl_uiuc/fake-stake-attacks-on-chain-based-proof-of-stake-cryptocurrencies-b8b05723f806)”, which outlined a type of Denial of Service attack that could take place on a number of Proof of Stake based networks by exhausting a client's RAM or Disk resources.
-
-A full report provided by ION developers is available on the [ION Website](https://pivx.org/fake-stake-official-ion-report/), which includes additional findings, mitigation details, and resources for testing. This type of attack has no risk to users' privacy and does not affect their holdings.
-
-### Wrapped Serials
-
-On March 6th 2019, an attack was detected on the ION network zerocoin protocol, or xION. The vulnerability allows an attacker to fake serials accepted by the network and thus to spend zerocoins that have never been minted. As severe as it is, it does not harm users’ privacy and does not affect their holdings directly.
-
-As a result of this, all xION functionality was disabled via one of our sporks shortly after verification of this exploit. A full report, detailing how this attack was performed, as well as investigation results and mitigation methods is available [On Medium](https://medium.com/@dev.ion/report-wrapped-serials-attack-5f4bf7b51701).
-
-xION functions will be restored after v3.2.0 is pushed out and the majority of the network has upgraded.
 
 Major New Features
 ------
@@ -86,30 +71,7 @@ A new UI wallet tab has been introduced that allows users to view the current bu
 
 Support for the ZLN Protocol has been added, which allows for a node to opt-in to providing extended network services for the protocol. By default, this functionality is disabled, but can be enabled by using the `-peerbloomfilterszc` runtime option.
 
-A full technical writeup of the protocol can be found [Here](https://pivx.org/wp-content/uploads/2018/11/Zerocoin_Light_Node_Protocol.pdf).
-
-### Precomputed Zerocoin Proofs
-
-This introduces the ability to do most of the heavy computation required for xION spends **before** actually initiating the spend. A new thread, `ThreadPrecomputeSpends`, is added which constantly runs in the background.
-
-`ThreadPrecomputeSpends`' purpose is to monitor the wallet's xION mints and perform partial witness accumulations up to `nHeight - 20` blocks from the chain's tip (to ensure that it only ever computes data that is at least 2 accumulator checkpoints deep), retaining the results in memory.
-
-Additionally, a file based cache is introduced, `precomputes.dat`, which serves as a place to store any precomputed data between sessions, or when the in-memory cache size is exhausted. Swapping data between memory and disk file is done as needed, and periodic cache flushes to the disk are routine.
-
-This also introduces 2 new runtime configuration options:
-
-* `-precompute` is a binary boolean option (`1` or `0`) that determines wither or not pre-computation should be activated at runtime (default value is to activate, `1`).
-* `-precomputecachelength` is a numeric value between `500` and `2000` that tells the precompute thread how many blocks to include during each pass (default is `1000`).
-
-A new RPC command, `clearspendcache`, has been added that allows for the clearing/resetting of the precompute cache (both memory and disk). This command takes no additional arguments.
-
-Finally, the "security level" option for spending xION has been completely removed, and all xION spends now spend at what was formerly "security level" `100`. This change has been reflected in any RPC command that previously took a security level argument, as well as in the GUI's Privacy section for spending xION.
-
-### Regression Test Suite
-
-The RegTest network mode has been re-worked to once again allow for the generation of on-demand PoW and PoS blocks. Additionally, many of the existing functional test scripts have been adapted for use with ION, and we now have a solid testing base for highly customizable tests to be written.
-
-With this, the old `setgenerate` RPC command no longer functions in regtest mode, instead a new `generate` command has been introduced that is more suited for use in regtest mode.
+A full technical writeup of the protocol can be found [Here](https://ioncoin.xyz/wp-content/uploads/2018/11/Zerocoin_Light_Node_Protocol.pdf).
 
 GUI Changes
 ------
@@ -147,36 +109,6 @@ RPC Changes
 
 The `backupwallet` RPC command no longer allows for overwriting the currently in use wallet.dat file. This was done to avoid potential file corruption caused by multiple conflicting file access operations.
 
-### Spendzerocoin Security Level Removed
-
-The `securitylevel` argument has been removed from the `spendzerocoin` RPC command.
-
-### Spendzerocoinmints Added
-
-Introduce the `spendzerocoinmints` RPC call to enable spending specific zerocoins, provided as an array of hex strings (serial hashes).
-
-### Getreceivedbyaddress Update
-
-When calling `getreceivedbyaddress` with a non-wallet address, return a proper error code/message instead of just `0`
-
-### Validateaddress More Verbosity
-
-`validateaddress` now has the ability to return more (non-critical or identifying) details about P2SH (multisig) addresses by removing the needless check against ISMINE_NO.
-
-### Listmintedzerocoins Additional Options
-
-Add a `fVerbose` boolean optional argument (default=false) to `listmintedzerocoins` call to have a more detailed output.
-
-If `fVerbose` is specified as first argument, then a second optional boolean argument `fMatureOnly` (default=false) can be used to filter-out immature mints.
-
-### Getblock & Getblockheader
-
-A minor change to these two RPC commands to now display the `mediantime`, used primarialy during functional tests.
-
-### Getwalletinfo
-
-The `getwalletinfo` RPC command now outputs the configured transaction fee (`paytxfee` field).
-
 Build System Changes
 ------
 
@@ -193,10 +125,6 @@ Up until now, the zerocoin library relied exclusively on OpenSSL for it's bignum
 ### RISC-V Support
 
 Support for the new RISC-V 64bit processors has been added, though still experimental. Pre-compiled binaries for this CPU architecture are available for linux, and users can self-compile using gitian, depends, or an appropriate host system natively.
-
-### New Gitian Build Script
-
-The previous `gitian-build.sh` shell script has been replaced with a more feature rich python version; `gitian-build.py`. This script now supports the use of a docker container in addition to LXC or KVM virtualization, as well as the ability to build against a pull request by number.
 
 *version* Change log
 ==============
