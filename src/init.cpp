@@ -242,10 +242,8 @@ void PrepareShutdown()
         pcoinscatcher.reset();
         pcoinsdbview.reset();
         pblocktree.reset();
-        delete zerocoinDB;
-        zerocoinDB = NULL;
-        delete pSporkDB;
-        pSporkDB = NULL;
+        zerocoinDB.reset();
+        pSporkDB.reset();
     }
 #ifdef ENABLE_WALLET
     if (pwalletMain)
@@ -1443,17 +1441,17 @@ bool AppInit2()
                 pcoinsdbview.reset();
                 pcoinscatcher.reset();
                 pblocktree.reset();
+                zerocoinDB.reset();
+                pSporkDB.reset();
+
                 pblocktree.reset(new CBlockTreeDB(nBlockTreeDBCache, false, fReindex));
                 pcoinsdbview.reset(new CCoinsViewDB(nCoinDBCache, false, fReindex));
                 pcoinscatcher.reset(new CCoinsViewErrorCatcher(pcoinsdbview.get()));
                 pcoinsTip.reset(new CCoinsViewCache(pcoinscatcher.get()));
-                delete zerocoinDB;
-                delete pSporkDB;
 
                 //ION specific: zerocoin and spork DB's
-                zerocoinDB = new CZerocoinDB(0, false, fReindex);
-                pSporkDB = new CSporkDB(0, false, false);
-
+                zerocoinDB.reset(new CZerocoinDB(0, false, fReindex));
+                pSporkDB.reset(new CSporkDB(0, false, false));
 
                 if (fReindex)
                     pblocktree->WriteReindexing(true);
