@@ -1,5 +1,5 @@
 ---
-name: "ion-win-3.1"
+name: "ion-win-3.2"
 enable_cache: true
 suites:
 - "bionic"

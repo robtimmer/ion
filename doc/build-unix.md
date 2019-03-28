@@ -41,11 +41,12 @@ This will build ion-qt as well if the dependencies are met.
 
 These dependencies are required:
 
- Library     | Purpose          | Description
- ------------|------------------|----------------------
- libssl      | SSL Support      | Secure communications
- libboost    | Boost            | C++ Library
- libevent    | Events           | Asynchronous event notification
+ Library     | Purpose            | Description
+ ------------|--------------------|----------------------
+ libssl      | SSL Support        | Secure communications
+ libboost    | Boost              | C++ Library
+ libevent    | Events             | Asynchronous event notification
+ libgmp      | Bignum Arithmetic  | Precision arithmetic
 
 Optional dependencies:
 
@@ -57,6 +58,7 @@ Optional dependencies:
  protobuf    | Payments in GUI  | Data interchange format used for payment protocol (only needed when GUI enabled)
  libqrencode | QR codes in GUI  | Optional for generating QR codes (only needed when GUI enabled)
  univalue    | Utility          | JSON parsing and encoding (bundled version will be used unless --with-system-univalue passed to configure)
+ libzmq3     | ZMQ notification | Optional, allows generating ZMQ notifications (requires ZMQ version >= 4.0.0)
 
 For the versions used in the release, see [release-process.md](release-process.md) under *Fetch and build inputs*.
 
@@ -203,3 +205,20 @@ Hardening enables the following features:
 	RW- R-- RW-
 
     The STK RW- means that the stack is readable and writeable but not executable.
+
+Disable-wallet mode
+--------------------
+**Note:** This functionality is not yet completely implemented, and compilation using the below option will currently fail.
+
+When the intention is to run only a P2P node without a wallet, ION Core may be compiled in
+disable-wallet mode with:
+
+    ./configure --disable-wallet
+
+In this case there is no dependency on Berkeley DB 4.8.
+
+Additional Configure Flags
+--------------------------
+A list of additional configure flags can be displayed with:
+
+    ./configure --help

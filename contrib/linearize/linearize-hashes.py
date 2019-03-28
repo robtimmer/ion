@@ -100,7 +100,7 @@ if __name__ == '__main__':
 	if 'min_height' not in settings:
 		settings['min_height'] = 0
 	if 'max_height' not in settings:
-		settings['max_height'] = 313000
+		settings['max_height'] = 1073836
 	if 'rpcuser' not in settings or 'rpcpassword' not in settings:
 		print("Missing username and/or password in cfg file", file=stderr)
 		sys.exit(1)
