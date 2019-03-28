@@ -1,21 +1,18 @@
-# Copyright (c) 2018-2019 The Ion developers
-
-name: ioncore
-version: 3.1.02
+name: ioncoin-ce
+version: 3.1.99
 summary:   gaming related peer-to-peer network based digital currency
 description: |
   Ion Core is an MIT licensed,
   open source, gaming oriented, blockchain-based cryptocurrency with
   ultra fast transactions, low fees, high network decentralization, and
   Zero Knowledge cryptography proofs for industry-leading
-  transaction anonymity. This package include QT, daemon, cli and tx
-  binaries.
+  transaction anonymity. 
   
   Wiki (Ion Core):    https://github.com/ioncoincore/ion/wiki
   Wiki (Ionomy):      https://github.com/ionomy/ion/wiki
   Wiki (Ion Core CE): https://github.com/cevap/ion/wiki
   
-  Technical documentation: https://techdoc.ioncoin.org
+  Technical documentaion: https://techdoc.ioncore.xyz
   
   Whitepaper: https://ionomy.com/en/whitepaper
   
@@ -76,9 +73,13 @@ apps:
     plugs: [home]
 parts:
   ion:
-    source: https://github.com/ioncoincore/ion
+    source: https://github.com/cevap/ion
     source-type: git
+<<<<<<< HEAD
     source-tag: v3.1.02
+=======
+    source-tag: master
+>>>>>>> b7de586766d535b33af67996eb7d4682301a7bd3
     plugin: nil
     override-build: |
       # Patch - Default home folder
@@ -116,7 +117,11 @@ parts:
       make install prefix=$SNAPCRAFT_PART_INSTALL
       # print in log which files are installed
       echo "Installed files:"
+<<<<<<< HEAD
       find $SNAPCRAFT_PART_INSTALL -type f
+=======
+      ls $SNAPCRAFT_PART_INSTALL
+>>>>>>> b7de586766d535b33af67996eb7d4682301a7bd3
     build-packages:
       - curl
       - wget
