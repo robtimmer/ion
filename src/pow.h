@@ -24,7 +24,7 @@ enum DiffMode {
     DIFF_DGW = 3,     // Retarget using Dark Gravity Wave v3
 };
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader* pblock, const bool fProofOfStake);
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader* pblock);
 
 /** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */
 bool CheckProofOfWork(uint256 hash, unsigned int nBits);

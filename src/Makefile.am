@@ -191,6 +191,9 @@ BITCOIN_CORE_H = \
   xionchain.h \
   xiontracker.h \
   xionwallet.h \
+  genwit.h \
+  concurrentqueue.h \
+  lightxionthread.h \
   zmq/zmqabstractnotifier.h \
   zmq/zmqconfig.h \
   zmq/zmqnotificationinterface.h \
@@ -282,6 +285,8 @@ libbitcoin_wallet_a_SOURCES = \
   xionwallet.cpp \
   xiontracker.cpp \
   stakeinput.cpp \
+  genwit.cpp \
+  lightxionthread.cpp \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
