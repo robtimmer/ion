@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-name: ioncoin-ce
-version: 3.1.99
-=======
 # Copyright (c) 2018-2019 The Ion developers
-
-name: ioncore
+name: ioncore-ce
 version: 3.2.00
->>>>>>> rc-v3.2.0-cevap
 summary:   gaming related peer-to-peer network based digital currency
 description: |
   Ion Core is an MIT licensed,
@@ -82,15 +76,8 @@ parts:
   ion:
     source: https://github.com/cevap/ion
     source-type: git
-<<<<<<< HEAD
-<<<<<<< HEAD
-    source-tag: v3.1.02
-=======
     source-tag: master
->>>>>>> b7de586766d535b33af67996eb7d4682301a7bd3
-=======
-    source-tag: v3.2.00
->>>>>>> rc-v3.2.0-cevap
+    source-tag: rc-v3.2.0-cevap
     plugin: nil
     override-build: |
       # Patch - Default home folder
@@ -128,11 +115,7 @@ parts:
       make install prefix=$SNAPCRAFT_PART_INSTALL
       # print in log which files are installed
       echo "Installed files:"
-<<<<<<< HEAD
-      find $SNAPCRAFT_PART_INSTALL -type f
-=======
       ls $SNAPCRAFT_PART_INSTALL
->>>>>>> b7de586766d535b33af67996eb7d4682301a7bd3
     build-packages:
       - curl
       - wget
