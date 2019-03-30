@@ -864,8 +864,8 @@ MultiSend: %1</translation>
         <translation>Etichetta</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ion.conf).</source>
-        <translation>Non tutte le transazioni verranno visualizzate. Per vedere tutte le transazioni è necessario aggiungere txindex=1 nel file di configurazione (ion.conf)</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ioncoin.conf).</source>
+        <translation>Non tutte le transazioni verranno visualizzate. Per vedere tutte le transazioni è necessario aggiungere txindex=1 nel file di configurazione (ioncoin.conf)</translation>
     </message>
 </context>
 <context>
@@ -1826,14 +1826,14 @@ Se il conio automatico è attivato questa percentuale si stabilizzerà all'incir
         <translation>Conio automatico è attivo e impostato su</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in ion.conf.</source>
-        <translation>Per disabilitare il conio automatico aggiungi 'enablezeromint=0' in ion.conf.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in ioncoin.conf.</source>
+        <translation>Per disabilitare il conio automatico aggiungi 'enablezeromint=0' in ioncoin.conf.</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in ion.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in ioncoin.conf</source>
         <translation>Conio automatico è correntemente disattivato.
-Per attivare il Conio automatico cambiare 'enablezeromint=0' in 'enablezeromint=1' in ion.conf</translation>
+Per attivare il Conio automatico cambiare 'enablezeromint=0' in 'enablezeromint=1' in ioncoin.conf</translation>
     </message>
 </context>
 <context>
@@ -1999,8 +1999,8 @@ Gli xION sono maturi quando hanno più di 20 conferme E più di 2 conii della st
         <source>Show the current status of automatic xION minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to ion.conf
-- disable: add 'enablezeromint=0' to ion.conf
+- enable: add 'enablezeromint=1' to ioncoin.conf
+- disable: add 'enablezeromint=0' to ioncoin.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted xION
@@ -2008,8 +2008,8 @@ To change the percentage (no restart required):
 </source>
         <translation>Mostra lo stato corrente del conio automatico xION.
 Per cambiare lo stato (riavvio necessario):
-- attivato: aggiungi 'enablezeromint=1' a ion.conf
-- disattivato: aggiungi 'enablezeromint=0' a ion.conf
+- attivato: aggiungi 'enablezeromint=1' a ioncoin.conf
+- disattivato: aggiungi 'enablezeromint=0' a ioncoin.conf
 
 Per cambiare la percentuale (riavvio non necessario):
 - menu Impostazioni-&gt;Opzioni-&gt;Percentuale di xION da coniare automaticamente

@@ -896,8 +896,8 @@ MultiSend: %1</translation>
         <translation>text etikett</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ion.conf).</source>
-        <translation>Alla transaktioner kommer inte visas. För att visa alla transaktioner behöver du sätta txindex=1 i konfigurationsfilen (ion.conf).</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ioncoin.conf).</source>
+        <translation>Alla transaktioner kommer inte visas. För att visa alla transaktioner behöver du sätta txindex=1 i konfigurationsfilen (ioncoin.conf).</translation>
     </message>
 </context>
 <context>
@@ -2308,14 +2308,14 @@ Om AutoMint är tillåten så kommer denna procent att vara som den konfigurerad
         <translation>AutoMint är för tillfället aktiverat och inställt på</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in ion.conf.</source>
-        <translation>För att inaktivera AutoMint, lägg till 'enablezeromint=0' i ion.conf.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in ioncoin.conf.</source>
+        <translation>För att inaktivera AutoMint, lägg till 'enablezeromint=0' i ioncoin.conf.</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in ion.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in ioncoin.conf</source>
         <translation>AutoMint är för närvarande inaktiverat.
-För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i ion.conf</translation>
+För att aktivera AutoMint ändra 'enablezeromint=0' till 'enablezeromint=1' i ioncoin.conf</translation>
     </message>
 </context>
 <context>
@@ -2620,8 +2620,8 @@ Omogna: bekräftade men under 1 myntning av samma valör efter den blev präglad
         <source>Show the current status of automatic xION minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to ion.conf
-- disable: add 'enablezeromint=0' to ion.conf
+- enable: add 'enablezeromint=1' to ioncoin.conf
+- disable: add 'enablezeromint=0' to ioncoin.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted xION
@@ -2630,8 +2630,8 @@ To change the percentage (no restart required):
         <translation>Visa den nuvarande statusen av automatisk xION minting.
 
 För att ändra statusen (omstart krävs):
--aktivera: lägg till 'enablezeromint=1' i ion.conf
--inaktivera: lägg till 'enablezeromint=0' i ion.conf
+-aktivera: lägg till 'enablezeromint=1' i ioncoin.conf
+-inaktivera: lägg till 'enablezeromint=0' i ioncoin.conf
 
 För att ändra procenten (ingen omstart krävs):
 -meny Inställningar-&gt;Alternativ-&gt;Procent på autominted xION

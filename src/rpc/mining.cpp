@@ -101,7 +101,7 @@ UniValue getgenerate(const UniValue& params, bool fHelp)
         throw runtime_error(
             "getgenerate\n"
             "\nReturn if the server is set to generate coins or not. The default is false.\n"
-            "It is set with the command line argument -gen (or ion.conf setting gen)\n"
+            "It is set with the command line argument -gen (or ioncoin.conf setting gen)\n"
             "It can also be set with the setgenerate call.\n"
 
             "\nResult\n"

@@ -892,8 +892,8 @@ Adresse : %4
         <translation>TextLabel</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ion.conf).</source>
-        <translation>Toutes les transaction ne seront pas affichés. Pour voir toutes les transactions, vous devez régler txindex=1 dans le fichier de configuration (ion.conf).</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ioncoin.conf).</source>
+        <translation>Toutes les transaction ne seront pas affichés. Pour voir toutes les transactions, vous devez régler txindex=1 dans le fichier de configuration (ioncoin.conf).</translation>
     </message>
 </context>
 <context>
@@ -2324,14 +2324,14 @@ Si l'Auto-monnayage est activé, ce pourcentage sera réglé au niveau du pource
         <translation>Auto-monnayage est actuellement activé et mis à</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in ion.conf.</source>
-        <translation>Pour désactiver Auto-monnayage, ajoutez 'enablezeromint = 0' dans ion.conf.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in ioncoin.conf.</source>
+        <translation>Pour désactiver Auto-monnayage, ajoutez 'enablezeromint = 0' dans ioncoin.conf.</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in ion.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in ioncoin.conf</source>
         <translation>Auto-monnayage est actuellement désactivé.
-Pour activer Auto-monnayage, changez 'enablezeromint = 0' en 'enablezeromint = 1' dans le fichier ion.conf</translation>
+Pour activer Auto-monnayage, changez 'enablezeromint = 0' en 'enablezeromint = 1' dans le fichier ioncoin.conf</translation>
     </message>
 </context>
 <context>
@@ -2636,8 +2636,8 @@ Immature: confirmé, mais moins de 1 monnaie de la même dénomination après sa
         <source>Show the current status of automatic xION minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to ion.conf
-- disable: add 'enablezeromint=0' to ion.conf
+- enable: add 'enablezeromint=1' to ioncoin.conf
+- disable: add 'enablezeromint=0' to ioncoin.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted xION
@@ -2646,8 +2646,8 @@ To change the percentage (no restart required):
         <translation>Afficher l'état actuel de l'Auto-monnayage xION.
 
 Pour changer le statut (redémarrage requis):
-- enable: ajoute 'enablezeromint = 1' au fichier ion.conf
-- disable: ajoute 'enablezeromint = 0' au fichier ion.conf
+- enable: ajoute 'enablezeromint = 1' au fichier ioncoin.conf
+- disable: ajoute 'enablezeromint = 0' au fichier ioncoin.conf
 
 Pour changer le pourcentage (pas de redémarrage requis):
 - menu Paramètres-&gt; Options-&gt; Pourcentage de xION auto-monnayé

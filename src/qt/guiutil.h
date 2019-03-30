@@ -112,7 +112,7 @@ bool isObscured(QWidget* w);
 // Open debug.log
 void openDebugLogfile();
 
-// Open ion.conf
+// Open ioncoin.conf
 void openConfigfile();
 
 // Open masternode.conf

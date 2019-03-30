@@ -1167,7 +1167,7 @@ Address: %4
     </message>
     <message>
         <location filename="../blockexplorer.cpp" line="+480"/>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ion.conf).</source>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ioncoin.conf).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2990,13 +2990,13 @@ If AutoMint is enabled this percentage will settle around the configured AutoMin
     </message>
     <message>
         <location line="+1"/>
-        <source>To disable AutoMint add &apos;enablezeromint=0&apos; in ion.conf.</source>
+        <source>To disable AutoMint add &apos;enablezeromint=0&apos; in ioncoin.conf.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>AutoMint is currently disabled.
-To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1&apos; in ion.conf</source>
+To enable AutoMint change &apos;enablezeromint=0&apos; to &apos;enablezeromint=1&apos; in ioncoin.conf</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3415,8 +3415,8 @@ Immature: confirmed, but less than 1 mint of the same denomination after it was 
         <source>Show the current status of automatic xION minting.
 
 To change the status (restart required):
-- enable: add &apos;enablezeromint=1&apos; to ion.conf
-- disable: add &apos;enablezeromint=0&apos; to ion.conf
+- enable: add &apos;enablezeromint=1&apos; to ioncoin.conf
+- disable: add &apos;enablezeromint=0&apos; to ioncoin.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted xION
