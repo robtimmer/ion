@@ -1910,50 +1910,35 @@ double ConvertBitsToDouble(unsigned int nBits)
 int64_t GetBlockValue(int nHeight)
 {
     int64_t nSubsidy = 0;
-
-    if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-        if (nHeight < 100 && nHeight > 0)
-            return 23 * COIN;
-    } else if (nHeight >= 100 && nHeight < 200) {
-        return 0 * COIN;
-    } else if (nHeight >= 200 && nHeight <= 3677390) {
-        return 23 * COIN;
-    }
-
-    if (Params().NetworkID() == CBaseChainParams::REGTEST) {
-        if (nHeight == 0)
-            return 23 * COIN;
+    // TESTNET and RETEST
+    if (Params().NetworkID() == CBaseChainParams::TESTNET || Params().NetworkID() == CBaseChainParams::REGTEST) {
+        if (nHeight >= 2 && nHeight <= 125146) {
+            nSubsidy = 23 * COIN;
+        } else if (nHeight > 125146 && nHeight <= 570062) {
+            nSubsidy = 17 * COIN;
+        }
     }
 
     if (nHeight == 0) {
-        // Genesis block
-        return 0 * COIN;
+        nSubsidy = 0 * COIN;
     } else if (nHeight == 1) {
-        return 16400000 * COIN;
+        nSubsidy = 16400000 * COIN;
     } else if (nHeight >= 2 && nHeight <= 125146) {
-        return 23 * COIN;
-    /** cevap
-     * info: DGW startheight, we will let make 0 reward + 0.01 Ion fee for 1 day (1440 blocks)
-     * Current block: 541267
-     */
+        nSubsidy = 23 * COIN;
     } else if (nHeight > 125146 && nHeight <= Params().DGWStartHeight()) {
-        return 17 * COIN;
+        nSubsidy = 17 * COIN;
     } else if (nHeight > Params().DGWStartHeight() && nHeight <= Params().DGWStartHeight() + 1440) {
-        return 0.02 * COIN;
+        nSubsidy = 0.02 * COIN;
     } else if (nHeight > Params().DGWStartHeight() + 1440 && nHeight <= 570062) { // 568622 + 1440 = 570062
-        return 17 * COIN;
+        nSubsidy = 17 * COIN;
     } else if (nHeight > 570062 && nHeight <= 1013538) {    // 568622+1440=570062   1012098+1440=1013538
-        return 11.5 * COIN;
+        nSubsidy = 11.5 * COIN;
     } else if (nHeight > 1013538 && nHeight <= 4167138) {    // phase 4-9
-        return 5.75 * COIN;
+        nSubsidy = 5.75 * COIN;
     } else if (nHeight > 4167138 && nHeight <= 4692738) {    // phase 10
-        return 1.9 * COIN;
-    } else if (nHeight > 3677390 && Params().NetworkID() == CBaseChainParams::TESTNET) {
-        return 0.925 * COIN;
-    } else if (nHeight > 3677390 && Params().NetworkID() == CBaseChainParams::REGTEST) {
-        return 17 * COIN;
+        nSubsidy = 1.9 * COIN;
     } else {
-        return 0.02 * COIN;
+        nSubsidy = 0.02 * COIN;
     }
 
     return nSubsidy;
@@ -3035,6 +3020,8 @@ static int64_t nTimeTotal = 0;
 
 bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& view, bool fJustCheck, bool fAlreadyChecked)
 {
+    bool rejectBlockExclusion = false;
+
     AssertLockHeld(cs_main);
     // Check it again in case a previous version let a bad block in
     if (!fAlreadyChecked && !CheckBlock(block, state, !fJustCheck, !fJustCheck))
@@ -3056,37 +3043,24 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     // Ion accepts PoS during PoW phase
     if (block.IsProofOfStake()) {
 
-	if (Params().NetworkID() == CBaseChainParams::MAIN) {
-
-		if (pindex->nHeight <= 454)
-		    return state.DoS(100, error("ConnectBlock() : PoS period not active"),
-		        REJECT_INVALID, "PoS-early");
-
-        } else if (Params().NetworkID() == CBaseChainParams::TESTNET) {
-
-            if (pindex->nHeight <= 300) {
-
-                if (pindex->nHeight <= 72)
-                    return state.DoS(100, error("ConnectBlock() : PoS period not active"),
-                    REJECT_INVALID, "PoS-early");
-            }
-
+    if (Params().NetworkID() == CBaseChainParams::MAIN && pindex->nHeight <= 454) {
+        if (pindex->nHeight <= Params().LAST_POW_BLOCK() && block.IsProofOfStake()) {
+                rejectBlockExclusion = true;
+        /* fix for old chain, not required anymore and **TODO** should be removed, as well as current comment
+         * Pass block 212,213,.... as it is PoW block despite of last PoW Block starting before
+        //} else if (Params().NetworkID() == CBaseChainParams::TESTNET && pindex->nHeight > Params().LAST_POW_BLOCK() && block.IsProofOfWork() && pindex->nHeight >= Params().Zerocoin_StartHeight()) {
+        //        rejectBlockExclusion = true;
+        */
         }
     }
 
-    
-    // Pass block 212,213,.... as it is PoW block despite of laste PoW Block starting before
-    if (pindex->nHeight > Params().LAST_POW_BLOCK() && block.IsProofOfWork()) {
-        if ( CBaseChainParams::TESTNET) {
-            // CEVAP: Testnet has PoW blocks after PoW End height, we set blockheight where client from new sources was released
-            if (pindex->nHeight >= Params().Zerocoin_StartHeight()) {
-                return state.DoS(100, error("ConnectBlock() : PoW period ended"),
-                    REJECT_INVALID, "PoW-ended");
-            }
-        } else {
-            return state.DoS(100, error("ConnectBlock() : PoW period ended"),
-                REJECT_INVALID, "PoW-ended");
-        }
+    if (pindex->nHeight <= Params().LAST_POW_BLOCK() && block.IsProofOfStake() && rejectBlockExclusion == false)
+        return state.DoS(100, error("ConnectBlock() : PoS period not active"),
+            REJECT_INVALID, "PoS-early");
+
+    if (pindex->nHeight > Params().LAST_POW_BLOCK() && block.IsProofOfWork())
+        return state.DoS(100, error("ConnectBlock() : PoW period ended"),
+            REJECT_INVALID, "PoW-ended");
     }
 
     bool fScriptChecks = pindex->nHeight >= Checkpoints::GetTotalBlocksEstimate();
@@ -3293,14 +3267,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     //Check that the block does not overmint
     if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint) && Params().NetworkID() != CBaseChainParams::REGTEST ) {
-        /*
-         **TODO** - Temp fix of ERROR: ConnectBlock() : reward pays too much (actual=23.00 vs limit=0.00) 
-        */
-        if (Params().NetworkID() != CBaseChainParams::TESTNET &&  pindex->nMint <= 20000) {
-            return state.DoS(100, error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s)",
-                                        FormatMoney(pindex->nMint), FormatMoney(nExpectedMint)),
-                            REJECT_INVALID, "bad-cb-amount");
-        }
+        return state.DoS(100, error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s)",
+                                    FormatMoney(pindex->nMint), FormatMoney(nExpectedMint)),
+                        REJECT_INVALID, "bad-cb-amount");
     }
 
     // Ensure that accumulator checkpoints are valid and in the same state as this instance of the chain
@@ -4215,7 +4184,7 @@ bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, bool f
 
     // Version 4 header must be used after Params().Zerocoin_StartHeight(). And never before.
     if (block.GetBlockTime() > Params().Zerocoin_StartTime()) {
-        if(block.nVersion < Params().Zerocoin_HeaderVersion() && Params().NetworkID() != CBaseChainParams::REGTEST && Params().NetworkID() != CBaseChainParams::TESTNET)
+        if(block.nVersion < Params().Zerocoin_HeaderVersion() && Params().NetworkID() != CBaseChainParams::REGTEST)
             return state.DoS(50, error("CheckBlockHeader() : block version must be above 4 after ZerocoinStartHeight"),
             REJECT_INVALID, "block-version");
     } else {
