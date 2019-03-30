@@ -3152,7 +3152,8 @@ bool CWallet::CreateCoinStake(
     }
 
     if (listInputs.empty()) {
-        LogPrintf("CreateCoinStake(): listInputs empty\n");
+        LogPrint("staking", "CreateCoinStake(): listInputs empty\n");
+        MilliSleep(50000);
         return false;
     }
 
@@ -3254,6 +3255,8 @@ bool CWallet::CreateCoinStake(
         if (fKernelFound)
             break; // if kernel is found stop searching
     }
+    LogPrint("staking", "%s: attempted staking %d times\n", __func__, nAttempts);
+
     if (!fKernelFound)
         return false;
 
@@ -5156,6 +5159,11 @@ bool CWallet::CreateZerocoinSpendTransaction(CAmount nValue, int nSecurityLevel,
 
             //hash with only the output info in it to be used in Signature of Knowledge
             uint256 hashTxOut = txNew.GetHash();
+
+            CBlockIndex* pindexCheckpoint = nullptr;
+            std::map<CBigNum, CZerocoinMint> mapSelectedMints;
+            for (const CZerocoinMint& mint : vSelectedMints)
+                mapSelectedMints.insert(std::make_pair(mint.GetValue(), mint));
 
             //add all of the mints to the transaction as inputs
             for (CZerocoinMint mint : vSelectedMints) {
