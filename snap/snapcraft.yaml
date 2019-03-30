@@ -1,6 +1,6 @@
 # Copyright (c) 2018-2019 The Ion developers
 name: ioncore
-version: 3.2.00
+version: 3.2.99
 summary:   gaming related peer-to-peer network based digital currency
 description: |
   [Ion Core](https://github.com/ioncoincore/ion) is an [MIT licensed](https://github.com/cevap/ion/blob/master/LICENSE),
@@ -41,7 +41,7 @@ description: |
   - [Testing Report](https://github.com/ioncoincore/ion/issues/new?assignees=&labels=Testing&template=testing-report.md&title=Test+Report+%5BBuild%5D+%5BOS%5D)
      Document Testing and Results  
 
-grade: stable
+grade: devel
 confinement: strict
 icon: src/qt/res/src/ion.svg
 apps:
@@ -86,7 +86,7 @@ parts:
   ion:
     source: https://github.com/ioncoincore/ion
     source-type: git
-    source-tag: v3.2.00
+    source-tag: master
     plugin: nil
     override-build: |
       WRAP_DIR=$HOME/wrapped
