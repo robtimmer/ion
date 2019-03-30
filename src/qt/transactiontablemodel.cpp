@@ -79,13 +79,8 @@ public:
         {
             LOCK2(cs_main, wallet->cs_wallet);
             for (std::map<uint256, CWalletTx>::iterator it = wallet->mapWallet.begin(); it != wallet->mapWallet.end(); ++it) {
-                if (TransactionRecord::showTransaction(it->second)) {
-                    std::vector<TransactionRecord> vRecs = TransactionRecord::decomposeTransaction(wallet, it->second);
-                    QList<TransactionRecord> QLRecs;
-                    QLRecs.reserve(vRecs.size());
-                    std::copy(vRecs.begin(), vRecs.end(), std::back_inserter(QLRecs));
-                    cachedWallet.append(QLRecs);
-                }
+                if (TransactionRecord::showTransaction(it->second))
+                    cachedWallet.append(TransactionRecord::decomposeTransaction(wallet, it->second));
             }
         }
     }
@@ -134,11 +129,8 @@ public:
                     break;
                 }
                 // Added -- insert at the right position
-                std::vector<TransactionRecord> vToInsert = TransactionRecord::decomposeTransaction(wallet, mi->second);
-                QList<TransactionRecord> toInsert;
-                toInsert.reserve(vToInsert.size());
-                std::copy(vToInsert.begin(), vToInsert.end(), std::back_inserter(toInsert));
-
+                QList<TransactionRecord> toInsert =
+                    TransactionRecord::decomposeTransaction(wallet, mi->second);
                 if (!toInsert.isEmpty()) /* only if something to insert */
                 {
                     parent->beginInsertRows(QModelIndex(), lowerIndex, lowerIndex + toInsert.size() - 1);
@@ -565,7 +557,7 @@ QVariant TransactionTableModel::data(const QModelIndex& index, int role) const
         case Status:
             return QString::fromStdString(rec->status.sortKey);
         case Date:
-            return qint64(rec->time);
+            return rec->time;
         case Type:
             return formatTxType(rec);
         case Watchonly:
@@ -624,7 +616,7 @@ QVariant TransactionTableModel::data(const QModelIndex& index, int role) const
     case AmountRole:
         return qint64(rec->credit + rec->debit);
     case TxIDRole:
-        return QString::fromStdString(rec->getTxID());
+        return rec->getTxID();
     case TxHashRole:
         return QString::fromStdString(rec->hash.ToString());
     case ConfirmedRole:

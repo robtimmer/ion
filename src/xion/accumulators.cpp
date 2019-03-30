@@ -2,14 +2,14 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "accumulators.h"
-#include "accumulatormap.h"
+#include "xion/accumulators.h"
+#include "xion/accumulatormap.h"
 #include "chainparams.h"
 #include "main.h"
 #include "txdb.h"
 #include "init.h"
 #include "spork.h"
-#include "accumulatorcheckpoints.h"
+#include "xion/accumulatorcheckpoints.h"
 #include "xionchain.h"
 #include "tinyformat.h"
 
@@ -504,7 +504,6 @@ int SearchMintHeightOf(CBigNum value){
 
 void AccumulateRange(CoinWitnessData* coinWitness, int nHeightEnd)
 {
-    bool fDoubleCounted = false;
     int64_t nTimeStart = GetTimeMicros();
     int nHeightStart = std::max(coinWitness->nHeightAccStart, coinWitness->nHeightAccEnd + 1);
     CBlockIndex* pindex = chainActive[nHeightStart];
@@ -513,13 +512,6 @@ void AccumulateRange(CoinWitnessData* coinWitness, int nHeightEnd)
     while (pindex && pindex->nHeight <= nHeightEnd) {
         coinWitness->nMintsAdded += AddBlockMintsToAccumulator(coinWitness, pindex, true);
         coinWitness->nHeightAccEnd = pindex->nHeight;
-
-        // 10 blocks were accumulated twice when xION v2 was activated
-        if (pindex->nHeight == Params().Zerocoin_Block_Double_Accumulated() + 10 && !fDoubleCounted) {
-            pindex = chainActive[Params().Zerocoin_Block_Double_Accumulated()];
-            fDoubleCounted = true;
-            continue;
-        }
 
         pindex = chainActive.Next(pindex);
     }
@@ -613,7 +605,6 @@ bool calculateAccumulatedBlocksFor(
         list<CBigNum>& ret,
         string& strError
 ){
-    bool fDoubleCounted = false;
     int nMintsAdded = 0;
     while (pindex) {
 
@@ -633,13 +624,6 @@ bool calculateAccumulatedBlocksFor(
         }
 
         nMintsAdded += AddBlockMintsToAccumulator(den, filter, pindex, &witnessAccumulator, true, ret);
-
-        // 10 blocks were accumulated twice when xION v2 was activated
-        if (pindex->nHeight == 1050010 && !fDoubleCounted) {
-            pindex = chainActive[1050000];
-            fDoubleCounted = true;
-            continue;
-        }
 
         pindex = chainActive.Next(pindex);
     }
@@ -670,7 +654,6 @@ bool calculateAccumulatedBlocksFor(
 ){
 
     int amountOfScannedBlocks = 0;
-    bool fDoubleCounted = false;
     int nMintsAdded = 0;
     while (pindex) {
 
@@ -691,13 +674,6 @@ bool calculateAccumulatedBlocksFor(
 
         // Add it
         nMintsAdded += AddBlockMintsToAccumulator(coin, nHeightMintAdded, pindex, &witnessAccumulator, true);
-
-        // 10 blocks were accumulated twice when xION v2 was activated
-        if (pindex->nHeight == 1050010 && !fDoubleCounted) {
-            pindex = chainActive[1050000];
-            fDoubleCounted = true;
-            continue;
-        }
 
         amountOfScannedBlocks++;
         pindex = chainActive.Next(pindex);
@@ -928,4 +904,62 @@ map<CoinDenomination, int> GetMintMaturityHeight()
         mapRet.insert(make_pair(denom, mapDenomMaturity.at(denom).second));
 
     return mapRet;
+}
+
+//Generate checkpoint value for a specific block height, starting with an empty accumulator
+bool CalculateAccumulatorCheckpointWithoutDB(int nHeight, uint256& nCheckpoint, AccumulatorMap& mapAccumulators)
+{
+    if (nHeight < Params().Zerocoin_StartHeight()) {
+        nCheckpoint = 0;
+        return true;
+    }
+
+    mapAccumulators.Reset();
+
+    //Whether this should filter out invalid/fraudulent outpoints
+    bool fFilterInvalid = nHeight >= Params().Zerocoin_Block_RecalculateAccumulators();
+
+    //Accumulate all coins over the full zerocoin period
+    int nTotalMintsFound = 0;
+    CBlockIndex *pindex = chainActive[Params().Zerocoin_StartHeight()];
+
+    while (pindex->nHeight < nHeight) {
+        // checking whether we should stop this process due to a shutdown request
+        if (ShutdownRequested())
+            return false;
+
+        //make sure this block is eligible for accumulation
+        if (pindex->nHeight < Params().Zerocoin_StartHeight()) {       
+            pindex = chainActive[pindex->nHeight + 1];
+            continue;
+        }
+
+        //grab mints from this block
+        CBlock block;
+        if(!ReadBlockFromDisk(block, pindex))
+            return error("%s: failed to read block from disk", __func__);
+
+        std::list<PublicCoin> listPubcoins;
+        if (!BlockToPubcoinList(block, listPubcoins, fFilterInvalid))
+            return error("%s: failed to get zerocoin mintlist from block %d", __func__, pindex->nHeight);
+
+        nTotalMintsFound += listPubcoins.size();
+        LogPrint("zero", "%s found %d mints\n", __func__, listPubcoins.size());
+
+        //add the pubcoins to accumulator
+        for (const PublicCoin pubcoin : listPubcoins) {
+            if(!mapAccumulators.Accumulate(pubcoin, true))
+                return error("%s: failed to add pubcoin to accumulator at height %d", __func__, pindex->nHeight);
+        }
+        pindex = chainActive.Next(pindex);
+    }
+
+    // if there were no new mints found, the accumulator checkpoint will be zero
+    if (nTotalMintsFound == 0)
+        nCheckpoint = 0;
+    else
+        nCheckpoint = mapAccumulators.GetCheckpoint();
+
+    LogPrint("zero", "%s checkpoint=%s\n", __func__, nCheckpoint.GetHex());
+    return true;
 }

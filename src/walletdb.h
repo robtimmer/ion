@@ -12,11 +12,10 @@
 #include "db.h"
 #include "key.h"
 #include "keystore.h"
-#include "primitives/zerocoin.h"
+#include "xion/zerocoin.h"
 #include "libzerocoin/Accumulator.h"
 #include "libzerocoin/Denominations.h"
-#include "script/standard.h"
-#include "xiontracker.h"
+#include "xion/xiontracker.h"
 
 #include <list>
 #include <stdint.h>
@@ -26,6 +25,7 @@
 
 class CAccount;
 class CAccountingEntry;
+class CBitcoinAddress;
 struct CBlockLocator;
 class CKeyPool;
 class CMasterKey;
@@ -103,8 +103,8 @@ public:
     bool WriteCryptedKey(const CPubKey& vchPubKey, const std::vector<unsigned char>& vchCryptedSecret, const CKeyMetadata& keyMeta);
     bool WriteMasterKey(unsigned int nID, const CMasterKey& kMasterKey);
 
-    bool WriteAutoConvertKey(const CTxDestination& dest);
-    void LoadAutoConvertKeys(std::set<CTxDestination>& setDestinations);
+    bool WriteAutoConvertKey(const CBitcoinAddress& btcAddress);
+    void LoadAutoConvertKeys(std::set<CBitcoinAddress>& setAddresses);
 
     bool WriteCScript(const uint160& hash, const CScript& redeemScript);
 
@@ -191,6 +191,12 @@ public:
     std::map<uint256, std::vector<pair<uint256, uint32_t> > > MapMintPool();
     bool WriteMintPoolPair(const uint256& hashMasterSeed, const uint256& hashPubcoin, const uint32_t& nCount);
 
+    void LoadPrecomputes(std::list<std::pair<uint256, CoinWitnessCacheData> >& itemList, std::map<uint256, list<std::pair<uint256, CoinWitnessCacheData> >::iterator>& itemMap);
+    void LoadPrecomputes(set<uint256> setHashes);
+    void EraseAllPrecomputes();
+    bool WritePrecompute(const uint256& hash, const CoinWitnessCacheData& data);
+    bool ReadPrecompute(const uint256& hash, CoinWitnessCacheData& data);
+    bool ErasePrecompute(const uint256& hash);
 
 private:
     CWalletDB(const CWalletDB&);

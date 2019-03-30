@@ -8,7 +8,7 @@
 
 #include "walletdb.h"
 
-#include "dstencode.h"
+#include "base58.h"
 #include "protocol.h"
 #include "serialize.h"
 #include "sync.h"
@@ -16,13 +16,12 @@
 #include "util.h"
 #include "utiltime.h"
 #include "wallet.h"
-#include <primitives/deterministicmint.h>
+#include <xion/deterministicmint.h>
 
 #include <boost/filesystem.hpp>
 #include <boost/foreach.hpp>
 #include <boost/scoped_ptr.hpp>
 #include <boost/thread.hpp>
-#include <boost/variant/get.hpp>
 #include <fstream>
 
 using namespace boost;
@@ -72,18 +71,17 @@ bool CWalletDB::EraseTx(uint256 hash)
     return Erase(std::make_pair(std::string("tx"), hash));
 }
 
-bool CWalletDB::WriteAutoConvertKey(const CTxDestination& dest)
+bool CWalletDB::WriteAutoConvertKey(const CBitcoinAddress& btcAddress)
 {
-    if (!IsValidDestination(dest))
+    CKeyID keyID;
+    if (!btcAddress.GetKeyID(keyID))
         return false;
-    if (const CKeyID* keyID = boost::get<CKeyID>(&dest))
-        return Write(std::make_pair(std::string("automint"), *keyID), EncodeDestination(dest));
-    else return false;
+    return Write(std::make_pair(std::string("automint"), keyID), btcAddress.ToString());
 }
 
-void CWalletDB::LoadAutoConvertKeys(std::set<CTxDestination>& setDestinations)
+void CWalletDB::LoadAutoConvertKeys(std::set<CBitcoinAddress>& setAddresses)
 {
-    setDestinations.clear();
+    setAddresses.clear();
     Dbc* pcursor = GetCursor();
     if (!pcursor)
         throw runtime_error(std::string(__func__)+" : cannot create DB cursor");
@@ -120,7 +118,7 @@ void CWalletDB::LoadAutoConvertKeys(std::set<CTxDestination>& setDestinations)
 
         std::string strAddress;
         ssValue >> strAddress;
-        setDestinations.emplace(DecodeDestination(strAddress));
+        setAddresses.emplace(strAddress);
     }
 
     pcursor->close();
@@ -485,11 +483,11 @@ bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CW
         if (strType == "name") {
             string strAddress;
             ssKey >> strAddress;
-            ssValue >> pwallet->mapAddressBook[DecodeDestination(strAddress)].name;
+            ssValue >> pwallet->mapAddressBook[CBitcoinAddress(strAddress).Get()].name;
         } else if (strType == "purpose") {
             string strAddress;
             ssKey >> strAddress;
-            ssValue >> pwallet->mapAddressBook[DecodeDestination(strAddress)].purpose;
+            ssValue >> pwallet->mapAddressBook[CBitcoinAddress(strAddress).Get()].purpose;
         } else if (strType == "tx") {
             uint256 hash;
             ssKey >> hash;
@@ -687,8 +685,7 @@ bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CW
             ssKey >> i;
             std::pair<std::string, int> pMultiSend;
             ssValue >> pMultiSend;
-            CTxDestination destination = DecodeDestination(pMultiSend.first);
-            if (IsValidDestination(destination)) {
+            if (CBitcoinAddress(pMultiSend.first).IsValid()) {
                 pwallet->vMultiSend.push_back(pMultiSend);
             }
         } else if (strType == "msettingsv2") //presstab HyperStake
@@ -713,7 +710,7 @@ bool ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue, CW
             ssKey >> strAddress;
             ssKey >> strKey;
             ssValue >> strValue;
-            if (!pwallet->LoadDestData(DecodeDestination(strAddress), strKey, strValue)) {
+            if (!pwallet->LoadDestData(CBitcoinAddress(strAddress).Get(), strKey, strValue)) {
                 strErr = "Error reading wallet database: LoadDestData failed";
                 return false;
             }
@@ -1379,6 +1376,112 @@ bool CWalletDB::ReadXIONCount(uint32_t& nCount)
 bool CWalletDB::WriteMintPoolPair(const uint256& hashMasterSeed, const uint256& hashPubcoin, const uint32_t& nCount)
 {
     return Write(make_pair(string("mintpool"), hashPubcoin), make_pair(hashMasterSeed, nCount));
+}
+
+void CWalletDB::LoadPrecomputes(std::list<std::pair<uint256, CoinWitnessCacheData> >& itemList, std::map<uint256, list<std::pair<uint256, CoinWitnessCacheData> >::iterator>& itemMap)
+{
+
+    Dbc* pcursor = GetCursor();
+    if (!pcursor)
+        throw runtime_error(std::string(__func__)+" : cannot create DB cursor");
+    unsigned int fFlags = DB_SET_RANGE;
+    for (;;)
+    {
+        // Read next record
+        CDataStream ssKey(SER_DISK, CLIENT_VERSION);
+        if (fFlags == DB_SET_RANGE)
+            ssKey << make_pair(string("precompute"), uint256(0));
+        CDataStream ssValue(SER_DISK, CLIENT_VERSION);
+        int ret = ReadAtCursor(pcursor, ssKey, ssValue, fFlags);
+        fFlags = DB_NEXT;
+        if (ret == DB_NOTFOUND)
+            break;
+        else if (ret != 0)
+        {
+            pcursor->close();
+            throw runtime_error(std::string(__func__)+" : error scanning precompute DB");
+        }
+
+        // Unserialize
+        string strType;
+        ssKey >> strType;
+        if (strType != "precompute")
+            break;
+
+        uint256 hash;
+        ssKey >> hash;
+
+        CoinWitnessCacheData cacheData;
+        ssValue >> cacheData;
+
+        itemList.push_front(std::make_pair(hash, cacheData));
+        itemMap.insert(make_pair(hash, itemList.begin()));
+
+        if (itemMap.size() == PRECOMPUTE_LRU_CACHE_SIZE)
+            break;
+    }
+
+    pcursor->close();
+}
+
+void CWalletDB::LoadPrecomputes(set<uint256> setHashes)
+{
+    Dbc* pcursor = GetCursor();
+    if (!pcursor)
+        throw runtime_error(std::string(__func__)+" : cannot create DB cursor");
+    unsigned int fFlags = DB_SET_RANGE;
+    for (;;)
+    {
+        // Read next record
+        CDataStream ssKey(SER_DISK, CLIENT_VERSION);
+        if (fFlags == DB_SET_RANGE)
+            ssKey << make_pair(string("precompute"), uint256(0));
+        CDataStream ssValue(SER_DISK, CLIENT_VERSION);
+        int ret = ReadAtCursor(pcursor, ssKey, ssValue, fFlags);
+        fFlags = DB_NEXT;
+        if (ret == DB_NOTFOUND)
+            break;
+        else if (ret != 0)
+        {
+            pcursor->close();
+            throw runtime_error(std::string(__func__)+" : error scanning precompute DB");
+        }
+
+        // Unserialize
+        string strType;
+        ssKey >> strType;
+        if (strType != "precompute")
+            break;
+
+        uint256 hash;
+        ssKey >> hash;
+
+        setHashes.insert(hash);
+    }
+
+    pcursor->close();
+}
+
+void CWalletDB::EraseAllPrecomputes()
+{
+    set<uint256> setHashes;
+    LoadPrecomputes(setHashes);
+
+    for (auto hash : setHashes)
+        ErasePrecompute(hash);
+}
+
+bool CWalletDB::WritePrecompute(const uint256& hash, const CoinWitnessCacheData& data)
+{
+    return Write(make_pair(string("precompute"), hash), data);
+}
+bool CWalletDB::ReadPrecompute(const uint256& hash, CoinWitnessCacheData& data)
+{
+    return Read(make_pair(string("precompute"), hash), data);
+}
+bool CWalletDB::ErasePrecompute(const uint256& hash)
+{
+    return Erase(make_pair(string("precompute"), hash));
 }
 
 //! map with hashMasterSeed as the key, paired with vector of hashPubcoins and their count

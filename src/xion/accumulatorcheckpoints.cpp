@@ -1,10 +1,9 @@
 // Copyright (c) 2018 The PIVX developers
-// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "accumulatorcheckpoints.h"
-#include "accumulatorcheckpoints.json.h"
+#include "xion/accumulatorcheckpoints.h"
+#include "xion/accumulatorcheckpoints.json.h"
 
 namespace AccumulatorCheckpoints
 {

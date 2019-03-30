@@ -1,17 +1,17 @@
 // Copyright (c) 2018 The PIVX developers
-// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <primitives/deterministicmint.h>
-#include "xiontracker.h"
+#include <xion/deterministicmint.h>
+#include "xion/xiontracker.h"
 #include "util.h"
 #include "sync.h"
 #include "main.h"
 #include "txdb.h"
 #include "walletdb.h"
-#include "xionwallet.h"
-#include "accumulators.h"
+#include "xion/accumulators.h"
+#include "xion/xionwallet.h"
+#include "witness.h"
 
 using namespace std;
 
@@ -106,6 +106,29 @@ bool CxIONTracker::GetMetaFromStakeHash(const uint256& hashStake, CMintMeta& met
             meta = it.second;
             return true;
         }
+    }
+
+    return false;
+}
+
+CoinWitnessData* CxIONTracker::GetSpendCache(const uint256& hashStake)
+{
+    AssertLockHeld(cs_spendcache);
+    if (!mapStakeCache.count(hashStake)) {
+        std::unique_ptr<CoinWitnessData> uptr(new CoinWitnessData());
+        mapStakeCache.insert(std::make_pair(hashStake, std::move(uptr)));
+        return mapStakeCache.at(hashStake).get();
+    }
+
+    return mapStakeCache.at(hashStake).get();
+}
+
+bool CxIONTracker::ClearSpendCache()
+{
+    AssertLockHeld(cs_spendcache);
+    if (!mapStakeCache.empty()) {
+        mapStakeCache.clear();
+        return true;
     }
 
     return false;

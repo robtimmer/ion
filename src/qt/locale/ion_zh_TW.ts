@@ -557,8 +557,8 @@
         <translation>Tabs 工具列</translation>
     </message>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
         <source>Send coins to a ION address</source>
@@ -577,12 +577,12 @@
         <translation>瀏覽 Masternodes</translation>
     </message>
     <message>
-        <source>&amp;About Ion Core</source>
-        <translation>&amp;關於 Ion Core</translation>
+        <source>&amp;About ION Core</source>
+        <translation>&amp;關於 ION Core</translation>
     </message>
     <message>
-        <source>Show information about Ion Core</source>
-        <translation>顯示 Ion Core 相關資訊</translation>
+        <source>Show information about ION Core</source>
+        <translation>顯示 ION Core 相關資訊</translation>
     </message>
     <message>
         <source>Modify configuration options for ION</source>
@@ -637,12 +637,12 @@
         <translation>區塊鏈瀏覽視窗</translation>
     </message>
     <message>
-        <source>Show the Ion Core help message to get a list with possible ION command-line options</source>
-        <translation>顯示 Ion Core 幫助訊息以取得 ION 命令列表選項</translation>
+        <source>Show the ION Core help message to get a list with possible ION command-line options</source>
+        <translation>顯示 ION Core 幫助訊息以取得 ION 命令列表選項</translation>
     </message>
     <message>
-        <source>Ion Core client</source>
-        <translation>Ion Core 客戶端</translation>
+        <source>ION Core client</source>
+        <translation>ION Core 客戶端</translation>
     </message>
     </context>
 <context>
@@ -669,17 +669,20 @@
     <name>FreespaceChecker</name>
     </context>
 <context>
+    <name>GovernancePage</name>
+    </context>
+<context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     </context>
 <context>
     <name>Intro</name>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     </context>
 <context>
@@ -749,7 +752,14 @@
     </message>
     </context>
 <context>
+    <name>ProposalFrame</name>
+    </context>
+<context>
     <name>QObject</name>
+    <message>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
+    </message>
     </context>
 <context>
     <name>QRImageWidget</name>
@@ -780,6 +790,10 @@
     <message>
         <source>Label</source>
         <translation>標記</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>位址</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -893,8 +907,8 @@
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     </context>
 <context>

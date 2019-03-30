@@ -1,5 +1,4 @@
 // Copyright (c) 2017-2018 The PIVX developers
-// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +9,7 @@
 #include "libzerocoin/Coin.h"
 #include "mintpool.h"
 #include "uint256.h"
-#include "primitives/zerocoin.h"
+#include "zerocoin.h"
 
 class CDeterministicMint;
 

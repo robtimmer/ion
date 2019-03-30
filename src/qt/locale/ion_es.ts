@@ -267,7 +267,7 @@
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt + A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -275,7 +275,7 @@
     </message>
     <message>
         <source>Alt+P</source>
-        <translation>Alt + P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>Passphrase: </source>
@@ -608,10 +608,6 @@
         <source>&amp;Command-line options</source>
         <translation>&amp;Opciones de linea de comandos</translation>
     </message>
-    <message numerus="yes">
-        <source>Processed %n blocks of transaction history.</source>
-        <translation><numerusform>Procesados %n bloques del histórico de transacciones.</numerusform><numerusform>Procesados %n bloques del histórico de transacciones.</numerusform></translation>
-    </message>
     <message>
         <source>Synchronizing additional data: %p%</source>
         <translation>Sincronizando datos adicionales: %p%</translation>
@@ -645,8 +641,8 @@
         <translation>Herramienta de pestañas</translation>
     </message>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
         <source>Send coins to a ION address</source>
@@ -669,12 +665,12 @@
         <translation>Explorar masternodes</translation>
     </message>
     <message>
-        <source>&amp;About Ion Core</source>
-        <translation>&amp;Sobre Ion Core</translation>
+        <source>&amp;About ION Core</source>
+        <translation>&amp;Sobre ION Core</translation>
     </message>
     <message>
-        <source>Show information about Ion Core</source>
-        <translation>Mostrar información sobre Ion Core</translation>
+        <source>Show information about ION Core</source>
+        <translation>Mostrar información sobre ION Core</translation>
     </message>
     <message>
         <source>Modify configuration options for ION</source>
@@ -729,16 +725,12 @@
         <translation>Ventana del explorador de bloques</translation>
     </message>
     <message>
-        <source>Show the Ion Core help message to get a list with possible ION command-line options</source>
-        <translation>Mostrar la ayuda de Ion Core para obtener una lista de posibles opciones en línea de comandos</translation>
+        <source>Show the ION Core help message to get a list with possible ION command-line options</source>
+        <translation>Mostrar la ayuda de ION Core para obtener una lista de posibles opciones en línea de comandos</translation>
     </message>
     <message>
-        <source>Ion Core client</source>
-        <translation>Cliente Ion Core</translation>
-    </message>
-    <message numerus="yes">
-        <source>%n active connection(s) to ION network</source>
-        <translation><numerusform>%n conexión(es) activas a la red ION</numerusform><numerusform>%n conexión(es) activas a la red ION</numerusform></translation>
+        <source>ION Core client</source>
+        <translation>Cliente ION Core</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -762,7 +754,7 @@
     </message>
     <message numerus="yes">
         <source>%n hour(s)</source>
-        <translation><numerusform>%n horas</numerusform><numerusform>%n horas</numerusform></translation>
+        <translation><numerusform>%n hora</numerusform><numerusform>%n horas</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>%n day(s)</source>
@@ -770,7 +762,7 @@
     </message>
     <message numerus="yes">
         <source>%n week(s)</source>
-        <translation><numerusform>%n semanas</numerusform><numerusform>%n semanas</numerusform></translation>
+        <translation><numerusform>%n semana</numerusform><numerusform>%n semanas</numerusform></translation>
     </message>
     <message>
         <source>%1 and %2</source>
@@ -778,7 +770,7 @@
     </message>
     <message numerus="yes">
         <source>%n year(s)</source>
-        <translation><numerusform>%n años</numerusform><numerusform>%n años</numerusform></translation>
+        <translation><numerusform>%n año</numerusform><numerusform>%n años</numerusform></translation>
     </message>
     <message>
         <source>Catching up...</source>
@@ -864,7 +856,7 @@ MultiEnvío: %1</translation>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>El monedero está &lt;b&gt;encriptado&lt;/b&gt; y actualmente &lt;b&gt;bloqueado&lt;/b&gt;</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>BlockExplorer</name>
     <message>
@@ -892,8 +884,8 @@ MultiEnvío: %1</translation>
         <translation>EtiquetaDeTexto</translation>
     </message>
     <message>
-        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ioncoin.conf).</source>
-        <translation>No se muestran todas las transacciones. Para ver todas las transacciones introduzca la línea "txindex=1" en el archivo de configuración (ioncoin.conf).</translation>
+        <source>Not all transactions will be shown. To view all transactions you need to set txindex=1 in the configuration file (ion.conf).</source>
+        <translation>No se muestran todas las transacciones. Para ver todas las transacciones introduzca la línea "txindex=1" en el archivo de configuración (ion.conf).</translation>
     </message>
 </context>
 <context>
@@ -915,11 +907,11 @@ MultiEnvío: %1</translation>
     </message>
     <message>
         <source>Bytes:</source>
-        <translation>Octetos:</translation>
+        <translation>Bytes:</translation>
     </message>
     <message>
         <source>Amount:</source>
-        <translation>Cantidad:</translation>
+        <translation>Suma:</translation>
     </message>
     <message>
         <source>Priority:</source>
@@ -1225,22 +1217,33 @@ MultiEnvío: %1</translation>
     </message>
 </context>
 <context>
+    <name>GovernancePage</name>
+    <message>
+        <source>Form</source>
+        <translation>Formulario</translation>
+    </message>
+    <message>
+        <source>0</source>
+        <translation>0</translation>
+    </message>
+    </context>
+<context>
     <name>HelpMessageDialog</name>
     <message>
         <source>version</source>
         <translation>versión</translation>
     </message>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
         <translation>(%1-bit)</translation>
     </message>
     <message>
-        <source>About Ion Core</source>
-        <translation>Acerca de Ion Core</translation>
+        <source>About ION Core</source>
+        <translation>Acerca de ION Core</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -1286,16 +1289,16 @@ MultiEnvío: %1</translation>
         <translation>Bienvenido/a</translation>
     </message>
     <message>
-        <source>Welcome to Ion Core.</source>
-        <translation>Bienvenido/a a Ion Core.</translation>
+        <source>Welcome to ION Core.</source>
+        <translation>Bienvenido/a a ION Core.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where Ion Core will store its data.</source>
-        <translation>Al ser la primera vez que se inicia el programa, usted puede elegir dónde guardará Ion Core sus datos.</translation>
+        <source>As this is the first time the program is launched, you can choose where ION Core will store its data.</source>
+        <translation>Al ser la primera vez que se inicia el programa, usted puede elegir dónde guardará ION Core sus datos.</translation>
     </message>
     <message>
-        <source>Ion Core will download and store a copy of the ION block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Ion Core descargará y guardará una copia de la cadena de bloques ION. Por lo menos %1GB de datos serán guardados en esta carpeta, y crecerá con el tiempo. El monedero también se guardará en esta carpeta.</translation>
+        <source>ION Core will download and store a copy of the ION block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>ION Core descargará y guardará una copia de la cadena de bloques ION. Por lo menos %1GB de datos serán guardados en esta carpeta, y crecerá con el tiempo. El monedero también se guardará en esta carpeta.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1306,8 +1309,8 @@ MultiEnvío: %1</translation>
         <translation>Usar una carpeta de datos personalizada:</translation>
     </message>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
@@ -1542,48 +1545,54 @@ MultiEnvío no se activará a menos que haga usted click en Activar</translation
         <translation>(sin etiqueta)</translation>
     </message>
     <message>
-        <source>The entered address:
-</source>
-        <translation>La dirección introducida:
-</translation>
+        <source>MultiSend Active for Stakes and Masternode Rewards</source>
+        <translation>MultiSend Activado para las recompensas de Stakes y Masternode</translation>
     </message>
     <message>
-        <source> is invalid.
+        <source>MultiSend Active for Stakes</source>
+        <translation>MultiSend Activado para Stakes</translation>
+    </message>
+    <message>
+        <source>MultiSend Active for Masternode Rewards</source>
+        <translation>MultiSend Activado para las recompensas de Masternode</translation>
+    </message>
+    <message>
+        <source>MultiSend Not Active</source>
+        <translation>MultiSend Desactivado </translation>
+    </message>
+    <message>
+        <source>The entered address: %1 is invalid.
 Please check the address and try again.</source>
-        <translation>es inválida.
-Por favor compruebe la dirección e inténtelo de nuevo.</translation>
+        <translation>La dirección introducida: %1 es inválida.
+Por favor comprueba la dirección e inténtalo nuevamente.</translation>
     </message>
     <message>
-        <source>The total amount of your MultiSend vector is over 100% of your stake reward
-</source>
-        <translation>La cantidad total de su vector MultiEnvío es superior al 100% de su recompensa de stake
-</translation>
+        <source>The total amount of your MultiSend vector is over 100% of your stake reward</source>
+        <translation>La cantidad total de tu vector de MultiEnvío es superior al 100% de tu recompensa de Stake</translation>
+    </message>
+    <message>
+        <source>Saved the MultiSend to memory, but failed saving properties to the database.</source>
+        <translation>El MultiSend se guardó en la memoria, pero se produjo un error al guardar las propiedades en la base de datos.</translation>
+    </message>
+    <message>
+        <source>MultiSend Vector</source>
+        <translation>Vector de MultiSend</translation>
+    </message>
+    <message>
+        <source>Removed %1</source>
+        <translation>Removido %1</translation>
+    </message>
+    <message>
+        <source>Could not locate address</source>
+        <translation>No se pudo localizar la dirección</translation>
+    </message>
+    <message>
+        <source>Unable to activate MultiSend, check MultiSend vector</source>
+        <translation>No fue posible activar el MultiSend, verifica el vector de MultiSend</translation>
     </message>
     <message>
         <source>Please Enter 1 - 100 for percent.</source>
         <translation>Por favor Introduzca 1 - 100 por ciento.</translation>
-    </message>
-    <message>
-        <source>Saved the MultiSend to memory, but failed saving properties to the database.
-</source>
-        <translation>Se guardó MultiEnvío en la memoria, pero se produjo un error al guardar las propiedades en la base de datos.
-</translation>
-    </message>
-    <message>
-        <source>MultiSend Vector
-</source>
-        <translation>Vector MultiEnvío
-</translation>
-    </message>
-    <message>
-        <source>Removed </source>
-        <translation>Borrado</translation>
-    </message>
-    <message>
-        <source>Could not locate address
-</source>
-        <translation>No se pudo localizar la dirección
-</translation>
     </message>
 </context>
 <context>
@@ -1666,7 +1675,7 @@ Por favor, tenga paciencia después de hacer clic en importar.</translation>
     </message>
     <message>
         <source>Amount:</source>
-        <translation>Cantidad:</translation>
+        <translation>Suma:</translation>
     </message>
     <message>
         <source>Add an input to fund the outputs</source>
@@ -1780,32 +1789,32 @@ Por favor, tenga paciencia después de hacer clic en importar.</translation>
         <translation>Por favor seleccione un nivel de privacidad.</translation>
     </message>
     <message>
-        <source>Use 2 separate masternodes to mix funds up to 10000 ION</source>
-        <translation>Use 2 masterdodes diferentes para mezclar los fondos hasta los 10000 ION</translation>
+        <source>Use 2 separate masternodes to mix funds up to 20000 ION</source>
+        <translation>Use 2 masterdodes diferentes para mezclar los fondos hasta los 20000 ION</translation>
     </message>
     <message>
-        <source>Use 8 separate masternodes to mix funds up to 10000 ION</source>
-        <translation>Use 8 masternodes diferentes para mezclar fondos hasta los 10000 ION</translation>
+        <source>Use 8 separate masternodes to mix funds up to 20000 ION</source>
+        <translation>Use 8 masternodes diferentes para mezclar fondos hasta los 20000 ION</translation>
     </message>
     <message>
         <source>Use 16 separate masternodes</source>
         <translation>Use 16 masternodes diferentes</translation>
     </message>
     <message>
-        <source>This option is the quickest and will cost about ~0.025 ION to anonymize 10000 ION</source>
-        <translation>Esta opción es la más rápida y costará alrededor de ~0.025 ION para anonimizar 10000 ION</translation>
+        <source>This option is the quickest and will cost about ~0.025 ION to anonymize 20000 ION</source>
+        <translation>Esta opción es la más rápida y costará alrededor de ~0.025 ION para anonimizar 20000 ION</translation>
     </message>
     <message>
-        <source>This option is moderately fast and will cost about 0.05 ION to anonymize 10000 ION</source>
-        <translation>Esta opción es moderadamente rápida y costará cerca de 0.05 ION para anonimizar 10000 ION</translation>
+        <source>This option is moderately fast and will cost about 0.05 ION to anonymize 20000 ION</source>
+        <translation>Esta opción es moderadamente rápida y costará cerca de 0.05 ION para anonimizar 20000 ION</translation>
     </message>
     <message>
         <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
         <translation>Esta es la opción más lenta pero más segura. Usar el máximo anonimato costará</translation>
     </message>
     <message>
-        <source>0.1 ION per 10000 ION you anonymize.</source>
-        <translation>0.1 ION por 10000 ION que anonimizas.</translation>
+        <source>0.1 ION per 20000 ION you anonymize.</source>
+        <translation>0.1 ION por 20000 ION que anonimizas.</translation>
     </message>
     <message>
         <source>Obfuscation Configuration</source>
@@ -1939,9 +1948,9 @@ Por favor, tenga paciencia después de hacer clic en importar.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/ioncoincore/ioncoin</source>
+https://www.transifex.com/ion-project/ion-project-translations</source>
         <translation>¿Falta su lenguaje o la traducción está incompleta? Contribuya con las traducciones aquí:
-https://www.transifex.com/ioncoincore/ioncoin</translation>
+https://www.transifex.com/ion-project/ion-project-translations</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -2255,14 +2264,14 @@ Si AutoMint está habilitado, este porcentaje se establecerá alrededor del porc
         <translation>AutoMint está actualmente habilitado y configurado en</translation>
     </message>
     <message>
-        <source>To disable AutoMint add 'enablezeromint=0' in ioncoin.conf.</source>
-        <translation>Para desactivar AutoMint agrega 'enablezeromint=0' en ioncoin.conf.</translation>
+        <source>To disable AutoMint add 'enablezeromint=0' in ion.conf.</source>
+        <translation>Para desactivar AutoMint agrega 'enablezeromint=0' en ion.conf.</translation>
     </message>
     <message>
         <source>AutoMint is currently disabled.
-To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in ioncoin.conf</source>
+To enable AutoMint change 'enablezeromint=0' to 'enablezeromint=1' in ion.conf</source>
         <translation>AutoMint está actualmente desactivado.
-Para habilitar AutoMint cambie 'enablezeromint = 0' a 'enablezeromint = 1' en ioncoin.conf</translation>
+Para habilitar AutoMint cambie 'enablezeromint = 0' a 'enablezeromint = 1' en ion.conf</translation>
     </message>
 </context>
 <context>
@@ -2486,18 +2495,6 @@ xION son maduros cuando tienen más de 20 confirmaciones Y más de 2 mints de la
         <translation>0 xION</translation>
     </message>
     <message>
-        <source>Security Level for Zerocoin Transactions. More is better, but needs more time and resources.</source>
-        <translation>Nivel de Seguridad para Transacciones Zerocoin. Cuanto más mejor, pero necesitará más tiempo y recursos.</translation>
-    </message>
-    <message>
-        <source>Security Level:</source>
-        <translation>Nivel de Seguridad:</translation>
-    </message>
-    <message>
-        <source>Security Level 1 - 100 (default: 42)</source>
-        <translation>Nivel de Seguridad 1 - 100 (por defecto: 42)</translation>
-    </message>
-    <message>
         <source>Pay &amp;To:</source>
         <translation>Pagar &amp;A:</translation>
     </message>
@@ -2531,7 +2528,7 @@ xION son maduros cuando tienen más de 20 confirmaciones Y más de 2 mints de la
     </message>
     <message>
         <source>A&amp;mount:</source>
-        <translation>C&amp;antidad:</translation>
+        <translation>Cantidad:</translation>
     </message>
     <message>
         <source>Convert Change to Zerocoin (might cost additional fees)</source>
@@ -2579,8 +2576,8 @@ Inmaduro: confirmado, pero menos de 1 acuñación de la misma denominación desp
         <source>Show the current status of automatic xION minting.
 
 To change the status (restart required):
-- enable: add 'enablezeromint=1' to ioncoin.conf
-- disable: add 'enablezeromint=0' to ioncoin.conf
+- enable: add 'enablezeromint=1' to ion.conf
+- disable: add 'enablezeromint=0' to ion.conf
 
 To change the percentage (no restart required):
 - menu Settings-&gt;Options-&gt;Percentage of autominted xION
@@ -2589,8 +2586,8 @@ To change the percentage (no restart required):
         <translation>Muestra el estado actual de xION minting automática.
 
 Para cambiar el estado (reinicio requerido):
-- activar: añade 'enablezeromint = 1' en ioncoin.conf
-- desctivar: añade 'enablezeromint = 0' en ioncoin.conf
+- activar: añade 'enablezeromint = 1' en ion.conf
+- desctivar: añade 'enablezeromint = 0' en ion.conf
 
 Para cambiar el porcentaje (no se requiere reiniciar):
 - menú Configuración-&gt;Opciones-&gt;Porcentaje de xION automint
@@ -2718,7 +2715,7 @@ Para cambiar el porcentaje (no se requiere reiniciar):
     </message>
     <message>
         <source>Bytes:</source>
-        <translation>Octetos:</translation>
+        <translation>Bytes:</translation>
     </message>
     <message>
         <source>Insufficient funds!</source>
@@ -2773,14 +2770,6 @@ Para cambiar el porcentaje (no se requiere reiniciar):
 Please be patient...</source>
         <translation>Ejecutando ResetMintZerocoin: reescaneando el blockchain entero, esto necesitará hasta 30 minutos dependiendo de su hardware.
 Por favor espere...</translation>
-    </message>
-    <message>
-        <source>Spending Zerocoin.
-Computationally expensive, might need several minutes depending on the selected Security Level and your hardware.
-Please be patient...</source>
-        <translation>Gastando Zerocoin.
-Esto es computacionalmente intensivo, puede necesitar varios minutos dependiendo del Nivel de Seguridad elegido y el hardware de su máquina.
-Por favor tenga paciencia...</translation>
     </message>
     <message>
         <source>) needed.
@@ -2953,20 +2942,8 @@ Máximo permitido:</translation>
         <translation>a una dirección local recién generada (no utilizada y, por lo tanto, anónima)&lt;br /&gt;</translation>
     </message>
     <message>
-        <source>with Security Level </source>
-        <translation>con Nivel de Seguridad</translation>
-    </message>
-    <message>
         <source>Confirm send coins</source>
         <translation>Confirmar enviar monedas</translation>
-    </message>
-    <message>
-        <source>Version 1 xION require a security level of 100 to successfully spend.</source>
-        <translation>La versión 1 xION requiere un nivel de seguridad de 100 para gastar exitosamente.</translation>
-    </message>
-    <message>
-        <source>Failed to spend xION</source>
-        <translation>Error al enviar xION</translation>
     </message>
     <message>
         <source>Failed to fetch mint associated with serial hash</source>
@@ -2985,11 +2962,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     <message>
         <source>Spend Zerocoin failed with status = </source>
         <translation>Gastar Zerocoin falló con estado =</translation>
-    </message>
-    <message numerus="yes">
-        <source>PrivacyDialog</source>
-        <comment>Enter an amount of ION to convert to xION</comment>
-        <translation><numerusform>PrivacyDialog</numerusform><numerusform>PrivacyDialog</numerusform></translation>
     </message>
     <message>
         <source>denomination: </source>
@@ -3024,6 +2996,9 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>comisión:</translation>
     </message>
 </context>
+<context>
+    <name>ProposalFrame</name>
+    </context>
 <context>
     <name>QObject</name>
     <message>
@@ -3074,7 +3049,11 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <source>%1 ms</source>
         <translation>%1 ms</translation>
     </message>
-</context>
+    <message>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
+    </message>
+    </context>
 <context>
     <name>QRImageWidget</name>
     <message>
@@ -3437,10 +3416,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Confirmar resincronización del Blockchain</translation>
     </message>
     <message>
-        <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
-        <translation>Use las teclas arriba y abajo para navegar por la historia, y &lt;b&gt;Ctrl-L&lt;/b&gt; para limpiar la pantalla.</translation>
-    </message>
-    <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
         <translation>Escriba &lt;b&gt;help&lt;/b&gt; para ver una lista de posibles comandos.</translation>
     </message>
@@ -3512,6 +3487,10 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Una etiqueta opcional a asociar con la nueva dirección de recepción.</translation>
     </message>
     <message>
+        <source>A&amp;mount:</source>
+        <translation>Cantidad:</translation>
+    </message>
+    <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the ION network.</source>
         <translation>Un mensaje opcional a adjuntar a la solicitud de pago, que será mostrado cuando se abra la solicitud. Nota: El mensaje no se envía junto al pago por la red ION.</translation>
     </message>
@@ -3534,10 +3513,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     <message>
         <source>An optional amount to request. Leave this empty or zero to not request a specific amount.</source>
         <translation>Una cantidad opcional a solicitar. Deje esto vacío o en cero para no pedir una cantidad específica.</translation>
-    </message>
-    <message>
-        <source>&amp;Amount:</source>
-        <translation>&amp;Cantidad:</translation>
     </message>
     <message>
         <source>&amp;Request payment</source>
@@ -3582,6 +3557,10 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     <message>
         <source>Copy amount</source>
         <translation>Copiar cantidad</translation>
+    </message>
+    <message>
+        <source>Copy address</source>
+        <translation>Copiar dirección</translation>
     </message>
 </context>
 <context>
@@ -3654,6 +3633,10 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Mensaje</translation>
     </message>
     <message>
+        <source>Address</source>
+        <translation>Dirección</translation>
+    </message>
+    <message>
         <source>Amount</source>
         <translation>Cantidad</translation>
     </message>
@@ -3698,7 +3681,7 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     </message>
     <message>
         <source>Amount:</source>
-        <translation>Cantidad:</translation>
+        <translation>Suma:</translation>
     </message>
     <message>
         <source>Priority:</source>
@@ -3936,10 +3919,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <source>A fee %1 times higher than %2 per kB is considered an insanely high fee.</source>
         <translation>Una comisión %1 veces más alta que %2 por kB se considera exageradamente alta.</translation>
     </message>
-    <message numerus="yes">
-        <source>Estimated to begin confirmation within %n block(s).</source>
-        <translation><numerusform>Estimamos que empezará la confirmación en %n bloques.</numerusform><numerusform>Estimamos que empezará la confirmación en %n bloques.</numerusform></translation>
-    </message>
     <message>
         <source>The recipient address is not valid, please recheck.</source>
         <translation>La dirección de destino no es válida, por favor compruébelo de nuevo.</translation>
@@ -4021,7 +4000,7 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt + A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -4029,7 +4008,7 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     </message>
     <message>
         <source>Alt+P</source>
-        <translation>Alt + P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>Remove this entry</source>
@@ -4079,7 +4058,7 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>Ion Core is shutting down...</source>
+        <source>ION Core is shutting down...</source>
         <translation>El programa ION se está cerrando...</translation>
     </message>
     <message>
@@ -4111,7 +4090,7 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt + A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -4119,7 +4098,7 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     </message>
     <message>
         <source>Alt+P</source>
-        <translation>Alt + P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>Enter the message you want to sign here</source>
@@ -4229,8 +4208,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
         <source>Version %1</source>
@@ -4245,8 +4224,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Los desarrolladores de Dash Core</translation>
     </message>
     <message>
-        <source>The Ion Core developers</source>
-        <translation>Los desarrolladores de Ion Core</translation>
+        <source>The ION Core developers</source>
+        <translation>Los desarrolladores de ION Core</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -4262,10 +4241,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
 </context>
 <context>
     <name>TransactionDesc</name>
-    <message numerus="yes">
-        <source>Open for %n more block(s)</source>
-        <translation><numerusform>Abierto para %n bloques más</numerusform><numerusform>Abierto para %n bloques más</numerusform></translation>
-    </message>
     <message>
         <source>Open until %1</source>
         <translation>Abierto hasta %1</translation>
@@ -4326,10 +4301,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <source>, has not been successfully broadcast yet</source>
         <translation>, no ha sido correctamente transmitida todavía</translation>
     </message>
-    <message numerus="yes">
-        <source>, broadcast through %n node(s)</source>
-        <translation><numerusform>, retransmitido a través de %n nodos</numerusform><numerusform>, retransmitido a través de %n nodos</numerusform></translation>
-    </message>
     <message>
         <source>Date</source>
         <translation>Fecha</translation>
@@ -4369,10 +4340,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     <message>
         <source>Credit</source>
         <translation>Crédito</translation>
-    </message>
-    <message numerus="yes">
-        <source>matures in %n more block(s)</source>
-        <translation><numerusform>madura en %n bloques más</numerusform><numerusform>maduracíon en %n bloques más</numerusform></translation>
     </message>
     <message>
         <source>not accepted</source>
@@ -4472,10 +4439,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <source>Address</source>
         <translation>Dirección</translation>
     </message>
-    <message numerus="yes">
-        <source>Open for %n more block(s)</source>
-        <translation><numerusform>Abierto para %n bloques más</numerusform><numerusform>Abierto para %n bloques más</numerusform></translation>
-    </message>
     <message>
         <source>Open until %1</source>
         <translation>Abierto hasta %1</translation>
@@ -4558,7 +4521,7 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     </message>
     <message>
         <source>Received ION from xION</source>
-        <translation>ION recibidos desde xION </translation>
+        <translation>ION recibidos desde xION</translation>
     </message>
     <message>
         <source>Minted Change as xION from xION Spend</source>
@@ -4878,11 +4841,7 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <source>Select/Deselect All</source>
         <translation>Seleccionar/Deseleccionar Todos</translation>
     </message>
-    <message>
-        <source>Is Spendable</source>
-        <translation>Es Gastable</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>ion-core</name>
     <message>
@@ -4910,8 +4869,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>El punto de chequeo del acumulador que hemos calculado no coincide con lo guardado en el índice de bloques</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. Ion Core is probably already running.</source>
-        <translation>No se puede obtener un bloqueo sobre el directorio de datos %s. Ion Core esta probablemente en ejecución.</translation>
+        <source>Cannot obtain a lock on data directory %s. ION Core is probably already running.</source>
+        <translation>No se puede obtener un bloqueo sobre el directorio de datos %s. ION Core esta probablemente en ejecución.</translation>
     </message>
     <message>
         <source>Change automatic finalized budget voting behavior. mode=auto: Vote for only exact finalized budget match to my generated budget. (string, default: auto)</source>
@@ -5086,20 +5045,20 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Este producto incluye software desarrollado por el Proyecto OpenSSL para uso en OpenSSL Toolkit &lt;https://www.openssl.org/&gt; y software de cifrado escrito por Eric Young y software de UPnP escrito por Thomas Bernard.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. Ion Core is probably already running.</source>
-        <translation>Imposible conectar a %s en esta computadora. Es probable que Ion Core ya este corriendo.</translation>
+        <source>Unable to bind to %s on this computer. ION Core is probably already running.</source>
+        <translation>Imposible conectar a %s en esta computadora. Es probable que ION Core ya este corriendo.</translation>
     </message>
     <message>
         <source>Unable to locate enough Obfuscation denominated funds for this transaction.</source>
         <translation>Imposible localizar suficientes fondos denominados de Ofuscación para esta transacción.</translation>
     </message>
     <message>
-        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 10000 ION.</source>
-        <translation>Imposible localizar suficientes fondos no-denominados de Ofuscación para esta transacción que no es igual a 10000 ION.</translation>
+        <source>Unable to locate enough Obfuscation non-denominated funds for this transaction that are not equal 20000 ION.</source>
+        <translation>Imposible localizar suficientes fondos no-denominados de Ofuscación para esta transacción que no es igual a 20000 ION.</translation>
     </message>
     <message>
-        <source>Unable to locate enough funds for this transaction that are not equal 10000 ION.</source>
-        <translation>Imposible localizar fondos suficientes para esta transacción que no es igual a 10000 ION.</translation>
+        <source>Unable to locate enough funds for this transaction that are not equal 20000 ION.</source>
+        <translation>Imposible localizar fondos suficientes para esta transacción que no es igual a 20000 ION.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
@@ -5114,8 +5073,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Advertencia: -paytxfee esta muy alta! Esta es la comisión de transacción que pagarás si envías una transacción.</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Ion Core will not work properly.</source>
-        <translation>Advertencia: Por favor verifique que la fecha y hora de su computadora sean correctas! Si su reloj esta fuera de hora Ion Core no funcionará adecuadamente.</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong ION Core will not work properly.</source>
+        <translation>Advertencia: Por favor verifique que la fecha y hora de su computadora sean correctas! Si su reloj esta fuera de hora ION Core no funcionará adecuadamente.</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
@@ -5146,8 +5105,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Debes especificar un masternodeprivkey en la configuración. Por favor mira la documentación por ayuda.</translation>
     </message>
     <message>
-        <source>(12700 could be used only on mainnet)</source>
-        <translation>(12700 puede ser utilizado solo en mainnet)</translation>
+        <source>(55002 could be used only on mainnet)</source>
+        <translation>(55002 puede ser utilizado solo en mainnet)</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -5158,8 +5117,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>(predeterminado: 1)</translation>
     </message>
     <message>
-        <source>(must be 12700 for mainnet)</source>
-        <translation>(debe ser 12700 para un mainnet)</translation>
+        <source>(must be 55002 for mainnet)</source>
+        <translation>(debe ser 55002 para un mainnet)</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
@@ -5270,8 +5229,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Copyright (C) 2015-%i The PIVX Core Developers</translation>
     </message>
     <message>
-        <source>Copyright (C) 2018-%i The Ion Core Developers</source>
-        <translation>Copyright (C) 2018-%i The Ion Core Developers</translation>
+        <source>Copyright (C) 2018-%i The ION Core Developers</source>
+        <translation>Copyright (C) 2018-%i The ION Core Developers</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
@@ -5358,8 +5317,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Error al cargar wallet.dat: Monedero dañado</translation>
     </message>
     <message>
-        <source>Error loading wallet.dat: Wallet requires newer version of Ion Core</source>
-        <translation>Error al cargar wallet.dat: El monedero requiere una nueva versión del Ion Core</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of ION Core</source>
+        <translation>Error al cargar wallet.dat: El monedero requiere una nueva versión del ION Core</translation>
     </message>
     <message>
         <source>Error opening block database</source>
@@ -5372,6 +5331,10 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     <message>
         <source>Error recovering public key.</source>
         <translation>Error al recuperar clave pública.</translation>
+    </message>
+    <message>
+        <source>Error writing zerocoinDB to disk</source>
+        <translation>Error al escribir zerocoinDB en el disco</translation>
     </message>
     <message>
         <source>Error</source>
@@ -5408,6 +5371,10 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
     <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
         <translation>Falló la escucha en cualquiera de los puertos. Usar -listen=0 si quieres esto.</translation>
+    </message>
+    <message>
+        <source>Failed to parse host:port string</source>
+        <translation>Error al analizar el host: cadena del puerto</translation>
     </message>
     <message>
         <source>Failed to read block</source>
@@ -5474,8 +5441,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Información</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. Ion Core is shutting down.</source>
-        <translation>La prueba de salud de inicialización ha fallado. Ion Core se cerrará.</translation>
+        <source>Initialization sanity check failed. ION Core is shutting down.</source>
+        <translation>La prueba de salud de inicialización ha fallado. ION Core se cerrará.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
@@ -5686,10 +5653,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Error al acuñar</translation>
     </message>
     <message>
-        <source>Failed to deserialize</source>
-        <translation>Error al deserializar</translation>
-    </message>
-    <message>
         <source>Failed to find Zerocoins in wallet.dat</source>
         <translation>Error al encontrar Zerocoins en wallet.dat</translation>
     </message>
@@ -5758,8 +5721,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Cargando sporks...</translation>
     </message>
     <message>
-        <source>Loading wallet... (%3.1f %%)</source>
-        <translation>Cargando monedero: (%3.1f %%)</translation>
+        <source>Loading wallet... (%3.2f %%)</source>
+        <translation>Cargando monedero: (%3.2f %%)</translation>
     </message>
     <message>
         <source>Loading wallet...</source>
@@ -6130,14 +6093,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>El gasto de moneda se ha usado</translation>
     </message>
     <message>
-        <source>The new spend coin transaction did not verify</source>
-        <translation>La nueva transacción de gasto de moneda no se verificó</translation>
-    </message>
-    <message>
-        <source>The selected mint coin is an invalid coin</source>
-        <translation>La moneda acuñada seleccionada es una moneda no válida</translation>
-    </message>
-    <message>
         <source>The transaction did not verify</source>
         <translation>La transacción no se verificó</translation>
     </message>
@@ -6286,10 +6241,6 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Verificando el monedero...</translation>
     </message>
     <message>
-        <source>Version 1 xION require a security level of 100 to successfully spend.</source>
-        <translation>La versión 1 xION requiere un nivel de seguridad de 100 para gastar exitosamente.</translation>
-    </message>
-    <message>
         <source>Wallet %s resides outside data directory %s</source>
         <translation>El monedero %s esta ubicada fuera del directorio de datos %s</translation>
     </message>
@@ -6298,8 +6249,8 @@ O mint las denominaciones más altas (por lo tanto, se necesitan menos datos) o 
         <translation>Monedero bloqueado.</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart Ion Core to complete</source>
-        <translation>El Monedero necesita ser reescrito: reinicie Ion Core para completar</translation>
+        <source>Wallet needed to be rewritten: restart ION Core to complete</source>
+        <translation>El Monedero necesita ser reescrito: reinicie ION Core para completar</translation>
     </message>
     <message>
         <source>Wallet options:</source>

@@ -1,6 +1,5 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -22,8 +21,9 @@ using namespace std;
 
 void budgetToJSON(CBudgetProposal* pbudgetProposal, UniValue& bObj)
 {
-    CTxDestination address;
-    ExtractDestination(pbudgetProposal->GetPayee(), address);
+    CTxDestination address1;
+    ExtractDestination(pbudgetProposal->GetPayee(), address1);
+    CBitcoinAddress address2(address1);
 
     bObj.push_back(Pair("Name", pbudgetProposal->GetName()));
     bObj.push_back(Pair("URL", pbudgetProposal->GetURL()));
@@ -33,7 +33,7 @@ void budgetToJSON(CBudgetProposal* pbudgetProposal, UniValue& bObj)
     bObj.push_back(Pair("BlockEnd", (int64_t)pbudgetProposal->GetBlockEnd()));
     bObj.push_back(Pair("TotalPaymentCount", (int64_t)pbudgetProposal->GetTotalPaymentCount()));
     bObj.push_back(Pair("RemainingPaymentCount", (int64_t)pbudgetProposal->GetRemainingPaymentCount()));
-    bObj.push_back(Pair("PaymentAddress", EncodeDestination(address)));
+    bObj.push_back(Pair("PaymentAddress", address2.ToString()));
     bObj.push_back(Pair("Ratio", pbudgetProposal->GetRatio()));
     bObj.push_back(Pair("Yeas", (int64_t)pbudgetProposal->GetYeas()));
     bObj.push_back(Pair("Nays", (int64_t)pbudgetProposal->GetNays()));
@@ -173,8 +173,8 @@ UniValue preparebudget(const UniValue& params, bool fHelp)
             "\"xxxx\"       (string) proposal fee hash (if successful) or error message (if failed)\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("preparebudget", "\"test-proposal\" \"https://forum.ioncoin.org/t/test-proposal\" 2 820800 \"g8L9eGfnLAjnvtdS2cyFzR88Q4GNkAvTae\" 500") +
-            HelpExampleRpc("preparebudget", "\"test-proposal\" \"https://forum.ioncoin.org/t/test-proposal\" 2 820800 \"g8L9eGfnLAjnvtdS2cyFzR88Q4GNkAvTae\" 500"));
+            HelpExampleCli("preparebudget", "\"test-proposal\" \"https://forum.ioncoin.xyz/t/test-proposal\" 2 820800 \"D9oc6C3dttUbv8zd7zGNq1qKBGf4ZQ1XEE\" 500") +
+            HelpExampleRpc("preparebudget", "\"test-proposal\" \"https://forum.ioncoin.xyz/t/test-proposal\" 2 820800 \"D9oc6C3dttUbv8zd7zGNq1qKBGf4ZQ1XEE\" 500"));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -209,13 +209,12 @@ UniValue preparebudget(const UniValue& params, bool fHelp)
     if (nBlockEnd < pindexPrev->nHeight)
         throw runtime_error("Invalid ending block, starting block + (payment_cycle*payments) must be more than current height.");
 
-    if (!IsValidDestinationString(params[4].get_str()))
+    CBitcoinAddress address(params[4].get_str());
+    if (!address.IsValid())
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid ION address");
 
-    CTxDestination address = DecodeDestination(params[4].get_str());
-
     // Parse ION address
-    CScript scriptPubKey = GetScriptForDestination(address);
+    CScript scriptPubKey = GetScriptForDestination(address.Get());
     CAmount nAmount = AmountFromValue(params[5]);
 
     //*************************************************************************
@@ -270,8 +269,8 @@ UniValue submitbudget(const UniValue& params, bool fHelp)
             "\"xxxx\"       (string) proposal hash (if successful) or error message (if failed)\n"
 
             "\nExamples:\n" +
-            HelpExampleCli("submitbudget", "\"test-proposal\" \"https://forum.ioncoin.org/t/test-proposal\" 2 820800 \"g8L9eGfnLAjnvtdS2cyFzR88Q4GNkAvTae\" 500") +
-            HelpExampleRpc("submitbudget", "\"test-proposal\" \"https://forum.ioncoin.org/t/test-proposal\" 2 820800 \"g8L9eGfnLAjnvtdS2cyFzR88Q4GNkAvTae\" 500"));
+            HelpExampleCli("submitbudget", "\"test-proposal\" \"https://forum.ioncoin.xyz/t/test-proposal\" 2 820800 \"D9oc6C3dttUbv8zd7zGNq1qKBGf4ZQ1XEE\" 500") +
+            HelpExampleRpc("submitbudget", "\"test-proposal\" \"https://forum.ioncoin.xyz/t/test-proposal\" 2 820800 \"D9oc6C3dttUbv8zd7zGNq1qKBGf4ZQ1XEE\" 500"));
 
     // Check these inputs the same way we check the vote commands:
     // **********************************************************
@@ -305,13 +304,12 @@ UniValue submitbudget(const UniValue& params, bool fHelp)
     if (nBlockEnd < pindexPrev->nHeight)
         throw runtime_error("Invalid ending block, starting block + (payment_cycle*payments) must be more than current height.");
 
-    if (!IsValidDestinationString(params[4].get_str()))
+    CBitcoinAddress address(params[4].get_str());
+    if (!address.IsValid())
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid ION address");
 
-    CTxDestination address = DecodeDestination(params[4].get_str());
-
     // Parse ION address
-    CScript scriptPubKey = GetScriptForDestination(address);
+    CScript scriptPubKey = GetScriptForDestination(address.Get());
     CAmount nAmount = AmountFromValue(params[5]);
     uint256 hash = ParseHashV(params[6], "parameter 1");
 
@@ -716,6 +714,10 @@ UniValue getbudgetprojection(const UniValue& params, bool fHelp)
     std::vector<CBudgetProposal*> winningProps = budget.GetBudget();
     BOOST_FOREACH (CBudgetProposal* pbudgetProposal, winningProps) {
         nTotalAllotted += pbudgetProposal->GetAllotted();
+
+        CTxDestination address1;
+        ExtractDestination(pbudgetProposal->GetPayee(), address1);
+        CBitcoinAddress address2(address1);
 
         UniValue bObj(UniValue::VOBJ);
         budgetToJSON(pbudgetProposal, bObj);

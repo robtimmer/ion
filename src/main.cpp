@@ -8,8 +8,8 @@
 
 #include "main.h"
 
-#include "accumulators.h"
-#include "accumulatormap.h"
+#include "xion/accumulators.h"
+#include "xion/accumulatormap.h"
 #include "addrman.h"
 #include "alert.h"
 #include "blocksignature.h"
@@ -36,7 +36,7 @@
 #include "validationinterface.h"
 #include "xionchain.h"
 
-#include "primitives/zerocoin.h"
+#include "xion/zerocoin.h"
 #include "libzerocoin/Denominations.h"
 #include "invalid.h"
 #include <sstream>
@@ -80,6 +80,7 @@ bool fCheckBlockIndex = false;
 bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
+bool fClearSpendCache = false;
 
 unsigned int nStakeMinAge = 60 * 60;
 int64_t nReserveBalance = 0;
@@ -3043,6 +3044,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     // Ion accepts PoS during PoW phase
     if (block.IsProofOfStake()) {
 
+    /* fix syncing on main ut tp block 454 */
     if (Params().NetworkID() == CBaseChainParams::MAIN && pindex->nHeight <= 454) {
         if (pindex->nHeight <= Params().LAST_POW_BLOCK() && block.IsProofOfStake()) {
                 rejectBlockExclusion = true;
@@ -3052,6 +3054,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
         //        rejectBlockExclusion = true;
         */
         }
+    /* fix syncing on main from block 454 */
+    } else if (Params().NetworkID() == CBaseChainParams::MAIN && pindex->nHeight > 454 && pindex->nHeight <= Params().LAST_POW_BLOCK()) {
+                rejectBlockExclusion = true;
     }
 
     if (pindex->nHeight <= Params().LAST_POW_BLOCK() && block.IsProofOfStake() && rejectBlockExclusion == false)

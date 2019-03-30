@@ -1,5 +1,4 @@
 // Copyright (c) 2017-2018 The PIVX developers
-// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,7 +8,7 @@
 #include <map>
 #include <list>
 
-#include "primitives/zerocoin.h"
+#include "xion/zerocoin.h"
 #include "libzerocoin/bignum.h"
 #include "uint256.h"
 

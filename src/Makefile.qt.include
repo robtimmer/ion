@@ -8,37 +8,38 @@ EXTRA_LIBRARIES += qt/libbitcoinqt.a
 # ion qt core #
 QT_TS = \
   qt/locale/ion_bg.ts \
-  qt/locale/ion_ca.ts \
-  qt/locale/ion_cs.ts \
-  qt/locale/ion_da.ts \
-  qt/locale/ion_de.ts \
-  qt/locale/ion_en.ts \
-  qt/locale/ion_en_US.ts \
-  qt/locale/ion_eo.ts \
-  qt/locale/ion_es.ts \
-  qt/locale/ion_es_ES.ts \
-  qt/locale/ion_fi.ts \
-  qt/locale/ion_fr_FR.ts \
-  qt/locale/ion_hi_IN.ts \
-  qt/locale/ion_hr.ts \
-  qt/locale/ion_hr_HR.ts \
-  qt/locale/ion_it.ts \
-  qt/locale/ion_ja.ts \
-  qt/locale/ion_ko_KR.ts \
-  qt/locale/ion_lt_LT.ts \
-  qt/locale/ion_nl.ts \
-  qt/locale/ion_pl.ts \
-  qt/locale/ion_pt.ts \
-  qt/locale/ion_pt_BR.ts \
-  qt/locale/ion_ro_RO.ts \
-  qt/locale/ion_ru.ts \
-  qt/locale/ion_sk.ts \
-  qt/locale/ion_sv.ts \
-  qt/locale/ion_tr.ts \
-  qt/locale/ion_uk.ts \
-  qt/locale/ion_vi.ts \
-  qt/locale/ion_zh_CN.ts \
-  qt/locale/ion_zh_TW.ts
+   qt/locale/ion_ca.ts \
+   qt/locale/ion_cs.ts \
+   qt/locale/ion_da.ts \
+   qt/locale/ion_de.ts \
+   qt/locale/ion_en.ts \
+   qt/locale/ion_en_GB.ts \
+   qt/locale/ion_en_US.ts \
+   qt/locale/ion_eo.ts \
+   qt/locale/ion_es.ts \
+   qt/locale/ion_es_ES.ts \
+   qt/locale/ion_fi.ts \
+   qt/locale/ion_fr_FR.ts \
+   qt/locale/ion_hi_IN.ts \
+   qt/locale/ion_hr.ts \
+   qt/locale/ion_hr_HR.ts \
+   qt/locale/ion_it.ts \
+   qt/locale/ion_ja.ts \
+   qt/locale/ion_ko_KR.ts \
+   qt/locale/ion_lt_LT.ts \
+   qt/locale/ion_nl.ts \
+   qt/locale/ion_pl.ts \
+   qt/locale/ion_pt.ts \
+   qt/locale/ion_pt_BR.ts \
+   qt/locale/ion_ro_RO.ts \
+   qt/locale/ion_ru.ts \
+   qt/locale/ion_sk.ts \
+   qt/locale/ion_sv.ts \
+   qt/locale/ion_tr.ts \
+   qt/locale/ion_uk.ts \
+   qt/locale/ion_vi.ts \
+   qt/locale/ion_zh_CN.ts \
+   qt/locale/ion_zh_TW.ts
 
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
@@ -195,6 +196,7 @@ BITCOIN_QT_H = \
   qt/transactiondesc.h \
   qt/transactiondescdialog.h \
   qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
   qt/transactiontablemodel.h \
   qt/transactionview.h \
   qt/utilitydialog.h \
@@ -271,9 +273,6 @@ RES_ICONS = \
   qt/res/icons/unit_tion.png \
   qt/res/icons/unit_tmion.png \
   qt/res/icons/unit_tuion.png \
-  qt/res/icons/unit_rion.png \
-  qt/res/icons/unit_rmion.png \
-  qt/res/icons/unit_ruion.png \
   qt/res/icons/yesvote.png \
   qt/res/icons/novote.png \
   qt/res/icons/abstainvote.png
@@ -334,6 +333,7 @@ BITCOIN_QT_WALLET_CPP = \
   qt/transactiondesc.cpp \
   qt/transactiondescdialog.cpp \
   qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
   qt/transactiontablemodel.cpp \
   qt/transactionview.cpp \
   qt/walletframe.cpp \

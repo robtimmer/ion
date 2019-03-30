@@ -49,9 +49,6 @@
         <file alias="unit_tion">res/icons/unit_tion.png</file>
         <file alias="unit_tmion">res/icons/unit_tmion.png</file>
         <file alias="unit_tuion">res/icons/unit_tuion.png</file>
-        <file alias="unit_rion">res/icons/unit_rion.png</file>
-        <file alias="unit_rmion">res/icons/unit_rmion.png</file>
-        <file alias="unit_ruion">res/icons/unit_ruion.png</file>
         <file alias="lock_closed">res/icons/lock_closed.png</file>
         <file alias="lock_open">res/icons/lock_open.png</file>
         <file alias="key">res/icons/key.png</file>

@@ -1,6 +1,5 @@
 // Copyright (c) 2014-2015 The Dash developers
 // Copyright (c) 2015-2018 The PIVX developers
-// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -573,7 +572,8 @@ void CBudgetManager::FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, b
 
             CTxDestination address1;
             ExtractDestination(payee, address1);
-            LogPrint("mnbudget","CBudgetManager::FillBlockPayee - Budget payment to %s for %lld, nHighestCount = %d\n", EncodeDestination(address1), nAmount, nHighestCount);
+            CBitcoinAddress address2(address1);
+            LogPrint("mnbudget","CBudgetManager::FillBlockPayee - Budget payment to %s for %lld, nHighestCount = %d\n", address2.ToString(), nAmount, nHighestCount);
         }
         else {
             LogPrint("mnbudget","CBudgetManager::FillBlockPayee - No Budget payment, nHighestCount = %d\n", nHighestCount);
@@ -591,8 +591,9 @@ void CBudgetManager::FillBlockPayee(CMutableTransaction& txNew, CAmount nFees, b
 
             CTxDestination address1;
             ExtractDestination(payee, address1);
+            CBitcoinAddress address2(address1);
 
-            LogPrint("mnbudget","CBudgetManager::FillBlockPayee - Budget payment to %s for %lld\n", EncodeDestination(address1), nAmount);
+            LogPrint("mnbudget","CBudgetManager::FillBlockPayee - Budget payment to %s for %lld\n", address2.ToString(), nAmount);
         }
     }
 }
@@ -919,32 +920,35 @@ CAmount CBudgetManager::GetTotalBudget(int nHeight)
 
     //get block value and calculate from that
     CAmount nSubsidy = 0;
-
-    if (nHeight >= 2 && nHeight <= 125146) {
-        return 23 * COIN;
-    } else if (nHeight > 125146 && nHeight <= Params().DGWStartHeight()) {
-        return 17 * COIN;
-    } else if (nHeight > Params().DGWStartHeight() && nHeight <= Params().DGWStartHeight() + 1440) {
-        return 0.02 * COIN;
-    } else if (nHeight > Params().DGWStartHeight() + 1440 && nHeight <= 570062) { // 568622 + 1440 = 570062
-        return 17 * COIN;
-    } else if (nHeight > 570062 && nHeight <= 1013538) {    // 568622+1440=570062   1012098+1440=1013538
-        return 11.5 * COIN;
-    } else if (nHeight > 1013538 && nHeight <= 4167138) {    // phase 4-9
-        return 5.75 * COIN;
-    } else if (nHeight > 4167138 && nHeight <= 4692738) {    // phase 10
-        return 1.9 * COIN;
-    } else if (nHeight > 3677390 && Params().NetworkID() == CBaseChainParams::TESTNET) {
-        return 0.925 * COIN;
-    } else if (nHeight > 3677390 && Params().NetworkID() == CBaseChainParams::REGTEST) {
-        return 17 * COIN;
+    if (nHeight <= Params().LAST_POW_BLOCK() && nHeight >= 151200) {
+        nSubsidy = 50 * COIN;
+    } else if (nHeight <= 302399 && nHeight > Params().LAST_POW_BLOCK()) {
+        nSubsidy = 50 * COIN;
+    } else if (nHeight <= 345599 && nHeight >= 302400) {
+        nSubsidy = 45 * COIN;
+    } else if (nHeight <= 388799 && nHeight >= 345600) {
+        nSubsidy = 40 * COIN;
+    } else if (nHeight <= 431999 && nHeight >= 388800) {
+        nSubsidy = 35 * COIN;
+    } else if (nHeight <= 475199 && nHeight >= 432000) {
+        nSubsidy = 30 * COIN;
+    } else if (nHeight <= 518399 && nHeight >= 475200) {
+        nSubsidy = 25 * COIN;
+    } else if (nHeight <= 561599 && nHeight >= 518400) {
+        nSubsidy = 20 * COIN;
+    } else if (nHeight <= 604799 && nHeight >= 561600) {
+        nSubsidy = 15 * COIN;
+    } else if (nHeight <= 647999 && nHeight >= 604800) {
+        nSubsidy = 10 * COIN;
+    } else if (nHeight >= Params().Zerocoin_Block_V2_Start()) {
+        nSubsidy = 10 * COIN;
     } else {
-        return 0.02 * COIN;
+        nSubsidy = 5 * COIN;
     }
 
     // Amount of blocks in a months period of time (using 1 minutes per) = (60*24*30)
-    if (nHeight <= Params().LAST_POW_BLOCK()) {
-        return 16422977 * COIN;
+    if (nHeight <= 172800) {
+        return 648000 * COIN;
     } else {
         return ((nSubsidy / 100) * 10) * 1440 * 30;
     }
@@ -2186,9 +2190,10 @@ TrxValidationStatus CFinalizedBudget::IsTransactionValid(const CTransaction& txN
     if (transactionStatus == TrxValidationStatus::InValid) {
         CTxDestination address1;
         ExtractDestination(vecBudgetPayments[nCurrentBudgetPayment].payee, address1);
+        CBitcoinAddress address2(address1);
 
         LogPrint("mnbudget","CFinalizedBudget::IsTransactionValid - Missing required payment - %s: %d c: %d\n",
-                  EncodeDestination(address1), vecBudgetPayments[nCurrentBudgetPayment].nAmount, nCurrentBudgetPayment);
+                  address2.ToString(), vecBudgetPayments[nCurrentBudgetPayment].nAmount, nCurrentBudgetPayment);
     }
 
     return transactionStatus;

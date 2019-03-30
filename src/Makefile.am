@@ -77,16 +77,11 @@ endif
 # ion core #
 BITCOIN_CORE_H = \
   activemasternode.h \
-  accumulators.h \
-  accumulatorcheckpoints.h \
-  accumulatorcheckpoints.json.h \
-  accumulatormap.h \
   addrman.h \
   alert.h \
   allocators.h \
   amount.h \
   base58.h \
-  bech32.h \
   bip38.h \
   bloom.h \
   blocksignature.h \
@@ -104,13 +99,8 @@ BITCOIN_CORE_H = \
   compat/endian.h \
   compat/sanity.h \
   compressor.h \
-  consensus/validation.h \
-  core_memusage.h \
-  dstencode.h \
   primitives/block.h \
-  primitives/deterministicmint.h \
   primitives/transaction.h \
-  primitives/zerocoin.h \
   core_io.h \
   crypter.h \
   denomination_functions.h \
@@ -124,7 +114,6 @@ BITCOIN_CORE_H = \
   invalid.h \
   invalid_outpoints.json.h \
   invalid_serials.json.h \
-  ionaddrenc.h \
   kernel.h \
   swifttx.h \
   key.h \
@@ -132,7 +121,6 @@ BITCOIN_CORE_H = \
   leveldbwrapper.h \
   limitedmap.h \
   main.h \
-  memusage.h \
   masternode.h \
   masternode-payments.h \
   masternode-budget.h \
@@ -141,7 +129,6 @@ BITCOIN_CORE_H = \
   masternodeconfig.h \
   merkleblock.h \
   miner.h \
-  mintpool.h \
   mruset.h \
   netbase.h \
   net.h \
@@ -173,7 +160,6 @@ BITCOIN_CORE_H = \
   timedata.h \
   tinyformat.h \
   torcontrol.h \
-  transactionrecord.h \
   txdb.h \
   txmempool.h \
   ui_interface.h \
@@ -189,8 +175,16 @@ BITCOIN_CORE_H = \
   wallet_ismine.h \
   walletdb.h \
   xionchain.h \
-  xiontracker.h \
-  xionwallet.h \
+  xion/accumulators.h \
+  xion/accumulatorcheckpoints.h \
+  xion/accumulatorcheckpoints.json.h \
+  xion/accumulatormap.h \
+  xion/deterministicmint.h \
+  xion/mintpool.h \
+  xion/witness.h \
+  xion/zerocoin.h \
+  xion/xiontracker.h \
+  xion/xionwallet.h \
   genwit.h \
   concurrentqueue.h \
   lightxionthread.h \
@@ -272,18 +266,19 @@ libbitcoin_wallet_a_SOURCES = \
   masternode-sync.cpp \
   masternodeconfig.cpp \
   masternodeman.cpp \
-  mintpool.cpp \
   rpcdump.cpp \
-  primitives/deterministicmint.cpp \
-  primitives/zerocoin.cpp \
+  xion/deterministicmint.cpp \
+  xion/zerocoin.cpp \
   rpcwallet.cpp \
   kernel.cpp \
-  transactionrecord.cpp \
   wallet.cpp \
   wallet_ismine.cpp \
   walletdb.cpp \
-  xionwallet.cpp \
-  xiontracker.cpp \
+  xion/accumulators.cpp \
+  xion/mintpool.cpp \
+  xion/witness.cpp \
+  xion/xionwallet.cpp \
+  xion/xiontracker.cpp \
   stakeinput.cpp \
   genwit.cpp \
   lightxionthread.cpp \
@@ -355,23 +350,20 @@ libzerocoin_libbitcoin_zerocoin_a_SOURCES = \
 libbitcoin_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libbitcoin_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libbitcoin_common_a_SOURCES = \
-  accumulators.cpp \
-  accumulatorcheckpoints.cpp \
-  accumulatormap.cpp \
+  xion/accumulators.cpp \
+  xion/accumulatorcheckpoints.cpp \
+  xion/accumulatormap.cpp \
   allocators.cpp \
   amount.cpp \
   base58.cpp \
-  bech32.cpp \
   bip38.cpp \
   chainparams.cpp \
   coins.cpp \
   compressor.cpp \
-  dstencode.cpp \
-  ionaddrenc.cpp \
   primitives/block.cpp \
-  primitives/deterministicmint.cpp \
+  xion/deterministicmint.cpp \
   primitives/transaction.cpp \
-  primitives/zerocoin.cpp \
+  xion/zerocoin.cpp \
   core_read.cpp \
   core_write.cpp \
   hash.cpp \

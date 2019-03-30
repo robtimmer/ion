@@ -1,15 +1,14 @@
 // Copyright (c) 2017-2018 The PIVX developers
-// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "xionwallet.h"
+#include "xion/xionwallet.h"
 #include "main.h"
 #include "txdb.h"
 #include "walletdb.h"
 #include "init.h"
 #include "wallet.h"
-#include "primitives/deterministicmint.h"
+#include "deterministicmint.h"
 #include "xionchain.h"
 
 using namespace libzerocoin;
@@ -329,7 +328,7 @@ bool CxIONWallet::SetMintSeen(const CBigNum& bnValue, const int& nHeight, const 
 
     // Add to xionTracker which also adds to database
     pwalletMain->xionTracker->Add(dMint, true);
-    
+
     //Update the count if it is less than the mint's count
     if (nCountLastUsed < pMint.second) {
         CWalletDB walletdb(strWalletFile);
