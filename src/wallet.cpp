@@ -4852,7 +4852,8 @@ bool CWallet::MintToTxIn(CZerocoinMint zerocoinSelected, int nSecurityLevel, con
     string strFailReason = "";
     int nMintsAdded = 0;
     if (!GenerateAccumulatorWitness(pubCoinSelected, accumulator, witness, nSecurityLevel, nMintsAdded, strFailReason, pindexCheckpoint)) {
-        receipt.SetStatus(_("Try to spend with a higher security level to include more coins"), XION_FAILED_ACCUMULATOR_INITIALIZATION);
+                receipt.SetStatus(_("Couldn't generate the accumulator witness"),
+                                   XION_FAILED_ACCUMULATOR_INITIALIZATION);
         return error("%s : %s", __func__, receipt.GetStatusMessage());
     }
 
