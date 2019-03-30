@@ -3,7 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "xion/accumulatorcheckpoints.h"
-#include "xion/accumulatorcheckpoints.json.h"
+#include "accumulatorcheckpoints.json.h"
 
 namespace AccumulatorCheckpoints
 {
