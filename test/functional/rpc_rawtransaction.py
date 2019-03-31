@@ -300,9 +300,9 @@ class RawTransactionsTest(BitcoinTestFramework):
         assert_equal(self.nodes[0].getbalance(), bal+Decimal('23.00000000')+Decimal('2.19000000')) #block reward + tx
 
         # decoderawtransaction tests
-        encrawtx = "01000000010000000000000072c1a6a246ae63f74f931e8365e15a089c68d61900000000000000000000ffffffff0100e1f505000000000000000000"
+        encrawtx = "01000000e757a05c010000000000000000000000000000000000000000000000000000000000000000ffffffff03530101ffffffff0100371789000000002321034d68c6a840e29cc0071c7beb21c7845aa17d676c07d6730dc12510a2c10757adac00000000"
         decrawtx = self.nodes[0].decoderawtransaction(encrawtx) # decode as non-witness transaction
-        assert_equal(decrawtx['vout'][0]['value'], Decimal('1.00000000'))
+        assert_equal(decrawtx['vout'][0]['value'], Decimal('23.00000000'))
 
         # getrawtransaction tests
         # 1. valid parameters - only supply txid

@@ -55,12 +55,12 @@ class RESTTest (BitcoinTestFramework):
         url = urllib.parse.urlparse(self.nodes[0].url)
         self.log.info("Mining blocks...")
 
-        self.nodes[0].generate(1)
+        self.nodes[0].generate(2)
         self.sync_all()
         self.nodes[2].generate(100)
         self.sync_all()
 
-        assert_equal(self.nodes[0].getbalance(), 23)
+        assert_equal(self.nodes[0].getbalance(), 16400000)
 
         txid = self.nodes[0].sendtoaddress(self.nodes[1].getnewaddress(), 0.1)
         self.sync_all()
