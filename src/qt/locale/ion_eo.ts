@@ -1664,9 +1664,9 @@ Muktisendi: %1</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/ion-project/ion-project-translations</source>
+https://www.transifex.com/ioncoincore/ioncore</source>
         <translation>Ĉu mankas lingvon aŭ nekompleta tradukado? Helpu la  tradukcio ĉi tie:
-https://www.transifex.com/ion-project/ion-project-translations</translation>
+https://www.transifex.com/ioncoincore/ioncore</translation>
     </message>
     <message>
         <source>Connect to the ION network through a SOCKS5 proxy.</source>

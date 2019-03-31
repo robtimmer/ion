@@ -1834,9 +1834,9 @@ MultiSend nebus aktyvuotas, nebent paspausite "Įjungti"</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
-https://www.transifex.com/ion-project/ion-project-translations</source>
+https://www.transifex.com/ioncoincore/ioncore</source>
         <translation>Trūksta kalbos arba vertimas nebaigtas? Padėkite prisidėdami prie vertimų čia: 
-https://www.transifex.com/ion-project/ion-project-translations</translation>
+https://www.transifex.com/ioncoincore/ioncore</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
