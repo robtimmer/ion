@@ -93,15 +93,6 @@ jobs:
         RUN_FUNCTIONAL_TESTS=false
         GOAL="install"
         ION_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
-# PPC64
-    - stage: test
-      env: >-
-        HOST=powerpc64-linux-gnu
-        PACKAGES="python3 g++-powerpc64-linux-gnu"
-        DEP_OPTS="NO_QT=1"
-        RUN_FUNCTIONAL_TESTS=false
-        GOAL="install"
-        ION_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
 # PPC64LE
     - stage: test
       env: >-
