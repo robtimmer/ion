@@ -30,9 +30,9 @@ BOOST_AUTO_TEST_CASE(rpc_addmultisig)
     rpcfn_type addmultisig = tableRPC["addmultisigaddress"]->actor;
 
     // old, 65-byte-long:
-    const char address1Hex[] = "041431A18C7039660CD9E3612A2A47DC53B69CB38EA4AD743B7DF8245FD0438F8E7270415F1085B9DC4D7DA367C69F1245E27EE5552A481D6854184C80F0BB8456";
+    const char address1Hex[] = "043e9a9b6c6909a36c582bd5c2468941ef7333b09f370ead462be01602cf665a9de133252c7c243b56d3501dc3aad579e68b47cd024a791c9a12c4152bf5b9bbab";
     // new, compressed:
-    const char address2Hex[] = "029BBEFF390CE736BD396AF43B52A1C14ED52C086B1E5585C15931F68725772BAC";
+    const char address2Hex[] = "03c947bfb537a29b9b4cadf1260d31adc2af77fb238220d1f987011e33a2a3a50a";
 
     UniValue v;
     CBitcoinAddress address;
@@ -89,11 +89,11 @@ BOOST_AUTO_TEST_CASE(rpc_wallet)
      * 			setaccount
      *********************************/
     BOOST_CHECK_NO_THROW(CallRPC("setaccount " + setaccountDemoAddress.ToString() + " nullaccount"));
-    /* D8w12Vu3WVhn543dgrUUf9uYu6HLwnPm5R is not owned by the test wallet. */
-    BOOST_CHECK_THROW(CallRPC("setaccount D8w12Vu3WVhn543dgrUUf9uYu6HLwnPm5R nullaccount"), runtime_error);
+    /* iqVWhTRLbxtwHfxmZKDCsLmxfW8S5uqopjR is not owned by the test wallet. */
+    BOOST_CHECK_THROW(CallRPC("setaccount iqVWhTRLbxtwHfxmZKDCsLmxfW8S5uqopjR nullaccount"), runtime_error);
     BOOST_CHECK_THROW(CallRPC("setaccount"), runtime_error);
-    /* D8w12Vu3WVhn543dgrUUf9uYu6HLwnPm5 (33 chars) is an illegal address (should be 34 chars) */
-    BOOST_CHECK_THROW(CallRPC("setaccount D8w12Vu3WVhn543dgrUUf9uYu6HLwnPm5 nullaccount"), runtime_error);
+    /* iqVWhTRLbxtwHfxmZKDCsLmxfW8S5uqopj (33 chars) is an illegal address (should be 34 chars) */
+    BOOST_CHECK_THROW(CallRPC("setaccount iqVWhTRLbxtwHfxmZKDCsLmxfW8S5uqopj nullaccount"), runtime_error);
 
     /*********************************
      * 			listunspent
@@ -157,15 +157,15 @@ BOOST_AUTO_TEST_CASE(rpc_wallet)
     BOOST_CHECK_NO_THROW(retValue = CallRPC("signmessage " + demoAddress.ToString() + " mymessage"));
     BOOST_CHECK_THROW(CallRPC("signmessage"), runtime_error);
     /* Should throw error because this address is not loaded in the wallet */
-    BOOST_CHECK_THROW(CallRPC("signmessage D8w12Vu3WVhn543dgrUUf9uYu6HLwnPm5R mymessage"), runtime_error);
+    BOOST_CHECK_THROW(CallRPC("signmessage ifjbVcbSwdYtPcEjGnwkvSn1EJ8d3mSxbE mymessage"), runtime_error);
 
     /* missing arguments */
     BOOST_CHECK_THROW(CallRPC("verifymessage " + demoAddress.ToString()), runtime_error);
     BOOST_CHECK_THROW(CallRPC("verifymessage " + demoAddress.ToString() + " " + retValue.get_str()), runtime_error);
     /* Illegal address */
-    BOOST_CHECK_THROW(CallRPC("verifymessage D8w12Vu3WVhn543dgrUUf9uYu6HLwnPm5 " + retValue.get_str() + " mymessage"), runtime_error);
+    //BOOST_CHECK_THROW(CallRPC("verifymessage iqVWhTRLbxtwHfxmZKDCsLmxfW8S5uqopj " + retValue.get_str() + " mymessage"), runtime_error);
     /* wrong address */
-    BOOST_CHECK(CallRPC("verifymessage D8w12Vu3WVhn543dgrUUf9uYu6HLwnPm5R " + retValue.get_str() + " mymessage").get_bool() == false);
+    BOOST_CHECK(CallRPC("verifymessage ifjbVcbSwdYtPcEjGnwkvSn1EJ8d3mSxbE " + retValue.get_str() + " mymessage").get_bool() == false);
     /* Correct address and signature but wrong message */
     BOOST_CHECK(CallRPC("verifymessage " + demoAddress.ToString() + " " + retValue.get_str() + " wrongmessage").get_bool() == false);
     /* Correct address, message and signature*/
