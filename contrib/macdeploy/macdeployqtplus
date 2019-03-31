@@ -602,7 +602,7 @@ else:
 
 # ------------------------------------------------
 
-target = os.path.join("dist", "Ion-Qt.app")
+target = os.path.join("dist", "ION-Qt.app")
 
 if verbose >= 2:
     print("+ Copying source bundle +")
