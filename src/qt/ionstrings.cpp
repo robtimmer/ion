@@ -253,10 +253,10 @@ QT_TRANSLATE_NOOP("ion-core", ""
 QT_TRANSLATE_NOOP("ion-core", ""
 "You must specify a masternodeprivkey in the configuration. Please see "
 "documentation for help."),
-QT_TRANSLATE_NOOP("ion-core", "(55002 could be used only on mainnet)"),
+QT_TRANSLATE_NOOP("ion-core", "(12700 could be used only on mainnet)"),
 QT_TRANSLATE_NOOP("ion-core", "(default: %s)"),
 QT_TRANSLATE_NOOP("ion-core", "(default: 1)"),
-QT_TRANSLATE_NOOP("ion-core", "(must be 55002 for mainnet)"),
+QT_TRANSLATE_NOOP("ion-core", "(must be 12700 for mainnet)"),
 QT_TRANSLATE_NOOP("ion-core", "<category> can be:"),
 QT_TRANSLATE_NOOP("ion-core", "Accept command line and JSON-RPC commands"),
 QT_TRANSLATE_NOOP("ion-core", "Accept connections from outside (default: 1 if no -proxy or -connect)"),
