@@ -980,11 +980,11 @@ UniValue sendmany(const UniValue& params, bool fHelp)
 
             "\nExamples:\n"
             "\nSend two amounts to two different addresses:\n" +
-            HelpExampleCli("sendmany", "\"tabby\" \"{\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\"") +
+            HelpExampleCli("sendmany", "\"tabby\" \"{\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\":0.01,\\\"igJt12PmSYuy6Sz4WfXc7iyxcTCb3LdtUK\\\":0.02}\"") +
             "\nSend two amounts to two different addresses setting the confirmation and comment:\n" +
-            HelpExampleCli("sendmany", "\"tabby\" \"{\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\" 6 \"testing\"") +
+            HelpExampleCli("sendmany", "\"tabby\" \"{\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\":0.01,\\\"igJt12PmSYuy6Sz4WfXc7iyxcTCb3LdtUK\\\":0.02}\" 6 \"testing\"") +
             "\nAs a json rpc call\n" +
-            HelpExampleRpc("sendmany", "\"tabby\", \"{\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\":0.01,\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\":0.02}\", 6, \"testing\""));
+            HelpExampleRpc("sendmany", "\"tabby\", \"{\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\":0.01,\\\"igJt12PmSYuy6Sz4WfXc7iyxcTCb3LdtUK\\\":0.02}\", 6, \"testing\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
@@ -1066,9 +1066,9 @@ UniValue addmultisigaddress(const UniValue& params, bool fHelp)
 
             "\nExamples:\n"
             "\nAdd a multisig address from 2 addresses\n" +
-            HelpExampleCli("addmultisigaddress", "2 \"[\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\",\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\"]\"") +
+            HelpExampleCli("addmultisigaddress", "2 \"[\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\",\\\"igJt12PmSYuy6Sz4WfXc7iyxcTCb3LdtUK\\\"]\"") +
             "\nAs json rpc call\n" +
-            HelpExampleRpc("addmultisigaddress", "2, \"[\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\",\\\"DAD3Y6ivr8nPQLT1NEPX84DxGCw9jz9Jvg\\\"]\""));
+            HelpExampleRpc("addmultisigaddress", "2, \"[\\\"iVpPG131hKv1t6iSnbu9HRrhTC7oM2UEaj\\\",\\\"igJt12PmSYuy6Sz4WfXc7iyxcTCb3LdtUK\\\"]\""));
 
     LOCK2(cs_main, pwalletMain->cs_wallet);
 
