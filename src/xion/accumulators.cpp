@@ -335,8 +335,9 @@ bool ValidateAccumulatorCheckpoint(const CBlock& block, CBlockIndex* pindex, Acc
         return true;
     }
 
-    if (block.nAccumulatorCheckpoint != pindex->pprev->nAccumulatorCheckpoint)
-        return error("%s : new accumulator checkpoint generated on a block that is not multiple of 10", __func__);
+    if (block.nAccumulatorCheckpoint != pindex->pprev->nAccumulatorCheckpoint) {
+            return error("%s : new accumulator checkpoint generated on a block that is not multiple of 10", __func__);
+    }
 
     return true;
 }
