@@ -153,7 +153,7 @@ static const CRPCConvertParam vRPCConvertParams[] =
         {"getaccumulatorvalues", 0},
         {"getaccumulatorwitness",2},
         {"getmintsvalues", 2},
-        {"enableautomintaddress", 0},
+        {"calculateaccumulatorvalues", 0},
         {"getmintsinblocks", 0},
         {"getmintsinblocks", 1},
         {"getmintsinblocks", 2},
@@ -163,6 +163,7 @@ static const CRPCConvertParam vRPCConvertParams[] =
         {"getfeeinfo", 0},
         {"getchecksumblock", 1},
         {"getchecksumblock", 2},
+        {"enableautomintaddress", 0},
     };
 
 class CRPCConvertTable
