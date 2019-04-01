@@ -1911,37 +1911,44 @@ double ConvertBitsToDouble(unsigned int nBits)
 int64_t GetBlockValue(int nHeight)
 {
     int64_t nSubsidy = 0;
-    // TESTNET and RETEST
-    if (Params().NetworkID() == CBaseChainParams::TESTNET || Params().NetworkID() == CBaseChainParams::REGTEST) {
+    // TESTNET and REGTEST
+    if (Params().NetworkID() == CBaseChainParams::REGTEST && nHeight < 86400) {
+        if (nHeight == 0) {
+            nSubsidy = 250 * COIN;
+        } else if (nHeight < 200 && nHeight > 0) {
+            nSubsidy = 250000 * COIN;
+        } else if (nHeight < 86400 && nHeight >= 200) {
+            nSubsidy = 250 * COIN;
+        }
+    } else if (Params().NetworkID() == CBaseChainParams::TESTNET && nHeight <= 570062) {
         if (nHeight >= 2 && nHeight <= 125146) {
             nSubsidy = 23 * COIN;
         } else if (nHeight > 125146 && nHeight <= 570062) {
             nSubsidy = 17 * COIN;
         }
-    }
-
-    if (nHeight == 0) {
-        nSubsidy = 0 * COIN;
-    } else if (nHeight == 1) {
-        nSubsidy = 16400000 * COIN;
-    } else if (nHeight >= 2 && nHeight <= 125146) {
-        nSubsidy = 23 * COIN;
-    } else if (nHeight > 125146 && nHeight <= Params().DGWStartHeight()) {
-        nSubsidy = 17 * COIN;
-    } else if (nHeight > Params().DGWStartHeight() && nHeight <= Params().DGWStartHeight() + 1440) {
-        nSubsidy = 0.02 * COIN;
-    } else if (nHeight > Params().DGWStartHeight() + 1440 && nHeight <= 570062) { // 568622 + 1440 = 570062
-        nSubsidy = 17 * COIN;
-    } else if (nHeight > 570062 && nHeight <= 1013538) {    // 568622+1440=570062   1012098+1440=1013538
-        nSubsidy = 11.5 * COIN;
-    } else if (nHeight > 1013538 && nHeight <= 4167138) {    // phase 4-9
-        nSubsidy = 5.75 * COIN;
-    } else if (nHeight > 4167138 && nHeight <= 4692738) {    // phase 10
-        nSubsidy = 1.9 * COIN;
     } else {
-        nSubsidy = 0.02 * COIN;
+        if (nHeight == 0) {
+            nSubsidy = 0 * COIN;
+        } else if (nHeight == 1) {
+            nSubsidy = 16400000 * COIN;
+        } else if (nHeight >= 2 && nHeight <= 125146) {
+            nSubsidy = 23 * COIN;
+        } else if (nHeight > 125146 && nHeight <= Params().DGWStartHeight()) {
+            nSubsidy = 17 * COIN;
+        } else if (nHeight > Params().DGWStartHeight() && nHeight <= Params().DGWStartHeight() + 1440) {
+            nSubsidy = 0.02 * COIN;
+        } else if (nHeight > Params().DGWStartHeight() + 1440 && nHeight <= 570062) { // 568622 + 1440 = 570062
+            nSubsidy = 17 * COIN;
+        } else if (nHeight > 570062 && nHeight <= 1013538) {    // 568622+1440=570062   1012098+1440=1013538
+            nSubsidy = 11.5 * COIN;
+        } else if (nHeight > 1013538 && nHeight <= 4167138) {    // phase 4-9
+            nSubsidy = 5.75 * COIN;
+        } else if (nHeight > 4167138 && nHeight <= 4692738) {    // phase 10
+            nSubsidy = 1.9 * COIN;
+        } else {
+            nSubsidy = 0.02 * COIN;
+        }
     }
-
     return nSubsidy;
 }
 
