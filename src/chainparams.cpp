@@ -386,7 +386,7 @@ public:
         nModifierUpdateBlock = 0; //approx Mon, 17 Apr 2017 04:00:00 GMT
         nMaxMoneyOut = 38600000 * COIN;
         nZerocoinStartHeight = 300;
-        nBlockZerocoinV2 = 300;
+        nBlockZerocoinV2 = 322;
         nZerocoinStartTime = 1521414629;
         nBlockEnforceSerialRange = 1; //Enforce serial range starting this block
         nBlockRecalculateAccumulators = 999999999; //Trigger a recalculation of accumulators
