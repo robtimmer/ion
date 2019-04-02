@@ -153,7 +153,7 @@ static const CRPCConvertParam vRPCConvertParams[] =
         {"getaccumulatorvalues", 0},
         {"getaccumulatorwitness",2},
         {"getmintsvalues", 2},
-        {"calculateaccumulatorvalues", 0},
+        {"getaccumulatorcheckpoints", 0},
         {"getmintsinblocks", 0},
         {"getmintsinblocks", 1},
         {"getmintsinblocks", 2},

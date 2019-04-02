@@ -199,7 +199,7 @@ set<int> setDirtyFileInfo;
 namespace
 {
 struct CBlockReject {
-    unsigned int chRejectCode;
+    unsigned char chRejectCode;
     string strRejectReason;
     uint256 hashBlock;
 };
@@ -561,23 +561,6 @@ void FindNextBlocksToDownload(NodeId nodeid, unsigned int count, std::vector<CBl
             }
         }
     }
-}
-
-bool AbortNode(const std::string& strMessage, const std::string& userMessage="")
-{
-    strMiscWarning = strMessage;
-    LogPrintf("*** %s\n", strMessage);
-    uiInterface.ThreadSafeMessageBox(
-        userMessage.empty() ? _("Error: A fatal internal error occured, see debug.log for details") : userMessage,
-        "", CClientUIInterface::MSG_ERROR);
-    StartShutdown();
-    return false;
-}
-
-bool AbortNode(CValidationState &state, const std::string &strMessage, const std::string &userMessage = "")
-{
-    AbortNode(strMessage, userMessage);
-    return state.Error(strMessage);
 }
 
 } // anon namespace
@@ -1021,9 +1004,9 @@ bool ContextualCheckZerocoinSpend(const CTransaction& tx, const CoinSpend& spend
 }
 
 bool ContextualCheckZerocoinSpendNoSerialCheck(const CTransaction& tx, const CoinSpend& spend, CBlockIndex* pindex, const uint256& hashBlock)
- {
-     //Check to see if the xION is properly signed
-     if (pindex->nHeight >= Params().Zerocoin_Block_V2_Start()) {
+{
+    //Check to see if the xION is properly signed
+    if (pindex->nHeight >= Params().Zerocoin_Block_V2_Start()) {
         try {
             if (!spend.HasValidSignature())
                 return error("%s: V2 xION spend does not have a valid signature\n", __func__);
@@ -1034,15 +1017,15 @@ bool ContextualCheckZerocoinSpendNoSerialCheck(const CTransaction& tx, const Coi
             else
                 LogPrintf("%s: Invalid serial detected within range in block %d\n", __func__, pindex->nHeight);
         }
- 
-         libzerocoin::SpendType expectedType = libzerocoin::SpendType::SPEND;
-         if (tx.IsCoinStake())
-             expectedType = libzerocoin::SpendType::STAKE;
-         if (spend.getSpendType() != expectedType) {
+
+        libzerocoin::SpendType expectedType = libzerocoin::SpendType::SPEND;
+        if (tx.IsCoinStake())
+            expectedType = libzerocoin::SpendType::STAKE;
+        if (spend.getSpendType() != expectedType) {
             return error("%s: trying to spend xION without the correct spend type. txid=%s\n", __func__,
-                          tx.GetHash().GetHex());
-         }
-     }
+                         tx.GetHash().GetHex());
+        }
+    }
 
     //Reject serial's that are not in the acceptable value range
     bool fUseV1Params = spend.getVersion() < libzerocoin::PrivateCoin::PUBKEY_VERSION;
@@ -1050,14 +1033,15 @@ bool ContextualCheckZerocoinSpendNoSerialCheck(const CTransaction& tx, const Coi
         // Up until this block our chain was not checking serials correctly..
         if (!isBlockBetweenFakeSerialAttackRange(pindex->nHeight))
             return error("%s : xION spend with serial %s from tx %s is not in valid range\n", __func__,
-                      spend.getCoinSerialNumber().GetHex(), tx.GetHash().GetHex());
+                     spend.getCoinSerialNumber().GetHex(), tx.GetHash().GetHex());
         else
             LogPrintf("%s:: HasValidSerial :: Invalid serial detected within range in block %d\n", __func__, pindex->nHeight);
     }
 
- 
-     return true;
- }
+
+    return true;
+}
+
 
 bool CheckZerocoinSpend(const CTransaction& tx, bool fVerifySignature, CValidationState& state, bool fFakeSerialAttack)
 {
@@ -1107,22 +1091,19 @@ bool CheckZerocoinSpend(const CTransaction& tx, bool fVerifySignature, CValidati
 
         // Skip signature verification during initial block download
         if (fVerifySignature) {
-            // Skip signature verification if blockheight is smaller than zerocoin v2 startheight
-            if (chainActive.Height() >= Params().Zerocoin_Block_V2_Start()) {
-                //see if we have record of the accumulator used in the spend tx
-                CBigNum bnAccumulatorValue = 0;
-                if (!zerocoinDB->ReadAccumulatorValue(newSpend.getAccumulatorChecksum(), bnAccumulatorValue)) {
-                    uint32_t nChecksum = newSpend.getAccumulatorChecksum();
-                    return state.DoS(100, error("%s: Zerocoinspend could not find accumulator associated with checksum %s", __func__, HexStr(BEGIN(nChecksum), END(nChecksum))));
-                }
-
-                Accumulator accumulator(Params().Zerocoin_Params(chainActive.Height() < Params().Zerocoin_Block_V2_Start()),
-                                        newSpend.getDenomination(), bnAccumulatorValue);
-
-                //Check that the coin has been accumulated
-                if(!newSpend.Verify(accumulator, !fFakeSerialAttack))
-                        return state.DoS(100, error("CheckZerocoinSpend(): zerocoin spend did not verify"));
+            //see if we have record of the accumulator used in the spend tx
+            CBigNum bnAccumulatorValue = 0;
+            if (!zerocoinDB->ReadAccumulatorValue(newSpend.getAccumulatorChecksum(), bnAccumulatorValue)) {
+                uint32_t nChecksum = newSpend.getAccumulatorChecksum();
+                return state.DoS(100, error("%s: Zerocoinspend could not find accumulator associated with checksum %s", __func__, HexStr(BEGIN(nChecksum), END(nChecksum))));
             }
+
+            Accumulator accumulator(Params().Zerocoin_Params(chainActive.Height() < Params().Zerocoin_Block_V2_Start()),
+                                    newSpend.getDenomination(), bnAccumulatorValue);
+
+            //Check that the coin has been accumulated
+            if(!newSpend.Verify(accumulator, !fFakeSerialAttack))
+                    return state.DoS(100, error("CheckZerocoinSpend(): zerocoin spend did not verify"));
         }
 
         if (serials.count(newSpend.getCoinSerialNumber()))
@@ -3267,22 +3248,26 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     nTimeConnect += nTime1 - nTimeStart;
     LogPrint("bench", "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs]\n", (unsigned)block.vtx.size(), 0.001 * (nTime1 - nTimeStart), 0.001 * (nTime1 - nTimeStart) / block.vtx.size(), nInputs <= 1 ? 0 : 0.001 * (nTime1 - nTimeStart) / (nInputs - 1), nTimeConnect * 0.000001);
 
-    //PoW phase redistributed fees to miner. PoS stage destroys fees.
+        //PoW phase redistributed fees to miner. PoS stage destroys fees.
     CAmount nExpectedMint = GetBlockValue(pindex->pprev->nHeight);
-    if (block.IsProofOfWork() && pindex->nHeight > 1)
-    {
-        nExpectedMint = nFees;
-    } else if (block.IsProofOfStake())
-    {
+    if (block.IsProofOfWork())
         nExpectedMint += nFees;
-    }
+
+    //ion pow fix, ConnectBlock() error on main network : reward pays too much (actual vs limit)
+    /* block 455  = reward pays too much (actual=23.00001 vs limit=23.00)
+     * block 702  = reward pays too much (actual=23.00003 vs limit=23.00)
+     * ...
+     * workaround: set variable for skipping this check for blocks on main which
+     *             overminted during the PoW phase
+     */
+    if (Params().NetworkID() == CBaseChainParams::MAIN && pindex->nHeight < Params().Zerocoin_StartHeight())
+        nExpectedMint = pindex->nMint;
 
     //Check that the block does not overmint
-    if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint) && Params().NetworkID() != CBaseChainParams::REGTEST ) {
+    if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint))
         return state.DoS(100, error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s)",
                                     FormatMoney(pindex->nMint), FormatMoney(nExpectedMint)),
                         REJECT_INVALID, "bad-cb-amount");
-    }
 
     // Ensure that accumulator checkpoints are valid and in the same state as this instance of the chain
     AccumulatorMap mapAccumulators(Params().Zerocoin_Params(pindex->nHeight < Params().Zerocoin_Block_V2_Start()));
@@ -3307,7 +3292,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
             if (!FindUndoPos(state, pindex->nFile, pos, ::GetSerializeSize(blockundo, SER_DISK, CLIENT_VERSION) + 40))
                 return error("ConnectBlock() : FindUndoPos failed");
             if (!blockundo.WriteToDisk(pos, pindex->pprev->GetBlockHash()))
-                return AbortNode(state, "Failed to write undo data");
+                return state.Abort("Failed to write undo data");
 
             // update nUndoPos in block index
             pindex->nUndoPos = pos.nPos;
@@ -3348,15 +3333,15 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     }
 
     // Flush spend/mint info to disk
-    if (!zerocoinDB->WriteCoinSpendBatch(vSpends)) return AbortNode(state, ("Failed to record coin serials to database"));
-    if (!zerocoinDB->WriteCoinMintBatch(vMints)) return AbortNode(state, ("Failed to record new mints to database"));
+    if (!zerocoinDB->WriteCoinSpendBatch(vSpends)) return state.Abort(("Failed to record coin serials to database"));
+    if (!zerocoinDB->WriteCoinMintBatch(vMints)) return state.Abort(("Failed to record new mints to database"));
 
     //Record accumulator checksums
     DatabaseChecksums(mapAccumulators);
 
     if (fTxIndex)
         if (!pblocktree->WriteTxIndex(vPos))
-            return AbortNode(state, "Failed to write transaction index");
+            return state.Abort("Failed to write transaction index");
 
     // add this block to the view's block chain
     view.SetBestBlock(pindex->GetBlockHash());
@@ -3368,7 +3353,7 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     // Watch for changes to the previous coinbase transaction.
     static uint256 hashPrevBestCoinBase;
     GetMainSignals().UpdatedTransaction(hashPrevBestCoinBase);
-    hashPrevBestCoinBase = block.vtx[0].GetHash();
+    hashPrevBestCoinBase = block.vtx[0].GetHash();;
 
     int64_t nTime4 = GetTimeMicros();
     nTimeCallbacks += nTime4 - nTime3;
@@ -3420,17 +3405,17 @@ bool static FlushStateToDisk(CValidationState& state, FlushStateMode mode)
             bool fileschanged = false;
             for (set<int>::iterator it = setDirtyFileInfo.begin(); it != setDirtyFileInfo.end();) {
                 if (!pblocktree->WriteBlockFileInfo(*it, vinfoBlockFile[*it])) {
-                    return AbortNode(state, "Failed to write to block index");
+                    return state.Abort("Failed to write to block index");
                 }
                 fileschanged = true;
                 setDirtyFileInfo.erase(it++);
             }
             if (fileschanged && !pblocktree->WriteLastBlockFile(nLastBlockFile)) {
-                return AbortNode(state, "Failed to write to block index");
+                return state.Abort("Failed to write to block index");
             }
             for (set<CBlockIndex*>::iterator it = setDirtyBlockIndex.begin(); it != setDirtyBlockIndex.end();) {
                 if (!pblocktree->WriteBlockIndex(CDiskBlockIndex(*it))) {
-                    return AbortNode(state, "Failed to write to block index");
+                    return state.Abort("Failed to write to block index");
                 }
                 setDirtyBlockIndex.erase(it++);
             }
@@ -3438,7 +3423,7 @@ bool static FlushStateToDisk(CValidationState& state, FlushStateMode mode)
             pblocktree->Sync();
             // Finally flush the chainstate (which may refer to block index entries).
             if (!pcoinsTip->Flush())
-                return AbortNode(state, "Failed to write to coin database");
+                return state.Abort("Failed to write to coin database");
             // Update best block in wallet (so we can detect restored wallets).
             if (mode != FLUSH_STATE_IF_NEEDED) {
                 GetMainSignals().SetBestChain(chainActive.GetLocator());
@@ -3446,7 +3431,7 @@ bool static FlushStateToDisk(CValidationState& state, FlushStateMode mode)
             nLastWrite = GetTimeMicros();
         }
     } catch (const std::runtime_error& e) {
-        return AbortNode(state, std::string("System error while flushing: ") + e.what());
+        return state.Abort(std::string("System error while flushing: ") + e.what());
     }
     return true;
 }
@@ -3509,7 +3494,7 @@ bool static DisconnectTip(CValidationState& state)
     // Read block from disk.
     CBlock block;
     if (!ReadBlockFromDisk(block, pindexDelete))
-        return AbortNode(state, "Failed to read block");
+        return state.Abort("Failed to read block");
     // Apply the block atomically to the chain state.
     int64_t nStart = GetTimeMicros();
     {
@@ -3566,7 +3551,7 @@ bool static ConnectTip(CValidationState& state, CBlockIndex* pindexNew, CBlock* 
     CBlock block;
     if (!pblock) {
         if (!ReadBlockFromDisk(block, pindexNew))
-            return AbortNode(state, "Failed to read block");
+            return state.Abort("Failed to read block");
         pblock = &block;
     }
     // Apply the block atomically to the chain state.
@@ -3672,7 +3657,7 @@ bool DisconnectBlockAndInputs(CValidationState& state, CTransaction txLock)
 
         CBlock block;
         if (!ReadBlockFromDisk(block, BlockReading))
-            return AbortNode(state, _("Failed to read block"));
+            return state.Abort(_("Failed to read block"));
 
         // Queue memory transactions to resurrect.
         // We only do this for blocks after the last checkpoint (reorganisation before that
@@ -4214,7 +4199,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
 
     // Check that the header is valid (particularly PoW).  This is mostly
     // redundant with the call in AcceptBlockHeader.
-    if (!CheckBlockHeader(block, state, block.IsProofOfWork() && fCheckPOW))
+    if (!CheckBlockHeader(block, state, block.IsProofOfWork()))
         return state.DoS(100, error("CheckBlock() : CheckBlockHeader failed"),
             REJECT_INVALID, "bad-header", true);
 
@@ -4367,14 +4352,12 @@ bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW, bo
 
 bool CheckWork(const CBlock block, CBlockIndex* const pindexPrev)
 {
-    int nHeight = pindexPrev->nHeight + 1;
-
     if (pindexPrev == NULL)
         return error("%s : null pindexPrev for block %s", __func__, block.GetHash().ToString().c_str());
 
     unsigned int nBitsRequired = GetNextWorkRequired(pindexPrev, &block);
 
-    if (nHeight >= Params().Zerocoin_StartHeight()) {
+    if (pindexPrev->nHeight + 1 >= Params().Zerocoin_StartHeight()) {
         if (block.nBits != nBitsRequired)
             return error("%s : incorrect proof of work at %d", __func__, pindexPrev->nHeight + 1);
     }
@@ -4616,7 +4599,6 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
         uint256 hashProofOfStake = 0;
         unique_ptr<CStakeInput> stake;
 
-        // CEVAP **TODO**: Skip checks for all blocks below Zerocoin v1 Start height
         if (!CheckProofOfStake(block, hashProofOfStake, stake, pindexPrev->nHeight))
             return state.DoS(100, error("%s: proof of stake check failed", __func__));
 
@@ -4846,11 +4828,11 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
             return error("AcceptBlock() : FindBlockPos failed");
         if (dbp == NULL)
             if (!WriteBlockToDisk(block, blockPos))
-                return AbortNode(state, "Failed to write block");
+                return state.Abort("Failed to write block");
         if (!ReceivedBlockTransactions(block, state, pindex, blockPos))
             return error("AcceptBlock() : ReceivedBlockTransactions failed");
     } catch (std::runtime_error& e) {
-        return AbortNode(state, std::string("System error: ") + e.what());
+        return state.Abort(std::string("System error: ") + e.what());
     }
 
     return true;
@@ -5039,6 +5021,17 @@ bool TestBlockValidity(CValidationState& state, const CBlock& block, CBlockIndex
     assert(state.IsValid());
 
     return true;
+}
+
+bool AbortNode(const std::string& strMessage, const std::string& userMessage)
+{
+    strMiscWarning = strMessage;
+    LogPrintf("*** %s\n", strMessage);
+    uiInterface.ThreadSafeMessageBox(
+        userMessage.empty() ? _("Error: A fatal internal error occured, see debug.log for details") : userMessage,
+        "", CClientUIInterface::MSG_ERROR);
+    StartShutdown();
+    return false;
 }
 
 bool CheckDiskSpace(uint64_t nAdditionalBytes)

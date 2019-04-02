@@ -1477,18 +1477,18 @@ UniValue getserials(const UniValue& params, bool fHelp) {
 
 }
 
-UniValue calculateaccumulatorvalues(const UniValue& params, bool fHelp)
+UniValue getaccumulatorcheckpoints(const UniValue& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "calculateaccumulatorvalues \"height\"\n"
+            "getaccumulatorcheckpoints \"height\"\n"
                     "\nReturns the calculated accumulator values associated with a block height\n"
 
                     "\nArguments:\n"
                     "1. height   (numeric, required) the height of the checkpoint.\n"
 
                     "\nExamples:\n" +
-            HelpExampleCli("calculateaccumulatorvalues", "\"height\"") + HelpExampleRpc("generateaccumulatorvalues", "\"height\""));
+            HelpExampleCli("getaccumulatorcheckpoints", "\"height\"") + HelpExampleRpc("generateaccumulatorvalues", "\"height\""));
 
     int nHeight = params[0].get_int();
 
