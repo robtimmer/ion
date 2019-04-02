@@ -47,7 +47,6 @@ UniValue CallRPC(string args)
     }
 }
 
-/* **TODO** - change values to ion's before unmarking
 BOOST_AUTO_TEST_SUITE(rpc_tests)
 
 BOOST_AUTO_TEST_CASE(rpc_rawparams)
@@ -265,4 +264,3 @@ BOOST_AUTO_TEST_CASE(rpc_ban)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
-*/
