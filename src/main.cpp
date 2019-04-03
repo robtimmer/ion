@@ -1902,7 +1902,11 @@ int64_t GetBlockValue(int nHeight)
             nSubsidy = 250 * COIN;
         }
     } else if (Params().NetworkID() == CBaseChainParams::TESTNET && nHeight <= 570062) {
-        if (nHeight >= 2 && nHeight <= 125146) {
+        if (nHeight == 0) {
+            nSubsidy = 1 * COIN;
+        } else if (nHeight == 1) {
+            nSubsidy = 16400000 * COIN;
+        } else if (nHeight >= 2 && nHeight <= 125146) {
             nSubsidy = 23 * COIN;
         } else if (nHeight > 125146 && nHeight <= 570062) {
             nSubsidy = 17 * COIN;
@@ -4182,11 +4186,11 @@ bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, bool f
     // Version 4 header must be used after Params().Zerocoin_StartHeight(). And never before.
     if (block.GetBlockTime() > Params().Zerocoin_StartTime()) {
         if(block.nVersion < Params().Zerocoin_HeaderVersion() && Params().NetworkID() != CBaseChainParams::REGTEST)
-            return state.DoS(50, error("CheckBlockHeader() : block version must be above 4 after ZerocoinStartHeight"),
+            return state.DoS(50, error("CheckBlockHeader() : block version must be above 8 after ZerocoinStartHeight"),
             REJECT_INVALID, "block-version");
     } else {
         if (block.nVersion >= Params().Zerocoin_HeaderVersion())
-            return state.DoS(50, error("CheckBlockHeader() : block version must be below 4 before ZerocoinStartHeight"),
+            return state.DoS(50, error("CheckBlockHeader() : block version must be below 8 before ZerocoinStartHeight"),
             REJECT_INVALID, "block-version");
     }
 
