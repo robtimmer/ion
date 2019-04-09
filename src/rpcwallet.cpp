@@ -767,7 +767,6 @@ UniValue getbalance(const UniValue& params, bool fHelp)
     return ValueFromAmount(nBalance);
 }
 
-/*
 UniValue getextendedbalance(const UniValue& params, bool fHelp)
 {
     if (fHelp || (params.size() > 0))
@@ -809,7 +808,6 @@ UniValue getextendedbalance(const UniValue& params, bool fHelp)
     obj.push_back(Pair("watchonly_balance_locked", ValueFromAmount(pwalletMain->GetLockedWatchOnlyBalance())));
     return obj;
 }
-*/
 
 UniValue getunconfirmedbalance(const UniValue &params, bool fHelp)
 {
