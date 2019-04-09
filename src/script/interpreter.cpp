@@ -1187,18 +1187,8 @@ bool VerifyScript(const CScript& scriptSig, const CScript& scriptPubKey, unsigne
     if (stack.empty())
         return set_error(serror, SCRIPT_ERR_EVAL_FALSE);
 
-    /* **TODO**
-     * current check is disabled because main network does fails to accept block 1013854
-     * blockheight: 1013854
-     * hash: f0e2440efbb034db3ea67b4981daf5fd2c24c4e10be7737ad465c87ebd79856f
-     * Errors:
-     *  ERROR: CScriptCheck(): a38ad2f488a1fcd2ccb9627b48bba378dd2041ff15249be35c60db77fed61ab5:0 VerifySignature failed: Script evaluated without error but finished with a false/empty top stack element
-     *  ERROR: ConnectBlock: CheckQueue failed
-     *  InvalidChainFound:  current best=0a0455fe8f65da9adddf28e137bf543b1dd465e3deba15e478034af6e2284c2a  height=1013853  log2_work=71.272516  date=2019-02-14 03:38:10
-2019-03-31 04:37:52 InvalidChainFound: invalid block=f0e2440efbb034db3ea67b4981daf5fd2c24c4e10be7737ad465c87ebd79856f 
     if (CastToBool(stack.back()) == false)
         return set_error(serror, SCRIPT_ERR_EVAL_FALSE);
-    */
 
     // Additional validation for spend-to-script-hash transactions:
     if ((flags & SCRIPT_VERIFY_P2SH) && scriptPubKey.IsPayToScriptHash())
