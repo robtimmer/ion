@@ -1,14 +1,14 @@
 # Copyright (c) 2018-2019 The Ion developers
 name: ioncore
+base: core18
 version: 3.2.99
 summary:   gaming related peer-to-peer network based digital currency
 description: |
-  [Ion Core](https://github.com/ioncoincore/ion) is an [MIT licensed](https://github.com/cevap/ion/blob/master/LICENSE),
+  [Ion Core](https://github.com/ioncoincore/ion) is an [MIT licensed](https://github.com/ioncoincore/ion/blob/master/LICENSE),
   open source, gaming oriented, blockchain-based cryptocurrency with
   ultra fast transactions, low fees, high network decentralization, and
   Zero Knowledge cryptography proofs for industry-leading
-  transaction anonymity. This package include QT, daemon, cli and tx
-  binaries.
+  transaction anonymity. 
   
   Documentation and wiki:
   - Wiki (Ion Core):    https://github.com/ioncoincore/ion/wiki
@@ -39,40 +39,47 @@ description: |
   - [Report some random issue](https://github.com/ioncoincore/ion/issues/new?assignees=ckti%2C+MitchellCash%2C+CeForce%2C+cevap%2C+FornaxA&labels=question%2C+random+issue&template=report-some-random-issue.md&title=%5Brandom+issue%5D)
     Report a issue
   - [Testing Report](https://github.com/ioncoincore/ion/issues/new?assignees=&labels=Testing&template=testing-report.md&title=Test+Report+%5BBuild%5D+%5BOS%5D)
-     Document Testing and Results  
-
-grade: devel
+     Document Testing and Results
+grade: stable
 confinement: strict
 icon: src/qt/res/src/ion.svg
 apps:
   daemon:
     command: iond
-    plugs: [network, network-bind, home, removable-media]
+    plugs: [network, network-bind, network-status, home, removable-media]
     environment:
       XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
   daemon-testnet:
     command: iond --testnet
-    plugs: [network, network-bind, home, removable-media]
+    plugs: [network, network-bind, network-status, home, removable-media]
     environment:
       XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
   daemon-regtest:
     command: iond --regtest
-    plugs: [network, network-bind, home, removable-media]
+    plugs: [network, network-bind, network-status, home, removable-media]
+    environment:
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
   qt:
-    command: desktop-launch ion-qt
-    plugs: [network, network-bind, unity7, unity8-calendar, unity8-contacts, desktop, desktop-legacy, wayland, x11, mir, opengl, home, removable-media]
+    command: ion-qt
+    plugs: [network, network-bind, network-status, unity7, desktop, desktop-legacy, wayland, x11, mir, opengl, home, gsettings, removable-media, screen-inhibit-control, pulseaudio, media-hub]
     desktop: qt.desktop
+    environment:
+      QT_XKB_CONFIG_ROOT: $SNAP_USER_DATA:$SNAP/usr/share:$QT_XKB_CONFIG_ROOT
   qt-testnet:
-    command: desktop-launch ion-qt --testnet
-    plugs: [network, network-bind, unity7, unity8-calendar, unity8-contacts, desktop, desktop-legacy, wayland, x11, mir, opengl, home, removable-media]
+    command: ion-qt --testnet
+    plugs: [network, network-bind, network-status, unity7, desktop, desktop-legacy, wayland, x11, mir, opengl, home, gsettings, removable-media, screen-inhibit-control, pulseaudio, media-hub]
     desktop: qt-testnet.desktop
+    environment:
+      QT_XKB_CONFIG_ROOT: $SNAP_USER_DATA:$SNAP/usr/share:$QT_XKB_CONFIG_ROOT
   qt-regtest:
-    command: desktop-launch ion-qt --regtest
-    plugs: [network, network-bind, unity7, unity8-calendar, unity8-contacts, desktop, desktop-legacy, wayland, x11, mir, opengl, home, removable-media]
+    command: ion-qt --regtest
+    plugs: [network, network-bind, network-status, unity7, desktop, desktop-legacy, wayland, x11, mir, opengl, home, gsettings, removable-media, screen-inhibit-control, pulseaudio, media-hub]
     desktop: qt-regtest.desktop
+    environment:
+      QT_XKB_CONFIG_ROOT: $SNAP_USER_DATA:$SNAP/usr/share:$QT_XKB_CONFIG_ROOT
   cli:
     command: ion-cli
-    plugs: [network, network-bind, home]
+    plugs: [network, network-bind, network-status, home]
   cli-testnet:
     command: ion-cli --testnet
     plugs: [network, network-bind, home]
@@ -89,217 +96,63 @@ parts:
     source-tag: master
     plugin: nil
     override-build: |
-      WRAP_DIR=$HOME/wrapped
-      if [ $SNAPCRAFT_ARCH_TRIPLET = "i386-linux-gnu" ]
-      then
-        HOSTS=i686-linux-gnu
+      SHORTNAME="ion"
+      if [ $SNAPCRAFT_ARCH_TRIPLET = "i386-linux-gnu" ]; then
+        HOST="i686-linux-gnu"
       else
-        HOSTS=$SNAPCRAFT_ARCH_TRIPLET
+        HOST="${SNAPCRAFT_ARCH_TRIPLET}"
       fi
-      #HOSTS="i686-pc-linux-gnu x86_64-linux-gnu arm-linux-gnueabihf aarch64-linux-gnu riscv64-linux-gnu"
-      CONFIGFLAGS="--enable-glibc-back-compat --enable-reduce-exports --disable-bench --disable-gui-tests"
-      FAKETIME_HOST_PROGS="gcc g++"
-      FAKETIME_PROGS="date ar ranlib nm"
-      HOST_CFLAGS="-O2 -g"
-      HOST_CXXFLAGS="-O2 -g"
-      HOST_LDFLAGS=-static-libstdc++
-      export QT_RCC_TEST=1
-      export QT_RCC_SOURCE_DATE_OVERRIDE=1
-      export GZIP="-9n"
-      export TAR_OPTIONS="--mtime="$REFERENCE_DATE\\\ $REFERENCE_TIME""
-      export TZ="UTC"
-      export BUILD_DIR=`pwd`
-      mkdir -p ${WRAP_DIR}
-      if test -n "$GBUILD_CACHE_ENABLED"; then
-        export SOURCES_PATH=${GBUILD_COMMON_CACHE}
-        export BASE_CACHE=${GBUILD_PACKAGE_CACHE}
-        mkdir -p ${BASE_CACHE} ${SOURCES_PATH}
-      fi
-      function create_global_faketime_wrappers {
-      for prog in ${FAKETIME_PROGS}; do
-        echo '#!/usr/bin/env bash' > ${WRAP_DIR}/${prog}
-        echo "REAL=\`which -a ${prog} | grep -v ${WRAP_DIR}/${prog} | head -1\`" >> ${WRAP_DIR}/${prog}
-        echo 'export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1' >> ${WRAP_DIR}/${prog}
-        echo "export FAKETIME=\"$1\"" >> ${WRAP_DIR}/${prog}
-        echo "\$REAL \$@" >> $WRAP_DIR/${prog}
-        chmod +x ${WRAP_DIR}/${prog}
-      done
-      }
-      function create_per-host_faketime_wrappers {
-      for i in $HOSTS; do
-        for prog in ${FAKETIME_HOST_PROGS}; do
-            if which ${i}-${prog}-8
-            then
-                echo '#!/usr/bin/env bash' > ${WRAP_DIR}/${i}-${prog}
-                echo "REAL=\`which -a ${i}-${prog}-8 | grep -v ${WRAP_DIR}/${i}-${prog} | head -1\`" >> ${WRAP_DIR}/${i}-${prog}
-                echo 'export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1' >> ${WRAP_DIR}/${i}-${prog}
-                echo "export FAKETIME=\"$1\"" >> ${WRAP_DIR}/${i}-${prog}
-                echo "\$REAL \$@" >> $WRAP_DIR/${i}-${prog}
-                chmod +x ${WRAP_DIR}/${i}-${prog}
-            fi
-        done
-      done
-      }
-      # Faketime for depends so intermediate results are comparable
-      export PATH_orig=${PATH}
-      create_global_faketime_wrappers "2000-01-01 12:00:00"
-      create_per-host_faketime_wrappers "2000-01-01 12:00:00"
-      export PATH=${WRAP_DIR}:${PATH}
-      for i in ${HOSTS}; do
-      if [ ${i} = "arm-linux-gnueabihf" ]
-        then
-          update-alternatives --install /usr/bin/arm-linux-gnueabihf-gcc \
-          arm-linux-gnueabihf-gcc /usr/bin/arm-linux-gnueabihf-gcc-4.8 100
-          update-alternatives --install /usr/bin/arm-linux-gnueabihf-g++ \
-          arm-linux-gnueabihf-g++ /usr/bin/arm-linux-gnueabihf-g++-4.8 100
-          make HOST=$SNAPCRAFT_ARCH_TRIPLET
-        fi
-      done
-      EXTRA_INCLUDES_BASE=$WRAP_DIR/extra_includes
-      mkdir -p $EXTRA_INCLUDES_BASE
-      # x86 needs /usr/include/i386-linux-gnu/asm pointed to /usr/include/x86_64-linux-gnu/asm,
-      # but we can't write there. Instead, create a link here and force it to be included in the
-      # search paths by wrapping gcc/g++.
-      mkdir -p $EXTRA_INCLUDES_BASE/i686-pc-linux-gnu
-      rm -f $WRAP_DIR/extra_includes/i686-pc-linux-gnu/asm
-      ln -s /usr/include/x86_64-linux-gnu/asm $EXTRA_INCLUDES_BASE/i686-pc-linux-gnu/asm
-      for prog in gcc g++; do
-      rm -f ${WRAP_DIR}/${prog}
-      cat << EOF > ${WRAP_DIR}/${prog}
-      #!/usr/bin/env bash
-      REAL="`which -a ${prog}-8 | grep -v ${WRAP_DIR}/${prog} | head -1`"
-      for var in "\$@"
-      do
-        if [ "\$var" = "-m32" ]; then
-          export C_INCLUDE_PATH="$EXTRA_INCLUDES_BASE/i686-pc-linux-gnu"
-          export CPLUS_INCLUDE_PATH="$EXTRA_INCLUDES_BASE/i686-pc-linux-gnu"
-          break
-        fi
-      done
-      \$REAL \$@
-      EOF
-      chmod +x ${WRAP_DIR}/${prog}
-      done
-      cd ion
-      BASEPREFIX=`pwd`/depends
-      # Build dependencies for each host
-      for i in $HOSTS; do
-        EXTRA_INCLUDES="$EXTRA_INCLUDES_BASE/$i"
-        if [ -d "$EXTRA_INCLUDES" ]; then
-          export HOST_ID_SALT="$EXTRA_INCLUDES"
-        fi
-        make ${MAKEOPTS} -C ${BASEPREFIX} HOST="${i}"
-        unset HOST_ID_SALT
-      done
-      # Faketime for binaries
-      export PATH=${PATH_orig}
-      create_global_faketime_wrappers "${REFERENCE_DATETIME}"
-      create_per-host_faketime_wrappers "${REFERENCE_DATETIME}"
-      export PATH=${WRAP_DIR}:${PATH}
-      # Create the release tarball using (arbitrarily) the first host
+      # APPLY PATCHES
+      echo "apply patches:"
+      git apply ${SNAPCRAFT_STAGE}/default_data_dir.patch
+      git apply ${SNAPCRAFT_STAGE}/fix-bdb-tmp-folder.patch
+      git apply ${SNAPCRAFT_STAGE}/fix-use-snap-instead-of-dirty.patch
+      sed -i 's/tar --strip-components/tar --no-same-owner --strip-components/' ${SNAPCRAFT_PART_BUILD}/depends/funcs.mk
+      # BUILD DEPENDENCIES
+      echo "START BUILDING ${SHORTNAME} FOR ${SNAPCRAFT_ARCH_TRIPLET} architecture"
+      cd ${SNAPCRAFT_PART_BUILD}/depends
+      make download-linux
+      make -j4 HOST=${HOST}
+      # CONFIGURE
+      echo "Configure ${SHORTNAME}"
+      cd ${SNAPCRAFT_PART_BUILD}
+      echo "Configure and build ${SHORTNAME}"
       ./autogen.sh
-      CONFIG_SITE=${BASEPREFIX}/`echo "${HOSTS}" | awk '{print $1;}'`/share/config.site ./configure --prefix=/
-      make dist
-      SOURCEDIST=`echo ion-*.tar.gz`
-      DISTNAME=`echo ${SOURCEDIST} | sed 's/.tar.*//'`
-      # Correct tar file order
-      mkdir -p temp
-      pushd temp
-      tar xf ../$SOURCEDIST
-      find ion-* | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | xz -9 > ../$SOURCEDIST
-      popd
-      # Workaround for tarball not building with the bare tag version (prep)
-      make -C src obj/build.h
-      ORIGPATH="$PATH"
-      # Extract the release tarball into a dir for each host and build
-      for i in ${HOSTS}; do
-        export PATH=${BASEPREFIX}/${i}/native/bin:${ORIGPATH}
-        mkdir -p distsrc-${i}
-        cd distsrc-${i}
-        INSTALLPATH=$SNAPCRAFT_PART_INSTALL
-        #mkdir -p ${INSTALLPATH}
-        tar --strip-components=1 -xJf ../$SOURCEDIST
-        # Workaround for tarball not building with the bare tag version
-        echo '#!/bin/true' >share/genbuild.sh
-        mkdir src/obj
-        cp ../src/obj/build.h src/obj/
-        CONFIG_SITE=${BASEPREFIX}/${i}/share/config.site ./configure --prefix=/ --disable-ccache --disable-maintainer-mode --disable-dependency-tracking ${CONFIGFLAGS} CFLAGS="${HOST_CFLAGS}" CXXFLAGS="${HOST_CXXFLAGS}" LDFLAGS="${HOST_LDFLAGS}"
-        make ${MAKEOPTS}
-        make ${MAKEOPTS} -C src check-security
-        make ${MAKEOPTS} -C src check-symbols
-        make install DESTDIR=${INSTALLPATH}
-        cd ${INSTALLPATH}
-        find . -name "lib*.la" -delete
-        find . -name "lib*.a" -delete
-        rm -rf ${DISTNAME}/lib/pkgconfig
-        find ${DISTNAME}/bin -type f -executable -exec ../contrib/devtools/split-debug.sh {} {} {}.dbg \;
-        ## find ${DISTNAME}/lib -type f -exec ../contrib/devtools/split-debug.sh {} {} {}.dbg \;
-        #find ${DISTNAME} -not -name "*.dbg" | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | xz -9 > ${OUTDIR}/${DISTNAME}-${i}.tar.xz
-        #find ${DISTNAME} -name "*.dbg" | sort | tar --no-recursion --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 -c -T - | xz -9 > ${OUTDIR}/${DISTNAME}-${i}-debug.tar.xz
-        cd ../../
-        rm -rf distsrc-${i}
-      done
-      #mkdir -p $OUTDIR/src
-      #mv $SOURCEDIST $OUTDIR/src
-      # #################################################################
-      # ######################## OLD OBSOLETECODE########################
-      # #################################################################
-      ## Patch - Default home folder
-      ### We don't want to copy the full blockchain every time that the snap is   
-      ### updated, but there's no way to define a default data dir in ion-qt.
-      ### Additionaly we fix funcs.mk
-      #git apply $SNAPCRAFT_STAGE/default_data_dir.patch
-      #git apply $SNAPCRAFT_STAGE/fix-bdb-tmp-folder.patch
-      ### Patch - Fix Bug extracting sources without ownership
-      #sed -i 's/tar --strip-components/tar --no-same-owner --strip-components/' $SNAPCRAFT_PART_BUILD/depends/funcs.mk
-      ## Build Dependencies
-      #echo "START BUILDING FOR $SNAPCRAFT_ARCH_TRIPLET architecture"
-      #cd $SNAPCRAFT_PART_BUILD/depends
-      ## Fix building ARM and AARCh64, as on some point they fail with, predownload all packages
-      ##   curl: (22) The requested URL returned error: 407
-      #make download-linux
-      #if [ $SNAPCRAFT_ARCH_TRIPLET = "i386-linux-gnu" ]
-      #then
-      #  make HOST=i686-linux-gnu
-      #else
-      #  make HOST=$SNAPCRAFT_ARCH_TRIPLET
-      #fi
-      ## Configure Ion Core
-      #cd $SNAPCRAFT_PART_BUILD
-      #./autogen.sh
-      #if [ $SNAPCRAFT_ARCH_TRIPLET = "i386-linux-gnu" ]
-      #then
-      #  ./configure --prefix=`pwd`/depends/i686-linux-gnu
-      #else
-      #  ./configure --prefix=`pwd`/depends/$SNAPCRAFT_ARCH_TRIPLET
-      #fi
-      ## Compile Ion Core
-      #make
-      ## Install Ion Core
-      #make install prefix=$SNAPCRAFT_PART_INSTALL
-      ## print in log which files are installed
-      #echo "Installed files:"
-      #find $SNAPCRAFT_PART_INSTALL -type f
+      ./configure --prefix=`pwd`/depends/${HOST}
+      # COMPILE
+      echo "Compile ${SHORTNAME}"
+      make -j4
+      # INSTALL
+      echo "Install ${SHORTNAME}"
+      make install prefix=${SNAPCRAFT_PART_INSTALL}
+      # POST INSTALL
+      if [ $SNAPCRAFT_ARCH_TRIPLET = "powerpc64le-linux-gnu" ]; then
+        if [ -e $SNAPCRAFT_PART_BUILD/src/qt/${SHORTNAME}-qt ]; then
+          echo "PPC64EL fix - ${SHORTNAME}-qt exists, fix unrequired"
+        else
+          echo "echo ${SHORTNAME}-qt is not installed" > ${SNAPCRAFT_PART_INSTALL}/usr/bin/${SHORTNAME}-qt
+          chmod +x ${SNAPCRAFT_PART_INSTALL}/usr/bin/${SHORTNAME}-qt
+          echo "PPC64EL fix - ${SHORTNAME}-qt exists, fix required, dummy as ${SHORTNAME}-qt"
+        fi
+      fi
+      echo "Installed files:"
+      find ${SNAPCRAFT_PART_INSTALL} -type f
     build-packages:
       - curl
       - wget
-      - g++
       - gcc
+      - gcc-8
+      - g++
+      - g++-8
       - make
       - autoconf
       - automake
-      - faketime
       - cmake
       - pkg-config
       - libtool
       - bsdmainutils
       - binutils
       - python3
-    stage-packages: [ca-certificates]
-    after:
-      - desktop-qt5
-      - patches
-  desktop-qt5:
     stage-packages:
       - libxkbcommon0
       - ttf-ubuntu-font-family
@@ -311,6 +164,9 @@ parts:
       - libqt5svg5 # for loading icon themes which are svg
       - locales-all
       - qtwayland5
+      - ca-certificates
+    after:
+      - patches
   patches:
     source: snap/patches
     plugin: dump

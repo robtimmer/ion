@@ -1,8 +1,8 @@
 Ion Core integration/staging repository
 =======================================
 
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/ioncoincore/ion.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fcevap%2Fion) [![Chat on Discord](https://img.shields.io/discord/308323056592486420.svg?logo=discord)](https://discord.gg/vuZn7gC) [![Latest Release](https://img.shields.io/github/downloads/ioncoincore/ion/latest/total.svg)](https://github.com/ioncoincore/ion/releases/latest)
-[![Build Status](https://travis-ci.org/ioncoincore/ion.svg?branch=master)](https://travis-ci.org/ioncoincore/ion) [![GitHub version](https://badge.fury.io/gh/cevap%2Fion.svg)](https://badge.fury.io/gh/cevap%2Fion) [![Snap Status](https://build.snapcraft.io/badge/ioncoincore/ion.svg)](https://build.snapcraft.io/user/ioncoincore/ion) [![GitHub issues](https://img.shields.io/github/issues/ioncoincore/ion.svg)](https://github.com/ioncoincore/ion/issues) [![GitHub forks](https://img.shields.io/github/forks/ioncoincore/ion.svg)](https://github.com/ioncoincore/ion/network) [![GitHub stars](https://img.shields.io/github/stars/ioncoincore/ion.svg)](https://github.com/ioncoincore/ion/stargazers) [![GitHub license](https://img.shields.io/github/license/ioncoincore/ion.svg)](https://github.com/ioncoincore/ion)
+[![Twitter](https://img.shields.io/twitter/url/https/github.com/ioncoincore/ion.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fioncoincore%2Fion) [![Chat on Discord](https://img.shields.io/discord/308323056592486420.svg?logo=discord)](https://discord.gg/vuZn7gC) [![Latest Release](https://img.shields.io/github/downloads/ioncoincore/ion/latest/total.svg)](https://github.com/ioncoincore/ion/releases/latest)
+[![Build Status](https://travis-ci.org/ioncoincore/ion.svg?branch=master)](https://travis-ci.org/ioncoincore/ion) [![GitHub version](https://badge.fury.io/gh/ioncoincore%2Fion.svg)](https://badge.fury.io/gh/ioncoincore%2Fion) [![Snap Status](https://build.snapcraft.io/badge/ioncoincore/ion.svg)](https://build.snapcraft.io/user/ioncoincore/ion) [![GitHub issues](https://img.shields.io/github/issues/ioncoincore/ion.svg)](https://github.com/ioncoincore/ion/issues) [![GitHub forks](https://img.shields.io/github/forks/ioncoincore/ion.svg)](https://github.com/ioncoincore/ion/network) [![GitHub stars](https://img.shields.io/github/stars/ioncoincore/ion.svg)](https://github.com/ioncoincore/ion/stargazers) [![GitHub license](https://img.shields.io/github/license/ioncoincore/ion.svg)](https://github.com/ioncoincore/ion)
 
 [![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/ioncore)
 
@@ -30,7 +30,7 @@ Table of Contents
       - [OS's supported by snap](#oss-supported-by-snap)
     - [Method 3. Download and install latest release](#method-3-download-and-install-latest-release)
       - [Latest stable Release](#latest-stable-release)
-      - [Final Release v3.1.02](#final-release-v3102)
+      - [Final Release v3.2.00](#final-release-v3200)
         - [MacOS/OSX downloads](#macososx-downloads)
         - [Windows XP/Vista/7/10 Installer downloads](#windows-xpvista710-installer-downloads)
         - [Windows XP/Vista/7/10 only binaries downloads](#windows-xpvista710-only-binaries-downloads)
@@ -184,8 +184,8 @@ Ion Core RPC client version v3.1.99.0-fc81e5f-dirty
 #### Latest stable Release
 - [![Latest stable Release](https://img.shields.io/github/downloads/ioncoincore/ion/latest/total.svg)](https://github.com/ioncoincore/ion/releases/latest)
 
-#### Final Release v3.1.02
-- [![Release v3.1.02](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/total.svg)](https://github.com/ioncoincore/ion/releases/latest)
+#### Final Release v3.2.00
+- [![Release v3.2.00](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/total.svg)](https://github.com/ioncoincore/ion/releases/latest)
 
 - [Build and install ion (all OS)](../../tree/master/doc)
 
@@ -203,11 +203,11 @@ Ion Core RPC client version v3.1.99.0-fc81e5f-dirty
 
 ##### Linux downloads
 
-- [![Download ion v3.1.02 for Linux 32-bit (i686)](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/ion-3.2.00-i686-pc-linux-gnu.tar.gz.svg)](https://github.com/ioncoincore/ion/releases/download/v3.2.00/ion-3.2.00-i686-pc-linux-gnu.tar.gz) [![Download ion v3.1.02 for Linux 64-bit (x86_x64)](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/ion-3.2.00-x86_64-linux-gnu.tar.gz.svg)](https://github.com/ioncoincore/ion/releases/download/v3.2.00/ion-3.2.00-x86_64-linux-gnu.tar.gz)
+- [![Download ion v3.2.00 for Linux 32-bit (i686)](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/ion-3.2.00-i686-pc-linux-gnu.tar.gz.svg)](https://github.com/ioncoincore/ion/releases/download/v3.2.00/ion-3.2.00-i686-pc-linux-gnu.tar.gz) [![Download ion v3.2.00 for Linux 64-bit (x86_x64)](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/ion-3.2.00-x86_64-linux-gnu.tar.gz.svg)](https://github.com/ioncoincore/ion/releases/download/v3.2.00/ion-3.2.00-x86_64-linux-gnu.tar.gz)
 
 ##### Linux ARM/aarch64 downloads
 
-- [![Download ion v3.1.02 for ARM Linux](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/ion-3.2.00-arm-linux-gnueabihf.tar.gz.svg)](https://github.com/ioncoincore/ion/releases/download/v3.2.00/ion-3.2.00-arm-linux-gnueabihf.tar.gz) [![Download ion v3.1.02 for aarch64 Linux](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/ion-3.2.00-aarch64-linux-gnu.tar.gz.svg)](https://github.com/ioncoincore/ion/releases/download/v3.2.00/ion-3.2.00-aarch64-linux-gnu.tar.gz)
+- [![Download ion v3.2.00 for ARM Linux](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/ion-3.2.00-arm-linux-gnueabihf.tar.gz.svg)](https://github.com/ioncoincore/ion/releases/download/v3.2.00/ion-3.2.00-arm-linux-gnueabihf.tar.gz) [![Download ion v3.2.00 for aarch64 Linux](https://img.shields.io/github/downloads/ioncoincore/ion/v3.2.00/ion-3.2.00-aarch64-linux-gnu.tar.gz.svg)](https://github.com/ioncoincore/ion/releases/download/v3.2.00/ion-3.2.00-aarch64-linux-gnu.tar.gz)
 
 ##### Download checksums
 

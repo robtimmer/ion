@@ -4,7 +4,7 @@ ION Core version *version* is now available from:  <https://github.com/ioncoinco
 
 This is a new major version release, including various bug fixes and performance improvements, as well as updated translations.
 
-Please report bugs using the issue tracker at github: <https://github.com/ioncoincore/ion/issues>
+Please report bugs using the issue tracker at github: <https://github.com/cevap/ion/issues>
 
 
 Mandatory Update
