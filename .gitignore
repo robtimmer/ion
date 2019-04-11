@@ -122,6 +122,7 @@ qa/pull-tester/run-bitcoind-for-test.sh
 qa/pull-tester/tests-config.sh
 qa/pull-tester/cache/*
 qa/pull-tester/test.*/*
+cache/*
 
 !src/leveldb*/Makefile
 
@@ -151,3 +152,17 @@ stage/
 
 # datadir
 datadir/
+
+# test suite
+.cookie
+.lock
+blocks/
+budget.dat
+conftest.c
+chainstate/
+database/
+masternode.conf
+mncache.dat
+mnpayments.dat
+sporks/
+zerocoin
