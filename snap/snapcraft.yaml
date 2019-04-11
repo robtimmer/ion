@@ -1,15 +1,14 @@
 # Copyright (c) 2018-2019 The Ion developers
-name: ioncore
+name: ioncoin-ce
 base: core18
-version: 3.1.02
+version: 3.2.00
 summary:   gaming related peer-to-peer network based digital currency
 description: |
   [Ion Core](https://github.com/ioncoincore/ion) is an [MIT licensed](https://github.com/cevap/ion/blob/master/LICENSE),
   open source, gaming oriented, blockchain-based cryptocurrency with
   ultra fast transactions, low fees, high network decentralization, and
   Zero Knowledge cryptography proofs for industry-leading
-  transaction anonymity. This package include QT, daemon, cli and tx
-  binaries.
+  transaction anonymity. 
   
   Documentation and wiki:
   - Wiki (Ion Core):    https://github.com/ioncoincore/ion/wiki
@@ -84,9 +83,9 @@ apps:
     plugs: [home]
 parts:
   ion:
-    source: https://github.com/ioncoincore/ion
+    source: https://github.com/cevap/ion
     source-type: git
-    source-tag: v3.1.02
+    source-tag: rc-v3.2.0-cevap
     plugin: nil
     override-build: |
       SHORTNAME="ion"
