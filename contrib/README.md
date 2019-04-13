@@ -33,6 +33,9 @@ Build Tools and Keys
 Contains files used to package iond/ion-qt
 for Debian-based Linux systems. If you compile iond/ion-qt yourself, there are some useful files here.
 
+#### [Debian scripts](/contrib/debian)
+Contains scripts which can help preparing dpkg builds as well as to test them
+
 ### [Gitian-descriptors](/contrib/gitian-descriptors) ###
 Gavin's notes on getting gitian builds up and running using KVM.
 
