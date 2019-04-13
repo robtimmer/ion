@@ -97,7 +97,7 @@ CMutableTransaction BuildSpendingTransaction(const CScript& scriptSig, const CMu
 
 void DoTest(const CScript& scriptPubKey, const CScript& scriptSig, int flags, bool expect, const std::string& message)
 {
-    ScriptError err;
+    // ScriptError err; /* DISABLE AS NOT WORKING - **TODO** - fix it */
     CMutableTransaction tx = BuildSpendingTransaction(scriptSig, BuildCreditingTransaction(scriptPubKey));
     CMutableTransaction tx2 = tx;
     /* DISABLE AS NOT WORKING - **TODO** - fix it
