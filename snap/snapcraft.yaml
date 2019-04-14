@@ -181,6 +181,3 @@ parts:
       - locales-all
       - qtwayland5
       - ca-certificates
-  desktop:
-    source: snap/usr/share/applications
-    plugin: dump
