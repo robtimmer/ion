@@ -2,13 +2,13 @@
 
 [Desktop Entry]
 Encoding=UTF-8
-Name=Ion Daemon
-Comment=Main
-GenericName=Ion Digital Currency Daemon
+Name=Ion Core Daemon
+Comment=main
+GenericName=Ion Digital Currency Daemon Client
 Exec=iond --regtest %u
 Terminal=true
 Type=Application
 Icon=iond128
 MimeType=x-scheme-handler/ion;
 Categories=X-Finance;X-Games;
-Keywords=internet;ion;regtest;crypto;currency;deb;launchpad;ioncore;ioncoin;daemon;ioncoincore;
+Keywords=internet;ion;xion;core;wallet;daemon;main;deb;launchpad;crypto;digital;currency;coin;token;zerocoin;
