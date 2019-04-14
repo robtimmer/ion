@@ -181,13 +181,6 @@ parts:
       - locales-all
       - qtwayland5
       - ca-certificates
-    after:
-      - patches
-  patches:
-    source: snap/patches
-    plugin: dump
-    prime:
-      - -*
   desktop:
     source: snap/usr/share/applications
     plugin: dump
