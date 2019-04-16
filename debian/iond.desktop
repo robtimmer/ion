@@ -4,8 +4,8 @@
 Encoding=UTF-8
 Name=Ion Core Daemon
 Comment=main
-GenericName=Ion Digital Currency Daemon Client
-Exec=iond --regtest %u
+GenericName=Ion Digital Currency Daemon Client main network
+Exec=iond %u
 Terminal=true
 Type=Application
 Icon=iond128
