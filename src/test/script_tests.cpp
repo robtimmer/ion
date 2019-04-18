@@ -1,5 +1,6 @@
-// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Copyright (c) 2011-2019 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
+// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -59,8 +60,7 @@ read_json(const std::string& jsondata)
     return v.get_array();
 }
 
-// **TODO** - enable script tests after ions settings are adapted
-// BOOST_AUTO_TEST_SUITE(script_tests)
+BOOST_AUTO_TEST_SUITE(script_tests)
 
 CMutableTransaction BuildCreditingTransaction(const CScript& scriptPubKey)
 {
@@ -328,7 +328,6 @@ public:
 };
 }
 
-/* **TODO** - enable script tests after ions settings are adapted
 BOOST_AUTO_TEST_CASE(script_build)
 {
     const KeyData keys;
@@ -979,4 +978,3 @@ BOOST_AUTO_TEST_CASE(script_IsPushOnly_on_invalid_scripts)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
-*/

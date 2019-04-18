@@ -1,5 +1,6 @@
-// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Copyright (c) 2011-2019 The Bitcoin Core developers
 // Copyright (c) 2017 The PIVX developers
+// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -79,7 +80,6 @@ string FormatScriptFlags(unsigned int flags)
     return ret.substr(0, ret.size() - 1);
 }
 
-/* **TODO** - change values to ion's before unmarking
 BOOST_AUTO_TEST_SUITE(transaction_tests)
 
 /* DISABLE AS NOT WORKING - **TODO** - fix it
@@ -397,4 +397,3 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
-*/
