@@ -268,8 +268,8 @@ RES_ICONS = \
   qt/res/icons/staking_active.png \
   qt/res/icons/staking_inactive.png \
   qt/res/icons/synced.png \
-  qt/res/icons/notsynced.png_testnet \
-  qt/res/icons/notsynced.png_regtest \
+  qt/res/icons/notsynced_testnet.png \
+  qt/res/icons/notsynced_regtest.png \
   qt/res/icons/transaction0.png \
   qt/res/icons/transaction2.png \
   qt/res/icons/transaction2_testnet.png \
