@@ -39,6 +39,8 @@
         <file alias="export">res/icons/export.png</file>
         <file alias="synced">res/icons/synced.png</file>
         <file alias="notsynced">res/icons/notsynced.png</file>
+        <file alias="notsynced_testnet">res/icons/notsynced_testnet.png</file>
+        <file alias="notsynced_regtest">res/icons/notsynced_regtest.png</file>
         <file alias="remove">res/icons/remove.png</file>
         <file alias="tx_mined">res/icons/tx_mined.png</file>
         <file alias="tx_input">res/icons/tx_input.png</file>
@@ -50,6 +52,9 @@
         <file alias="unit_tion">res/icons/unit_tion.png</file>
         <file alias="unit_tmion">res/icons/unit_tmion.png</file>
         <file alias="unit_tuion">res/icons/unit_tuion.png</file>
+        <file alias="unit_rion">res/icons/unit_rion.png</file>
+        <file alias="unit_rmion">res/icons/unit_rmion.png</file>
+        <file alias="unit_ruion">res/icons/unit_ruion.png</file>
         <file alias="lock_closed">res/icons/lock_closed.png</file>
         <file alias="lock_open">res/icons/lock_open.png</file>
         <file alias="key">res/icons/key.png</file>
@@ -73,6 +78,8 @@
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
         <file alias="ion_logo_horizontal">res/images/ion_logo_horizontal.png</file>
+        <file alias="ion_logo_horizontal_testnet">res/images/ion_logo_horizontal_testnet.png</file>
+        <file alias="ion_logo_horizontal_regtest">res/images/ion_logo_horizontal_regtest.png</file>
         <file alias="downArrow">res/images/downArrow_dark.png</file>
         <file alias="downArrow_small">res/images/downArrow_small_dark.png</file>
         <file alias="downArrow_small_white">res/images/downArrow_small.png</file>

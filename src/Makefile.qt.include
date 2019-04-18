@@ -268,6 +268,7 @@ RES_ICONS = \
   qt/res/icons/staking_active.png \
   qt/res/icons/staking_inactive.png \
   qt/res/icons/synced.png \
+  qt/res/icons/notsynced.png \
   qt/res/icons/notsynced_testnet.png \
   qt/res/icons/notsynced_regtest.png \
   qt/res/icons/transaction0.png \
@@ -373,6 +374,8 @@ RES_IMAGES = \
   qt/res/images/splash_testnet.png \
   qt/res/images/splash_regtest.png \
   qt/res/images/ion_logo_horizontal.png \
+  qt/res/images/ion_logo_horizontal_regtest.png \
+  qt/res/images/ion_logo_horizontal_testnet.png \
   qt/res/images/downArrow_dark.png \
   qt/res/images/downArrow_small_dark.png \
   qt/res/images/downArrow_small.png \
