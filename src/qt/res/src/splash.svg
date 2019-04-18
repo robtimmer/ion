@@ -13,7 +13,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    inkscape:export-ydpi="36.304363"
    inkscape:export-xdpi="36.304363"
-   inkscape:export-filename="/media/dev/M2SSD/go/github.com/cevap/ion/contrib/snap/splash/splash.png"
+   inkscape:export-filename="/media/dev/M2SSD/go/github.com/cevap/ion/contrib/snap/splash/splash_regtest.png"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
    height="1533.7"
    width="1337.6097"
@@ -24,12 +24,12 @@
    x="0px"
    id="Layer_1"
    version="1.1"><sodipodi:namedview
-   inkscape:current-layer="g154997"
+   inkscape:current-layer="g155799"
    inkscape:window-maximized="0"
    inkscape:window-y="33"
    inkscape:window-x="990"
-   inkscape:cy="911.0258"
-   inkscape:cx="900.5862"
+   inkscape:cy="992.4293"
+   inkscape:cx="386.14443"
    inkscape:zoom="0.35355339"
    fit-margin-bottom="0"
    fit-margin-right="0"
@@ -53,6 +53,14 @@
          rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title>Ion Core QT splash for all networks</dc:title><cc:license
          rdf:resource="https://raw.githubusercontent.com/ioncoincore/ion/master/src/qt/res/src/LICENSE.md" /><dc:date>GMT: Monday, 15. April 2019 18:47:35</dc:date><dc:creator><cc:Agent><dc:title>Ionomy limited</dc:title></cc:Agent></dc:creator><dc:publisher><cc:Agent><dc:title>Ionomy limited</dc:title></cc:Agent></dc:publisher><dc:identifier>splash</dc:identifier><dc:source>https://raw.githubusercontent.com/ioncoincore/ion/master/src/qt/res/src/splash.svg</dc:source><dc:subject><rdf:Bag><rdf:li>ion</rdf:li><rdf:li>core</rdf:li><rdf:li>splash</rdf:li><rdf:li>main</rdf:li><rdf:li>testnet</rdf:li><rdf:li>regtest</rdf:li><rdf:li>network</rdf:li></rdf:Bag></dc:subject><dc:contributor><cc:Agent><dc:title>CEVAP</dc:title></cc:Agent></dc:contributor><dc:rights><cc:Agent><dc:title>https://raw.githubusercontent.com/ioncoincore/ion/master/src/qt/res/src/LICENSE.md</dc:title></cc:Agent></dc:rights><dc:relation>https://raw.githubusercontent.com/ioncoincore/ion/master/src/qt/res/src/splash.svg</dc:relation><dc:language>English</dc:language><dc:coverage>Ion Core splash screen for all networks</dc:coverage><dc:description>Ion Core Digital Currency (by Ionomy limited) - https://ionomy.com</dc:description></cc:Work></rdf:RDF></metadata><defs
    id="defs33"><linearGradient
+     inkscape:collect="always"
+     id="linearGradient87103"><stop
+       style="stop-color:#00ff00;stop-opacity:1;"
+       offset="0"
+       id="stop87099" /><stop
+       style="stop-color:#00ff00;stop-opacity:0;"
+       offset="1"
+       id="stop87101" /></linearGradient><linearGradient
      id="linearGradient151154"
      osb:paint="solid"><stop
        style="stop-color:#ff0000;stop-opacity:1;"
@@ -110,11 +118,13 @@
 
 
 
+
 <text
    style="font-size:24px;font-family:Ubuntu;opacity:0.75;fill:#111111;fill-opacity:0;enable-background:new"
    id="text153008"
    class="st3 st4 st6"
    transform="translate(50,41)" />
+
 
 
 
@@ -994,7 +1004,17 @@
          d="m41.37 28.567h1.438v2.927h-1.438z"
          id="path62875" /><path
          d="m45.02 28.567h1.438v2.927h-1.438z"
-         id="path62877" /></g></symbol></defs>
+         id="path62877" /></g></symbol><radialGradient
+     inkscape:collect="always"
+     xlink:href="#linearGradient87103"
+     id="radialGradient87105"
+     cx="664.37569"
+     cy="1326.3375"
+     fx="664.37569"
+     fy="1326.3375"
+     r="631.2873"
+     gradientTransform="matrix(1,0,0,0.31534725,0,908.08063)"
+     gradientUnits="userSpaceOnUse" /></defs>
 <style
    type="text/css"
    id="style2">
@@ -1010,8 +1030,8 @@
    inkscape:groupmode="layer"
    id="layer22"
    inkscape:label="global"
-   sodipodi:insensitive="true"
-   style="display:inline"><g
+   style="display:inline"
+   sodipodi:insensitive="true"><g
      inkscape:groupmode="layer"
      id="layer1"
      inkscape:label="rocket"
@@ -1033,16 +1053,18 @@
        style="display:inline"
        inkscape:label="splash_snap_main_console-output-box-main"
        id="g153035"
-       inkscape:groupmode="layer"><path
+       inkscape:groupmode="layer"
+       sodipodi:insensitive="true"><path
          inkscape:connector-curvature="0"
          id="path153033"
-         d="M 27.340868,1530.789 H 1304.0235 l -1.3833,-408.8231 -1273.916144,-2.5158 z"
-         style="fill:none;stroke:#000000;stroke-width:0.9420476px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" /></g><g
+         d="M 27.338889,1530.791 H 1299.5255 l -1.3784,-406.8393 -1269.429894,-2.5036 z"
+         style="fill:none;stroke:#000000;stroke-width:0.9381029px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" /></g><g
        style="display:inline"
        inkscape:label="splash_snap_main_cosole-background-main"
        id="g153039"
-       inkscape:groupmode="layer"><use
-         transform="matrix(10.471105,0,0,0.64157403,-121.35383,1451.6807)"
+       inkscape:groupmode="layer"
+       sodipodi:insensitive="true"><use
+         transform="matrix(10.511084,0,0,0.63240099,-123.89646,1452.0047)"
          height="100%"
          width="100%"
          y="0"
@@ -1053,16 +1075,14 @@
        style="display:inline"
        inkscape:label="COPYRIGHT"
        id="g153031"
-       inkscape:groupmode="layer"><rect
-         y="1127.8506"
-         x="33.676128"
-         height="295.15057"
-         width="1261.3992"
-         id="rect153029"
-         style="opacity:1;fill:#1a1a1a;fill-opacity:0.82275133;stroke:#00ff00;stroke-width:1.1754669;stroke-opacity:0.78431373" /></g><g
        inkscape:groupmode="layer"
-       id="layer21"
-       inkscape:label="STATUS" /></g><g
+       sodipodi:insensitive="true"><rect
+         y="1127.9442"
+         x="33.769798"
+         height="396.78662"
+         width="1261.2118"
+         id="rect153029"
+         style="opacity:1;fill:#1a1a1a;fill-opacity:0.82275133;stroke:url(#radialGradient87105);stroke-width:1.36280847;stroke-opacity:1" /></g></g><g
      inkscape:groupmode="layer"
      id="layer9"
      inkscape:label="iconbox"
@@ -1278,16 +1298,18 @@
      sodipodi:insensitive="true"><g
        inkscape:groupmode="layer"
        id="layer17"
-       inkscape:label="text 1"><g
-         style="display:inline"
+       inkscape:label="text 1"
+       sodipodi:insensitive="true"><g
+         style="display:inline;fill:#ffffff"
          transform="translate(-101.68693,1323.0397)"
          id="g153885"><text
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:400px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:400px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book;fill:#ffffff"
    id="text153863"
    class="st0 st1"
    transform="translate(465.7966,427.6227)"><tspan
      id="tspan153861"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:560px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book" /></text>
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:560px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book;fill:#ffffff" /></text>
+
 
 
 
@@ -1299,13 +1321,14 @@
    y="139.18585"
    x="205.9552"
    dx="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.029999999"
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:426.66665649px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:426.66665649px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book;fill:#ffffff"
    id="text153869"
    class="st0 st1"><tspan
      id="tspan153865"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:46.66667175px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book;fill:#00130f;fill-opacity:0.63529412">this project is supported and sponsored by i  </tspan><tspan
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:46.66667175px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book;fill:#ffffff;fill-opacity:0.63529412">this project is supported and sponsored by i  </tspan><tspan
      id="tspan153867"
-     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:46.66667175px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book;letter-spacing:-0.11px;fill:#00130f;fill-opacity:0.63529412">nomy.com</tspan></text>
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:46.66667175px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book;letter-spacing:-0.11px;fill:#ffffff;fill-opacity:0.63529412">nomy.com</tspan></text>
+
 
 
 
@@ -1314,43 +1337,43 @@
 
 
 <circle
-   style="display:none;fill:none;stroke:#000000;stroke-width:26;stroke-miterlimit:10"
+   style="display:none;fill:#ffffff;stroke:#000000;stroke-width:26;stroke-miterlimit:10"
    id="circle153871"
    r="141.5"
    cy="292.79999"
    cx="296.39999"
    class="st2" /><circle
-   style="display:none;opacity:0.75;fill:#26a9e0;enable-background:new"
+   style="display:none;opacity:0.75;fill:#ffffff;enable-background:new"
    id="circle153873"
    r="43.599998"
    cy="292.79999"
    cx="296.39999"
    class="st3" /><circle
-   style="display:none;fill:#231f20;fill-opacity:0"
+   style="display:none;fill:#ffffff;fill-opacity:0"
    id="circle153875"
    r="33.200001"
    cy="298.29999"
    cx="155"
    class="st4" /><circle
-   style="display:none;fill:#231f20;fill-opacity:0"
+   style="display:none;fill:#ffffff;fill-opacity:0"
    id="circle153877"
    r="33.200001"
    cy="420.5"
    cx="365.60001"
    class="st4" /><circle
-   style="display:none"
+   style="display:none;fill:#ffffff"
    id="circle153879"
    r="38.700001"
    cy="166.2"
    cx="365.60001"
    class="st5" /><circle
-   style="display:none"
+   style="display:none;fill:#ffffff"
    id="circle153881"
    r="38.700001"
    cy="298.29999"
    cx="155"
    class="st5" /><circle
-   style="display:none"
+   style="display:none;fill:#ffffff"
    id="circle153883"
    r="38.700001"
    cy="420.5"
@@ -1359,7 +1382,8 @@
        inkscape:groupmode="layer"
        id="layer16"
        inkscape:label="logo"
-       style="display:inline"><g
+       style="display:inline"
+       sodipodi:insensitive="true"><g
          transform="matrix(0.08051475,0,0,0.08212348,981.45779,1427.8884)"
          id="g153907"
          style="display:inline"><g
@@ -1379,15 +1403,18 @@
              id="circle153891"
              r="31.9"
              cy="297.29999"
-             cx="155.2" /><circle
+             cx="155.2"
+             style="fill:#ffffff" /><circle
              id="circle153893"
              r="31.9"
              cy="410.10001"
-             cx="357.70001" /><circle
+             cx="357.70001"
+             style="fill:#ffffff" /><circle
              id="circle153895"
              r="31.9"
              cy="174"
-             cx="357.70001" /><circle
+             cx="357.70001"
+             style="fill:#ffffff" /><circle
              style="fill:#111111;fill-opacity:0"
              id="circle153897"
              r="31.9"
@@ -1408,7 +1435,8 @@
              class="st8" /><path
              inkscape:connector-curvature="0"
              id="path153903"
-             d="m 290.9,145.4 c -81,0 -146.6,65.6 -146.6,146.6 0,81 65.6,146.6 146.6,146.6 81,0 146.6,-65.7 146.6,-146.6 0,-80.9 -65.7,-146.6 -146.6,-146.6 z m 0.3,271.7 c -69,0 -125,-55.9 -125,-125 0,-69.1 55.9,-125 125,-125 69.1,0 125,55.9 125,125 0,69.1 -56,125 -125,125 z" /></g></g></g></g><g
+             d="m 290.9,145.4 c -81,0 -146.6,65.6 -146.6,146.6 0,81 65.6,146.6 146.6,146.6 81,0 146.6,-65.7 146.6,-146.6 0,-80.9 -65.7,-146.6 -146.6,-146.6 z m 0.3,271.7 c -69,0 -125,-55.9 -125,-125 0,-69.1 55.9,-125 125,-125 69.1,0 125,55.9 125,125 0,69.1 -56,125 -125,125 z"
+             style="fill:#ffffff" /></g></g></g></g><g
      style="display:inline"
      inkscape:label="description"
      id="g153859"
@@ -1430,6 +1458,7 @@
 
 
 
+
 <text
    y="167.19009"
    x="155.94035"
@@ -1438,6 +1467,7 @@
    class="st0 st1"><tspan
      id="tspan153839"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book;fill:#00130f;fill-opacity:0.63529412;stroke:#000000;stroke-opacity:1">blockchain for gamers</tspan></text>
+
 
 
 
@@ -1509,6 +1539,7 @@
 
 
 
+
 <text
    y="91.578651"
    x="-20.486345"
@@ -1517,6 +1548,7 @@
    class="st0 st1"><tspan
      id="tspan153097"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:106.66666412px;font-family:Futura-Book;-inkscape-font-specification:Futura-Book;fill:#00130f;fill-opacity:0.63529412">The Business Of Fun</tspan></text>
+
 
 
 
@@ -1586,6 +1618,7 @@
      id="tspan154973"
      x="1139.6042"
      y="385.92188" /></text>
+
 
 
 
@@ -3637,6 +3670,7 @@
 
 
 
+
 <flowRoot
    style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
    id="flowRoot154059"
@@ -5661,7 +5695,7 @@
            style="font-size:74.66666412px;text-align:center;text-anchor:middle;fill:none;fill-opacity:1;stroke:#00a440;stroke-opacity:0.69019608" /></flowRegion><flowPara
          id="flowPara154753"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:53.33333206px;font-family:sans-serif;-inkscape-font-specification:'sans-serif Bold';fill:none;fill-opacity:1;stroke:#00a440;stroke-opacity:0.69019608">test network</flowPara></flowRoot></g></g><g
-   style="display:inline"
+   style="display:none"
    inkscape:label="splash_main"
    id="g153951"
    inkscape:groupmode="layer"
@@ -5680,6 +5714,7 @@
      x="1139.6042"
      id="tspan153125"
      sodipodi:role="line" /></text>
+
 
 
 
@@ -7694,11 +7729,13 @@
 
 
 
+
 <text
    transform="translate(50,41)"
    class="st3 st4 st6"
    id="text148804"
    style="font-size:24px;font-family:Ubuntu;opacity:0.75;fill:#111111;fill-opacity:0;enable-background:new" />
+
 
 
 
