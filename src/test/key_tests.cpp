@@ -60,7 +60,6 @@ void dumpKeyInfo(uint256 privkey)
 
 BOOST_AUTO_TEST_SUITE(key_tests)
 
-/* **TODO** - enable script tests after ions settings are adapted
 BOOST_AUTO_TEST_CASE(key_test1)
 {
     CBitcoinSecret bsecret1, bsecret2, bsecret1C, bsecret2C, baddress1;
@@ -187,7 +186,7 @@ BOOST_AUTO_TEST_CASE(key_test1)
     BOOST_CHECK(key2C.SignCompact(hashMsg, detsigc));
     BOOST_CHECK(detsig == ParseHex("1b4f304f1b05599f88bc517819f6d43c69503baea5f253c55ea2d791394f7ce0de4f23c0d4c1f4d7a89bf130fed755201d22581911a8a44cf594014794231d325a"));
     BOOST_CHECK(detsigc == ParseHex("1f4f304f1b05599f88bc517819f6d43c69503baea5f253c55ea2d791394f7ce0de4f23c0d4c1f4d7a89bf130fed755201d22581911a8a44cf594014794231d325a"));
-*///DISABLE AS NOT WORKING - **TODO** - fix it
+    *///DISABLE AS NOT WORKING - **TODO** - fix it
 }
 
 BOOST_AUTO_TEST_SUITE_END()
