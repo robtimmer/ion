@@ -8,7 +8,7 @@
 #include "sync.h"
 #include "main.h"
 #include "txdb.h"
-#include "walletdb.h"
+#include "wallet/walletdb.h"
 #include "xion/accumulators.h"
 #include "xion/xionwallet.h"
 #include "witness.h"

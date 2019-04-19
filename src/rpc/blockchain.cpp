@@ -16,7 +16,7 @@
 #include "utilmoneystr.h"
 #include "xion/accumulatormap.h"
 #include "xion/accumulators.h"
-#include "wallet.h"
+#include "wallet/wallet.h"
 #include "xionchain.h"
 #include <stdint.h>
 #include <fstream>

@@ -108,7 +108,7 @@ BITCOIN_CORE_H = \
   denomination_functions.h \
   obfuscation.h \
   obfuscation-relay.h \
-  db.h \
+  wallet/db.h \
   hash.h \
   httprpc.h \
   httpserver.h \
@@ -174,9 +174,9 @@ BITCOIN_CORE_H = \
   utiltime.h \
   validationinterface.h \
   version.h \
-  wallet.h \
+  wallet/wallet.h \
   wallet_ismine.h \
-  walletdb.h \
+  wallet/walletdb.h \
   xionchain.h \
   xion/accumulators.h \
   xion/accumulatorcheckpoints.h \
@@ -260,7 +260,7 @@ libbitcoin_wallet_a_SOURCES = \
   denomination_functions.cpp \
   obfuscation.cpp \
   obfuscation-relay.cpp \
-  db.cpp \
+  wallet/db.cpp \
   crypter.cpp \
   swifttx.cpp \
   masternode.cpp \
@@ -269,14 +269,14 @@ libbitcoin_wallet_a_SOURCES = \
   masternode-sync.cpp \
   masternodeconfig.cpp \
   masternodeman.cpp \
-  rpcdump.cpp \
+  wallet/rpcdump.cpp \
   xion/deterministicmint.cpp \
   xion/zerocoin.cpp \
-  rpcwallet.cpp \
+  wallet/rpcwallet.cpp \
   kernel.cpp \
-  wallet.cpp \
-  wallet_ismine.cpp \
-  walletdb.cpp \
+  wallet/wallet.cpp \
+  wallet/wallet_ismine.cpp \
+  wallet/walletdb.cpp \
   xion/accumulators.cpp \
   xion/mintpool.cpp \
   xion/witness.cpp \

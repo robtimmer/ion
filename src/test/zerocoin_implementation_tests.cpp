@@ -14,7 +14,7 @@
 #include <boost/test/unit_test.hpp>
 #include <iostream>
 #include <xion/accumulators.h>
-#include "wallet.h"
+#include "wallet/wallet.h"
 #include "xion/xionwallet.h"
 #include "xionchain.h"
 
