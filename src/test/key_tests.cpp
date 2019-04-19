@@ -67,7 +67,6 @@ BOOST_AUTO_TEST_CASE(key_test1)
 {
     cout << "Testing Keys\n";
     CBitcoinSecret bsecret1, bsecret2, bsecret1C, bsecret2C, baddress1;
-    
     BOOST_CHECK( bsecret1.SetString (strSecret1));
     BOOST_CHECK( bsecret2.SetString (strSecret2));
     BOOST_CHECK( bsecret1C.SetString(strSecret1C));
@@ -119,7 +118,6 @@ BOOST_AUTO_TEST_CASE(key_test1)
         uint256 hashMsg = Hash(strMsg.begin(), strMsg.end());
 
         // normal signatures
-        
         vector<unsigned char> sign1, sign2, sign1C, sign2C;
 
         BOOST_CHECK(key1.Sign (hashMsg, sign1));
@@ -133,7 +131,6 @@ BOOST_AUTO_TEST_CASE(key_test1)
         BOOST_CHECK( pubkey1.Verify(hashMsg, sign1C));
         */
         BOOST_CHECK(!pubkey1.Verify(hashMsg, sign2C));
-   
         BOOST_CHECK(!pubkey2.Verify(hashMsg, sign1));
         BOOST_CHECK( pubkey2.Verify(hashMsg, sign2));
         BOOST_CHECK(!pubkey2.Verify(hashMsg, sign1C));
@@ -183,7 +180,7 @@ BOOST_AUTO_TEST_CASE(key_test1)
     BOOST_CHECK(key1.Sign(hashMsg, detsig));
     BOOST_CHECK(key1C.Sign(hashMsg, detsigc));
 
-    /* DISABLE AS NOT WORKING - **TODO** - fix it    
+    /* DISABLE AS NOT WORKING - **TODO** - fix it
     BOOST_CHECK(detsig == detsigc);
     BOOST_CHECK(detsig == ParseHex("30450221009071d4fead181ea197d6a23106c48ee5de25e023b38afaf71c170e3088e5238a02200dcbc7f1aad626a5ee812e08ef047114642538e423a94b4bd6a272731cf500d0"));
     */
