@@ -14,9 +14,10 @@ BOOST_AUTO_TEST_SUITE(main_tests)
 
 CAmount nMoneySupplyPoWEnd = 16629951 * COIN;
 
-/*
+
 BOOST_AUTO_TEST_CASE(subsidy_limit_test)
 {
+    /*
     CAmount nSum = 0;
     for (int nHeight = 0; nHeight < 1; nHeight += 1) {
         // premine in block 1 173,360,471 ION)
@@ -55,7 +56,7 @@ BOOST_AUTO_TEST_CASE(subsidy_limit_test)
         BOOST_CHECK(nSum > 0 && nSum <= nMoneySupplyPoWEnd);
     }
     // BOOST_CHECK(nSum == 1662995400000000ULL);
+    */
 }
 
 BOOST_AUTO_TEST_SUITE_END()
-*/}

@@ -113,7 +113,6 @@ void static RandomTransaction(CMutableTransaction &tx, bool fSingle) {
     }
 }
 
-// **TODO** - enable script tests after ions settings are adapted
 BOOST_AUTO_TEST_SUITE(sighash_tests)
 
 BOOST_AUTO_TEST_CASE(sighash_test)
