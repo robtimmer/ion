@@ -175,7 +175,7 @@ BITCOIN_CORE_H = \
   validationinterface.h \
   version.h \
   wallet/wallet.h \
-  wallet_ismine.h \
+  wallet/wallet_ismine.h \
   wallet/walletdb.h \
   xionchain.h \
   xion/accumulators.h \
