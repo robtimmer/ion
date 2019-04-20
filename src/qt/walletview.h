@@ -1,12 +1,10 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2017-2018 The PIVX developers
-// Copyright (c) 2018 The PHORE developers
-// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef ION_QT_WALLETVIEW_H
-#define ION_QT_WALLETVIEW_H
+#ifndef BITCOIN_QT_WALLETVIEW_H
+#define BITCOIN_QT_WALLETVIEW_H
 
 #include "amount.h"
 #include "askpassphrasedialog.h"
@@ -110,6 +108,7 @@ public slots:
     void gotoBip38Tool();
 
     /** Show incoming transaction notification for new transactions.
+
         The new items are those between start and end inclusive, under the given parent item.
     */
     void processNewTransaction(const QModelIndex& parent, int start, int /*end*/);
@@ -151,4 +150,4 @@ signals:
     void incomingTransaction(const QString& date, int unit, const CAmount& amount, const QString& type, const QString& address);
 };
 
-#endif // ION_QT_WALLETVIEW_H
+#endif // BITCOIN_QT_WALLETVIEW_H

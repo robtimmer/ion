@@ -1,6 +1,5 @@
 // Copyright (c) 2011-2013 The Bitcoin developers
 // Copyright (c) 2017 The PIVX developers
-// Copyright (c) 2018-2019 The Ion developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -54,7 +53,6 @@ public slots:
 signals:
     void removeEntry(SendCoinsEntry* entry);
     void payAmountChanged();
-    void subtractFeeFromAmountChanged();
 
 private slots:
     void deleteClicked();
