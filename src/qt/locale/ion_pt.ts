@@ -397,6 +397,9 @@
     <name>FreespaceChecker</name>
     </context>
 <context>
+    <name>GovernancePage</name>
+    </context>
+<context>
     <name>HelpMessageDialog</name>
     </context>
 <context>
@@ -485,6 +488,9 @@
     </message>
     </context>
 <context>
+    <name>ProposalFrame</name>
+    </context>
+<context>
     <name>QObject</name>
     <message>
         <source>Amount</source>
@@ -544,6 +550,10 @@
     <message>
         <source>Label</source>
         <translation>Descrição</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Endereço</translation>
     </message>
     <message>
         <source>Amount</source>
@@ -1250,8 +1260,8 @@
         <translation>Carteira esta bloqueada.</translation>
     </message>
     <message>
-        <source>Wallet needed to be rewritten: restart Ion Core to complete</source>
-        <translation>Carteira precisa ser reescrita: reinicie o Ion Core para completar.</translation>
+        <source>Wallet needed to be rewritten: restart ION Core to complete</source>
+        <translation>Carteira precisa ser reescrita: reinicie o ION Core para completar.</translation>
     </message>
     <message>
         <source>Wallet options:</source>

@@ -153,6 +153,7 @@ stage/
 
 # datadir
 datadir/
+datadir*/
 
 # test suite
 .cookie

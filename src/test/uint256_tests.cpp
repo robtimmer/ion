@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2019 The Bitcoin Core developers
+// Copyright (c) 2011-2013 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -89,7 +89,7 @@ BOOST_AUTO_TEST_CASE( basics ) // constructors, equality, inequality
     BOOST_CHECK( ((R1L ^ R2L) ^ R1L) == R2L);
     BOOST_CHECK( ((R1S ^ R2S) ^ R1S) == R2S);
     
-    uint64_t Tmp64 = 0xc4dab720d9c7acaaULL;
+    uint64_t Tmp64 = 0xe1dab720d9c7acaaULL;
     for (unsigned int i = 0; i < 256; ++i) 
     {
         BOOST_CHECK(ZeroL != (OneL << i)); 

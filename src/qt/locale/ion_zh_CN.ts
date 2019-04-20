@@ -569,8 +569,8 @@
         <translation>标签工具栏</translation>
     </message>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
         <source>Send coins to a ION address</source>
@@ -593,11 +593,11 @@
         <translation>浏览主节点</translation>
     </message>
     <message>
-        <source>&amp;About Ion Core</source>
-        <translation>&amp;A关于Ion Core</translation>
+        <source>&amp;About ION Core</source>
+        <translation>&amp;A关于ION Core</translation>
     </message>
     <message>
-        <source>Show information about Ion Core</source>
+        <source>Show information about ION Core</source>
         <translation>显示ION  Core的相关信息</translation>
     </message>
     <message>
@@ -653,12 +653,12 @@
         <translation>区块浏览窗口</translation>
     </message>
     <message>
-        <source>Show the Ion Core help message to get a list with possible ION command-line options</source>
-        <translation>显示Ion Core帮助信息并获取ION命令行选项列表</translation>
+        <source>Show the ION Core help message to get a list with possible ION command-line options</source>
+        <translation>显示ION Core帮助信息并获取ION命令行选项列表</translation>
     </message>
     <message>
-        <source>Ion Core client</source>
-        <translation>Ion Core 客户端</translation>
+        <source>ION Core client</source>
+        <translation>ION Core 客户端</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -801,33 +801,40 @@ Address: %4
     <name>FreespaceChecker</name>
     </context>
 <context>
+    <name>GovernancePage</name>
+    <message>
+        <source>Form</source>
+        <translation>来自</translation>
+    </message>
+    </context>
+<context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
-        <source>About Ion Core</source>
-        <translation>关于Ion Core</translation>
+        <source>About ION Core</source>
+        <translation>关于ION Core</translation>
     </message>
     </context>
 <context>
     <name>Intro</name>
     <message>
-        <source>Welcome to Ion Core.</source>
-        <translation>欢迎使用 Ion Core</translation>
+        <source>Welcome to ION Core.</source>
+        <translation>欢迎使用 ION Core</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where Ion Core will store its data.</source>
-        <translation>由于这是该程序第一次启动，您可以选择存储Ion Core 数据的位置。</translation>
+        <source>As this is the first time the program is launched, you can choose where ION Core will store its data.</source>
+        <translation>由于这是该程序第一次启动，您可以选择存储ION Core 数据的位置。</translation>
     </message>
     <message>
-        <source>Ion Core will download and store a copy of the ION block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>Ion Core将下载并存储ION区块链副本。 至少 %1 GB的数据将存储在此目录中，并且会随着时间的推移而增长。 钱包也将存储在此目录中。</translation>
+        <source>ION Core will download and store a copy of the ION block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>ION Core将下载并存储ION区块链副本。 至少 %1 GB的数据将存储在此目录中，并且会随着时间的推移而增长。 钱包也将存储在此目录中。</translation>
     </message>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
         <source>Error</source>
@@ -1117,7 +1124,14 @@ Address: %4
     </message>
     </context>
 <context>
+    <name>ProposalFrame</name>
+    </context>
+<context>
     <name>QObject</name>
+    <message>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
+    </message>
     </context>
 <context>
     <name>QRImageWidget</name>
@@ -1172,6 +1186,10 @@ Address: %4
         <translation>&amp;消息：</translation>
     </message>
     <message>
+        <source>A&amp;mount:</source>
+        <translation>A&amp;总计</translation>
+    </message>
+    <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the ION network.</source>
         <translation>附加到付款请求的可选消息，将在请求打开时显示。 注意：消息不会在付款时通过ION网络发送。</translation>
     </message>
@@ -1184,10 +1202,6 @@ Address: %4
         <translation>&amp;标签</translation>
     </message>
     <message>
-        <source>&amp;Amount:</source>
-        <translation>&amp;总计</translation>
-    </message>
-    <message>
         <source>&amp;Request payment</source>
         <translation>&amp;请求支付</translation>
     </message>
@@ -1195,7 +1209,11 @@ Address: %4
         <source>Copy message</source>
         <translation>复制消息</translation>
     </message>
-    </context>
+    <message>
+        <source>Copy address</source>
+        <translation>复制地址</translation>
+    </message>
+</context>
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
@@ -1236,6 +1254,10 @@ Address: %4
     <message>
         <source>Message</source>
         <translation>消息 </translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>地址</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -1453,8 +1475,8 @@ Address: %4
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     </context>
 <context>
@@ -1542,8 +1564,8 @@ Address: %4
         <translation>在收到相关警报时执行命令，或者看到一个很长的分叉（cmd中的%s被消息替换）</translation>
     </message>
     <message>
-        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong Ion Core will not work properly.</source>
-        <translation>注意：请检查您的电脑的日期和时间是否正确！ 如果您的时间设置不正确，Ion Core将无法正常工作。</translation>
+        <source>Warning: Please check that your computer's date and time are correct! If your clock is wrong ION Core will not work properly.</source>
+        <translation>注意：请检查您的电脑的日期和时间是否正确！ 如果您的时间设置不正确，ION Core将无法正常工作。</translation>
     </message>
     <message>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>

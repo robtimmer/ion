@@ -569,8 +569,8 @@
         <translation>Panel nástrojov Záložky</translation>
     </message>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
         <source>Send coins to a ION address</source>
@@ -589,12 +589,12 @@
         <translation>Prezrieť masternody</translation>
     </message>
     <message>
-        <source>&amp;About Ion Core</source>
-        <translation>O Ion Core</translation>
+        <source>&amp;About ION Core</source>
+        <translation>O ION Core</translation>
     </message>
     <message>
-        <source>Show information about Ion Core</source>
-        <translation>Zobraziť informácie o Ion Core</translation>
+        <source>Show information about ION Core</source>
+        <translation>Zobraziť informácie o ION Core</translation>
     </message>
     <message>
         <source>Modify configuration options for ION</source>
@@ -649,12 +649,12 @@
         <translation>Okno blockchain prehliadača</translation>
     </message>
     <message>
-        <source>Show the Ion Core help message to get a list with possible ION command-line options</source>
-        <translation>Zobraziť pomocnú správu programu Ion Core a získajte zoznam možností príkazového riadka ION</translation>
+        <source>Show the ION Core help message to get a list with possible ION command-line options</source>
+        <translation>Zobraziť pomocnú správu programu ION Core a získajte zoznam možností príkazového riadka ION</translation>
     </message>
     <message>
-        <source>Ion Core client</source>
-        <translation>Ion Core klient</translation>
+        <source>ION Core client</source>
+        <translation>ION Core klient</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
@@ -756,7 +756,7 @@ MultiSend: %1</translation>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
         <translation>Peňaženka je &lt;b&gt;zašifrovaná&lt;/ b&gt; a momentálne je &lt;b&gt;zamknutá&lt;/ b&gt;</translation>
     </message>
-</context>
+    </context>
 <context>
     <name>BlockExplorer</name>
     <message>
@@ -865,17 +865,20 @@ MultiSend: %1</translation>
     <name>FreespaceChecker</name>
     </context>
 <context>
+    <name>GovernancePage</name>
+    </context>
+<context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     </context>
 <context>
     <name>Intro</name>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     <message>
         <source>Error</source>
@@ -985,10 +988,17 @@ MultiSend: %1</translation>
     </message>
     </context>
 <context>
+    <name>ProposalFrame</name>
+    </context>
+<context>
     <name>QObject</name>
     <message>
         <source>Amount</source>
         <translation>Suma</translation>
+    </message>
+    <message>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     </context>
 <context>
@@ -1010,6 +1020,10 @@ MultiSend: %1</translation>
     <message>
         <source>Copy amount</source>
         <translation>Skopírovať sumu</translation>
+    </message>
+    <message>
+        <source>Copy address</source>
+        <translation>Skopírovať adresu</translation>
     </message>
 </context>
 <context>
@@ -1036,6 +1050,10 @@ MultiSend: %1</translation>
     <message>
         <source>Label</source>
         <translation>Štítok</translation>
+    </message>
+    <message>
+        <source>Address</source>
+        <translation>Adresa</translation>
     </message>
     <message>
         <source>Amount</source>
@@ -1185,8 +1203,8 @@ MultiSend: %1</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>Ion Core</source>
-        <translation>Ion Core</translation>
+        <source>ION Core</source>
+        <translation>ION Core</translation>
     </message>
     </context>
 <context>
