@@ -5,7 +5,7 @@
 #ifndef TOKEN_GROUP_MANAGER_H
 #define TOKEN_GROUP_MANAGER_H
 
-#include "wallet.h"
+#include "wallet/wallet.h"
 
 #include <unordered_map>
 #include <univalue.h>

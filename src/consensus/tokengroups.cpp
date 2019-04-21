@@ -17,7 +17,7 @@
 #include "random.h"
 #include "rpc/server.h"
 #include "utilmoneystr.h"
-#include "wallet.h"
+#include "wallet/wallet.h"
 #include "wallet/tokengroupwallet.h"
 
 #include <unordered_map>
