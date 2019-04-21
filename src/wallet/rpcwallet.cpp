@@ -17,7 +17,7 @@
 #include "utilmoneystr.h"
 #include "wallet.h"
 #include "walletdb.h"
-#include "wallet/tokengroupwallet.h"
+#include "tokengroupwallet.h"
 #include "xionchain.h"
 
 #include <stdint.h>
