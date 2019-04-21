@@ -19,6 +19,7 @@
 #include "amount.h"
 #include "checkpoints.h"
 #include "compat/sanity.h"
+#include "consensus/validation.h"
 #include "httpserver.h"
 #include "httprpc.h"
 #include "invalid.h"
@@ -168,8 +169,7 @@ public:
     // Writes do not need similar protection, as failure to write is handled by the caller.
 };
 
-static CCoinsViewDB* pcoinsdbview = NULL;
-static CCoinsViewErrorCatcher* pcoinscatcher = NULL;
+static std::unique_ptr<CCoinsViewErrorCatcher> pcoinscatcher;
 static boost::scoped_ptr<ECCVerifyHandle> globalVerifyHandle;
 
 static boost::thread_group threadGroup;
@@ -238,18 +238,12 @@ void PrepareShutdown()
             //record that client took the proper shutdown procedure
             pblocktree->WriteFlag("shutdown", true);
         }
-        delete pcoinsTip;
-        pcoinsTip = NULL;
-        delete pcoinscatcher;
-        pcoinscatcher = NULL;
-        delete pcoinsdbview;
-        pcoinsdbview = NULL;
-        delete pblocktree;
-        pblocktree = NULL;
-        delete zerocoinDB;
-        zerocoinDB = NULL;
-        delete pSporkDB;
-        pSporkDB = NULL;
+        pcoinsTip.reset();
+        pcoinscatcher.reset();
+        pcoinsdbview.reset();
+        pblocktree.reset();
+        zerocoinDB.reset();
+        pSporkDB.reset();
     }
 #ifdef ENABLE_WALLET
     if (pwalletMain)
@@ -1443,21 +1437,21 @@ bool AppInit2()
         do {
             try {
                 UnloadBlockIndex();
-                delete pcoinsTip;
-                delete pcoinsdbview;
-                delete pcoinscatcher;
-                delete pblocktree;
-                delete zerocoinDB;
-                delete pSporkDB;
+                pcoinsTip.reset();
+                pcoinsdbview.reset();
+                pcoinscatcher.reset();
+                pblocktree.reset();
+                zerocoinDB.reset();
+                pSporkDB.reset();
+
+                pblocktree.reset(new CBlockTreeDB(nBlockTreeDBCache, false, fReindex));
+                pcoinsdbview.reset(new CCoinsViewDB(nCoinDBCache, false, fReindex));
+                pcoinscatcher.reset(new CCoinsViewErrorCatcher(pcoinsdbview.get()));
+                pcoinsTip.reset(new CCoinsViewCache(pcoinscatcher.get()));
 
                 //ION specific: zerocoin and spork DB's
-                zerocoinDB = new CZerocoinDB(0, false, fReindex);
-                pSporkDB = new CSporkDB(0, false, false);
-
-                pblocktree = new CBlockTreeDB(nBlockTreeDBCache, false, fReindex);
-                pcoinsdbview = new CCoinsViewDB(nCoinDBCache, false, fReindex);
-                pcoinscatcher = new CCoinsViewErrorCatcher(pcoinsdbview);
-                pcoinsTip = new CCoinsViewCache(pcoinscatcher);
+                zerocoinDB.reset(new CZerocoinDB(0, false, fReindex));
+                pSporkDB.reset(new CSporkDB(0, false, false));
 
                 if (fReindex)
                     pblocktree->WriteReindexing(true);
@@ -1592,7 +1586,7 @@ bool AppInit2()
                     }
 
                     // Zerocoin must check at level 4
-                    if (!CVerifyDB().VerifyDB(pcoinsdbview, 4, GetArg("-checkblocks", 100))) {
+                    if (!CVerifyDB().VerifyDB(pcoinsdbview.get(), 4, GetArg("-checkblocks", 100))) {
                         strLoadError = _("Corrupted block database detected");
                         fVerifyingBlocks = false;
                         break;

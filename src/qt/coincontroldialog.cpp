@@ -36,6 +36,7 @@ using namespace std;
 QList<CAmount> CoinControlDialog::payAmounts;
 int CoinControlDialog::nSplitBlockDummy;
 CCoinControl* CoinControlDialog::coinControl = new CCoinControl();
+bool CoinControlDialog::fSubtractFeeFromAmount = false;
 
 
 bool CCoinControlWidgetItem::operator<(const QTreeWidgetItem &other) const {
@@ -603,6 +604,11 @@ void CoinControlDialog::updateLabels(WalletModel* model, QDialog* dialog)
         dPriority = dPriorityInputs / (nBytes - nBytesInputs + (nQuantityUncompressed * 29)); // 29 = 180 - 151 (uncompressed public keys are over the limit. max 151 bytes of the input are ignored for priority)
         sPriorityLabel = CoinControlDialog::getPriorityLabel(dPriority, mempoolEstimatePriority);
 
+        // in the subtract fee from amount case, we can tell if zero change already and subtract the bytes, so that fee calculation afterwards is accurate
+        if (CoinControlDialog::fSubtractFeeFromAmount)
+            if (nAmount - nPayAmount == 0)
+                nBytes -= 34;
+
         // Fee
         nPayFee = CWallet::GetMinimumFee(nBytes, nTxConfirmTarget, mempool);
 
@@ -619,18 +625,25 @@ void CoinControlDialog::updateLabels(WalletModel* model, QDialog* dialog)
                 nPayFee = 0;
 
         if (nPayAmount > 0) {
-            nChange = nAmount - nPayFee - nPayAmount;
+            nChange = nAmount - nPayAmount;
+            if (!CoinControlDialog::fSubtractFeeFromAmount)
+                nChange -= nPayFee;
 
             // Never create dust outputs; if we would, just add the dust to the fee.
             if (nChange > 0 && nChange < CENT) {
                 CTxOut txout(nChange, (CScript)vector<unsigned char>(24, 0));
                 if (txout.IsDust(::minRelayTxFee)) {
-                    nPayFee += nChange;
-                    nChange = 0;
+                    if (CoinControlDialog::fSubtractFeeFromAmount) // dust-change will be raised until no dust
+                        nChange = txout.GetDustThreshold(::minRelayTxFee);
+                    else
+                    {
+                        nPayFee += nChange;
+                        nChange = 0;
+                    }
                 }
             }
 
-            if (nChange == 0)
+            if (nChange == 0 && !CoinControlDialog::fSubtractFeeFromAmount)
                 nBytes -= 34;
         }
 
@@ -672,7 +685,7 @@ void CoinControlDialog::updateLabels(WalletModel* model, QDialog* dialog)
     if (nPayFee > 0 && !(payTxFee.GetFeePerK() > 0 && fPayAtLeastCustomFee && nBytes < 1000)) {
         l3->setText("~" + l3->text());
         l4->setText("~" + l4->text());
-        if (nChange > 0)
+        if (nChange > 0 && !CoinControlDialog::fSubtractFeeFromAmount)
             l8->setText("~" + l8->text());
     }
 
@@ -683,21 +696,21 @@ void CoinControlDialog::updateLabels(WalletModel* model, QDialog* dialog)
 
     // tool tips
     QString toolTip1 = tr("This label turns red, if the transaction size is greater than 1000 bytes.") + "<br /><br />";
-    toolTip1 += tr("This means a fee of at least %1 per kB is required.").arg(BitcoinUnits::formatWithUnit(nDisplayUnit, CWallet::minTxFee.GetFeePerK())) + "<br /><br />";
+    toolTip1 += tr("This means a fee of at least %1 per kB is required.").arg(BitcoinUnits::formatWithUnit(nDisplayUnit, CWallet::GetRequiredFee(1000))) + "<br /><br />";
     toolTip1 += tr("Can vary +/- 1 byte per input.");
 
     QString toolTip2 = tr("Transactions with higher priority are more likely to get included into a block.") + "<br /><br />";
     toolTip2 += tr("This label turns red, if the priority is smaller than \"medium\".") + "<br /><br />";
-    toolTip2 += tr("This means a fee of at least %1 per kB is required.").arg(BitcoinUnits::formatWithUnit(nDisplayUnit, CWallet::minTxFee.GetFeePerK()));
+    toolTip2 += tr("This means a fee of at least %1 per kB is required.").arg(BitcoinUnits::formatWithUnit(nDisplayUnit, CWallet::GetRequiredFee(1000)));
 
     QString toolTip3 = tr("This label turns red, if any recipient receives an amount smaller than %1.").arg(BitcoinUnits::formatWithUnit(nDisplayUnit, ::minRelayTxFee.GetFee(546)));
 
     // how many satoshis the estimated fee can vary per byte we guess wrong
     double dFeeVary;
     if (payTxFee.GetFeePerK() > 0)
-        dFeeVary = (double)std::max(CWallet::minTxFee.GetFeePerK(), payTxFee.GetFeePerK()) / 1000;
+        dFeeVary = (double)std::max(CWallet::GetRequiredFee(1000), payTxFee.GetFeePerK()) / 1000;
     else
-        dFeeVary = (double)std::max(CWallet::minTxFee.GetFeePerK(), mempool.estimateFee(nTxConfirmTarget).GetFeePerK()) / 1000;
+        dFeeVary = (double)std::max(CWallet::GetRequiredFee(1000), mempool.estimateFee(nTxConfirmTarget).GetFeePerK()) / 1000;
     QString toolTip4 = tr("Can vary +/- %1 uion per input.").arg(dFeeVary);
 
     l3->setToolTip(toolTip4);
